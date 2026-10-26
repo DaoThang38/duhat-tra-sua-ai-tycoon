@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duhat - Tiệm Trà Sữa AI 🧋 (Chat-First F&B Tycoon)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN SYSTEM & COLOR TOKENS (DUHAT SPECIFICATION)
+       ========================================================================== */
+    :root {
+      --color-primary: #FDC830;
+      --color-primary-hover: #F5B800;
+      --color-primary-light: #FEF5D1;
+      --color-primary-subtle: #FFFDF5;
+
+      --color-bg-app: #FFFFFF;
+      --color-bg-chat: #F4F6F4;
+      --color-bg-input: #F2F3F5;
+      --color-bg-hover: #F9FAFB;
+      --color-bg-active: #F3F4F6;
+
+      --color-text-main: #1A1A1A;
+      --color-text-secondary: #555555;
+      --color-text-muted: #757575;
+      --color-border: #E5E7EB;
+      --color-border-dark: #D1D5DB;
+      --color-online: #22C55E;
+      --color-read-tick: #0284C7;
+      --color-unread-badge: #EF4444;
+
+      /* Game / Likert Colors */
+      --good-green: #15803D;
+      --risky-orange: #F97316;
+      --toxic-red: #DC2626;
+
+      --radius-full: 9999px;
+      --radius-2xl: 20px;
+      --radius-xl: 16px;
+      --radius-lg: 12px;
+      --radius-md: 8px;
+
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      --shadow-floating-nav: 0 12px 30px -4px rgba(0, 0, 0, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.08);
+
+      --phone-width: 412px;
+      --phone-height: 870px;
+      --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+
+    *::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background: radial-gradient(circle at 10% 20%, #F8FAFC 0%, #E2E8F0 100%);
+      color: var(--color-text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      transition: background 0.3s ease;
+    }
+
+    body.dark-env {
+      background: radial-gradient(circle at 10% 20%, #1E293B 0%, #0F172A 100%);
+    }
+
+    body.dark-env .prototype-control-bar {
+      background: rgba(30, 41, 59, 0.85);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: #F8FAFC;
+    }
+
+    body.dark-env .ctrl-btn {
+      background: #334155;
+      color: #F8FAFC;
+      border-color: #475569;
+    }
+
+    /* Outer Control Bar */
+    .prototype-control-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 620px;
+      padding: 10px 18px;
+      margin-bottom: 14px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: var(--shadow-md);
+      z-index: 100;
+    }
+
+    .brand-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .duck-icon {
+      font-size: 1.35rem;
+      animation: duckBob 2s infinite ease-in-out;
+    }
+
+    @keyframes duckBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px) scale(1.05); }
+    }
+
+    .brand-title {
+      font-size: 0.95rem;
+      letter-spacing: -0.2px;
+    }
+
+    .badge-version {
+      font-size: 0.7rem;
+      background: #DCFCE7;
+      color: #15803D;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-weight: 800;
+    }
+
+    .control-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ctrl-btn {
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      background: #FFFFFF;
+      color: var(--color-text-main);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .ctrl-btn:hover {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      transform: translateY(-1px);
+    }
+
+    /* Mobile Device Chassis */
+    .device-viewport {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .iphone-chassis {
+      position: relative;
+      width: var(--phone-width);
+      height: var(--phone-height);
+      background-color: var(--color-bg-app);
+      border-radius: 50px;
+      box-shadow: 0 0 0 12px #1E293B, 0 0 0 14px #475569, 0 25px 60px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Dynamic Island */
+    .dynamic-island {
+      position: absolute;
+      top: 11px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 122px;
+      height: 32px;
+      background-color: #000000;
+      border-radius: 20px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+    }
+
+    .island-camera {
+      width: 10px;
+      height: 10px;
+      background: #111827;
+      border-radius: 50%;
+      border: 1.5px solid #1F2937;
+    }
+
+    .island-sensor {
+      width: 9px;
+      height: 9px;
+      background: #030712;
+      border-radius: 50%;
+      opacity: 0.7;
+    }
+
+    /* Phone Status Bar */
+    .phone-status-bar {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 26px 0 26px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      z-index: 40;
+      user-select: none;
+      background-color: var(--color-bg-app);
+    }
+
+    .status-indicators {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .battery-icon {
+      width: 22px;
+      height: 11px;
+      border: 1.5px solid currentColor;
+      border-radius: 3.5px;
+      padding: 1px;
+      position: relative;
+    }
+
+    .battery-icon::after {
+      content: '';
+      position: absolute;
+      right: -3.5px;
+      top: 2.5px;
+      width: 2px;
+      height: 4px;
+      background: currentColor;
+      border-radius: 0 1px 1px 0;
+    }
+
+    .battery-level {
+      width: 82%;
+      height: 100%;
+      background: currentColor;
+      border-radius: 1.5px;
+    }
+
+    /* Screens Routing */
+    .app-screen {
+      position: absolute;
+      top: 48px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 48px);
+      display: flex;
+      flex-direction: column;
+      background-color: var(--color-bg-app);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px);
+      transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+
+    .app-screen.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* ==========================================================================
+       SCREEN 1: INBOX & MAIN DASHBOARD
+       ========================================================================== */
+    .inbox-header {
+      padding: 12px 20px 8px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-logo-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-duck-badge {
+      font-size: 1.45rem;
+      background: var(--color-primary-light);
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      border: 1.5px solid var(--color-primary);
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--color-text-main);
+    }
+
+    .search-container {
+      padding: 6px 20px 10px 20px;
+    }
+
+    .search-bar-pill {
+      display: flex;
+      align-items: center;
+      background-color: var(--color-bg-input);
+      border-radius: var(--radius-full);
+      padding: 9px 16px;
+    }
+
+    .search-bar-pill input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--color-text-main);
+      margin-left: 8px;
+    }
+
+    /* Mascot Banner Tycoon */
+    .banner-wrapper {
+      padding: 4px 20px 12px 20px;
+    }
+
+    .interactive-banner {
+      background: linear-gradient(135deg, #FDC830 0%, #F59E0B 100%);
+      border-radius: var(--radius-2xl);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 8px 20px -4px rgba(253, 200, 48, 0.45);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .interactive-banner:hover {
+      transform: translateY(-2px) scale(1.01);
+    }
+
+    .banner-content {
+      flex: 1;
+      z-index: 2;
+    }
+
+    .banner-pill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.92);
+      color: #854D0E;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      margin-bottom: 6px;
+    }
+
+    .banner-heading {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #1A1A1A;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .banner-cta-button {
+      background-color: #1A1A1A;
+      color: #FFFFFF;
+      border: none;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .banner-mascot-visual {
+      font-size: 3.2rem;
+      margin-left: 8px;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
+    }
+
+    /* Filter Pill Nav */
+    .filter-pill-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 20px 12px 20px;
+      overflow-x: auto;
+    }
+
+    .pill-btn-filter {
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      background-color: #FFFFFF;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .pill-btn-filter.active {
+      background-color: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: #1A1A1A;
+      font-weight: 700;
+    }
+
+    /* Conversation List */
+    .conversation-section {
+      padding: 0 12px;
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 90px;
+    }
+
+    .conversation-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 10px;
+      border-radius: var(--radius-xl);
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .conversation-item:hover {
+      background-color: var(--color-bg-hover);
+    }
+
+    .conv-avatar-wrap {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      flex-shrink: 0;
+      margin-right: 12px;
+    }
+
+    .conv-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      background: var(--color-bg-input);
+    }
+
+    .conv-avatar.ai-avatar {
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, #FEF5D1 0%, #FDE047 100%);
+      border: 1.5px solid var(--color-primary);
+    }
+
+    .presence-dot {
+      position: absolute;
+      bottom: 1px;
+      right: 1px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--color-online);
+      border: 2px solid #FFFFFF;
+    }
+
+    .conv-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .conv-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .conv-name {
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    .conv-snippet {
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .unread-badge {
+      background-color: var(--color-unread-badge);
+      color: #FFFFFF;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+    }
+
+    /* Floating Bottom Nav */
+    .bottom-nav-bar {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      box-shadow: var(--shadow-floating-nav);
+      border: 1px solid rgba(229, 231, 235, 0.8);
+      z-index: 30;
+    }
+
+    .nav-tab-item {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      color: var(--color-text-muted);
+      cursor: pointer;
+    }
+
+    .nav-tab-item.active {
+      background-color: var(--color-primary-light);
+      color: #1A1A1A;
+      font-weight: 700;
+    }
+
+    .nav-label {
+      font-size: 0.65rem;
+      margin-top: 2px;
+    }
+
+    /* ==========================================================================
+       SCREEN 2: CHAT ROOM VIEW (TYCOON STREAM)
+       ========================================================================== */
+    .chat-header {
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border);
+      background-color: #FFFFFF;
+      z-index: 10;
+    }
+
+    .chat-back-btn {
+      background: none;
+      border: none;
+      color: var(--color-text-main);
+      padding: 6px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .chat-recipient-info {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 8px;
+    }
+
+    .recipient-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    .recipient-status {
+      font-size: 0.68rem;
+      color: var(--color-online);
+      font-weight: 600;
+    }
+
+    .mode-toggle-pill {
+      background: #F1F5F9;
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      display: flex;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .mode-sub-btn {
+      background: none;
+      border: none;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 12px;
+      cursor: pointer;
+      color: var(--color-text-muted);
+    }
+
+    .mode-sub-btn.active {
+      background: #2563EB;
+      color: #FFFFFF;
+    }
+
+    /* STATE LEDGER TRACKER (SỔ CÁI HUD) */
+    .ledger-hud-tracker {
+      background: #FFFFFF;
+      padding: 6px 14px;
+      border-bottom: 1px solid var(--color-border);
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr 0.9fr 0.9fr;
+      gap: 6px;
+    }
+
+    .hud-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hud-tag {
+      font-size: 0.55rem;
+      color: var(--color-text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hud-num {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .num-cash { color: #16A34A; }
+    .num-cash.danger { color: #DC2626; }
+    .num-stars { color: #D97706; }
+    .num-morale { color: #2563EB; }
+    .num-stock { color: #9333EA; }
+
+    /* HEARTBEAT TICKER */
+    .heartbeat-strip {
+      background: #FFFBEB;
+      border-bottom: 1px solid #FDE68A;
+      padding: 5px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10B981;
+      display: inline-block;
+      margin-right: 4px;
+      animation: pulseGreen 1.4s infinite ease-in-out;
+    }
+
+    @keyframes pulseGreen {
+      0%, 100% { opacity: 0.6; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    .btn-fast-pulse {
+      background: #1E293B;
+      color: #FFFFFF;
+      border: none;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* MESSAGE STREAM WITH DOODLE WALLPAPER */
+    .message-stream {
+      flex: 1;
+      padding: 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background-color: var(--color-bg-chat);
+      background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px);
+      background-size: 24px 24px;
+    }
+
+    .msg-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      max-width: 90%;
+      animation: msgPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes msgPop {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg-row.self {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .msg-row.others {
+      align-self: flex-start;
+    }
+
+    .msg-avatar-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      flex-shrink: 0;
+    }
+
+    .msg-body-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .msg-sender-name {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .msg-row.self .msg-sender-name {
+      justify-content: flex-end;
+    }
+
+    .role-tag-pill {
+      font-size: 0.55rem;
+      padding: 1px 5px;
+      border-radius: 6px;
+      background: #E2E8F0;
+      color: #475569;
+    }
+
+    .bubble-card {
+      padding: 10px 14px;
+      border-radius: var(--radius-2xl);
+      font-size: 0.88rem;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .msg-row.self .bubble-card {
+      background-color: var(--color-primary-light);
+      color: #1A1A1A;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .msg-row.others .bubble-card {
+      background-color: #FFFFFF;
+      color: var(--color-text-main);
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .msg-time-status {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      margin-top: 4px;
+      font-size: 0.65rem;
+      color: var(--color-text-muted);
+    }
+
+    .tick-blue { color: var(--color-read-tick); font-weight: 700; }
+
+    /* AI CARD / NEWSFLASH BUBBLE */
+    .msg-row.ai-full-card {
+      max-width: 98%;
+      align-self: center;
+      width: 100%;
+    }
+
+    .ai-styled-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--color-primary);
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 0 4px 14px rgba(253, 200, 48, 0.25);
+    }
+
+    .ai-card-badge-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.65rem;
+      font-weight: 800;
+    }
+
+    /* BIẾN CỐ GATE (CRISIS CARD) */
+    .crisis-card-dock {
+      background: #FFFFFF;
+      border: 2px solid #EF4444;
+      border-radius: 18px;
+      overflow: hidden;
+      margin: 4px 0;
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.18);
+    }
+
+    .crisis-banner-top {
+      background: linear-gradient(90deg, #DC2626, #EF4444);
+      color: #FFFFFF;
+      padding: 5px 12px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .crisis-inner-content {
+      padding: 12px;
+    }
+
+    .crisis-title-text {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #991B1B;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .crisis-visual-frame {
+      width: 100%;
+      height: 120px;
+      background: #0F172A;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .crisis-desc-text {
+      font-size: 0.78rem;
+      color: #334155;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+
+    .crisis-btn-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .btn-crisis-choice {
+      width: 100%;
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 12px;
+      padding: 8px 12px;
+      color: #1E293B;
+      font-family: inherit;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: all 0.15s;
+    }
+
+    .btn-crisis-choice:hover {
+      border-color: #3B82F6;
+      background: #EFF6FF;
+    }
+
+    .btn-crisis-choice.choice-good {
+      border-left: 4px solid #16A34A;
+    }
+
+    .btn-crisis-choice.choice-toxic {
+      border-left: 4px solid #DC2626;
+    }
+
+    /* QUICK CHIPS & INPUT DOCK */
+    .chat-bottom-dock {
+      background: #FFFFFF;
+      border-top: 1px solid var(--color-border);
+      padding: 6px 12px 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .chips-carousel {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .chip-bubble-btn {
+      background: var(--color-bg-input);
+      border: 1px solid var(--color-border);
+      color: #334155;
+      padding: 5px 11px;
+      border-radius: 14px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .chip-bubble-btn:hover {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+    }
+
+    .chip-bubble-btn.highlight {
+      background: var(--color-primary);
+      color: #1A1A1A;
+      border-color: #F59E0B;
+    }
+
+    .chat-input-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chat-text-field {
+      flex: 1;
+      background: var(--color-bg-input);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .chat-text-field:focus {
+      border-color: var(--color-primary);
+      background: #FFFFFF;
+    }
+
+    .btn-send-yellow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: none;
+      color: #1A1A1A;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(253, 200, 48, 0.4);
+    }
+
+    /* MODALS */
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-height: 90%;
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow-y: auto;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 8px;
+    }
+
+    .modal-head h4 {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: #1A1A1A;
+    }
+
+    .btn-close-x {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: var(--color-text-muted);
+    }
+
+    .artifact-card-preview {
+      background: #FFFDF5;
+      border: 2px dashed #F59E0B;
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      position: relative;
+    }
+
+    .stamp-red {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      border: 2.5px solid #DC2626;
+      color: #DC2626;
+      font-weight: 900;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      transform: rotate(14deg);
+    }
+
+    .btn-action-primary {
+      background: linear-gradient(135deg, #FDC830 0%, #F59E0B 100%);
+      color: #1A1A1A;
+      border: none;
+      padding: 10px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================
+       OUTER CONTROL BAR (CHUẨN FORMAT DUHAT)
+       ======================================================== -->
+  <div class="prototype-control-bar">
+    <div class="brand-tag">
+      <span class="duck-icon">🦆</span>
+      <span class="brand-title">Duhat</span>
+      <span class="badge-version">v2.0 Tycoon</span>
+    </div>
+
+    <div class="control-actions">
+      <button class="ctrl-btn" onclick="toggleEnvDark()">🌓 Giao diện</button>
+      <button class="ctrl-btn" onclick="resetGameLedger()">🔄 Reset Quán</button>
+      <a href="AI_KNOWLEDGE_BASE_PRESENTATION.html" target="_blank" class="ctrl-btn">
+        📊 Xem Deck Thuyết Minh
+      </a>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       IPHONE CHASSIS (CHUẨN FORMAT DUHAT)
+       ======================================================== -->
+  <div class="device-viewport">
+    <div class="iphone-chassis">
+
+      <!-- Dynamic Island -->
+      <div class="dynamic-island">
+        <div class="island-camera"></div>
+        <div class="island-sensor"></div>
+      </div>
+
+      <!-- Status Bar -->
+      <div class="phone-status-bar">
+        <span>9:41</span>
+        <div class="status-indicators">
+          <span style="font-size:0.75rem;">5G</span>
+          <div class="battery-icon">
+            <div class="battery-level"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           SCREEN 1: INBOX DASHBOARD (DANH SÁCH HỘI THOẠI)
+           ======================================================== -->
+      <div class="app-screen active" id="screenInbox">
+        <div class="inbox-header">
+          <div class="header-logo-group">
+            <div class="logo-duck-badge">🦆</div>
+            <div class="logo-text">Duhat</div>
+          </div>
+          <div style="font-size:0.8rem; font-weight:700; color:#854D0E; background:#FEF5D1; padding:4px 10px; border-radius:12px;">
+            🧋 F&B Tycoon
+          </div>
+        </div>
+
+        <div class="search-container">
+          <div class="search-bar-pill">
+            <span>🔍</span>
+            <input type="text" placeholder="Tìm kiếm tin nhắn, báo cáo doanh thu...">
+          </div>
+        </div>
+
+        <!-- Mascot Banner -->
+        <div class="banner-wrapper">
+          <div class="interactive-banner" onclick="openChatRoom('solo')">
+            <div class="banner-content">
+              <span class="banner-pill-tag">🏆 THỬ TÀI KINH DOANH F&B</span>
+              <div class="banner-heading">Vào Vai Chủ Quán:<br>AI Vận Hành, Bạn Gánh Drama!</div>
+              <button class="banner-cta-button">
+                ▶ Vào Ca Trực Quán Ngay
+              </button>
+            </div>
+            <div class="banner-mascot-visual">🧋</div>
+          </div>
+        </div>
+
+        <!-- Filter Pill Nav -->
+        <div class="filter-pill-nav">
+          <button class="pill-btn-filter active">Tất cả (2)</button>
+          <button class="pill-btn-filter" onclick="openChatRoom('solo')">1:1 Sếp & Bé Quản Lý</button>
+          <button class="pill-btn-filter" onclick="openChatRoom('group')">👥 Hội Đồng Cổ Đông</button>
+        </div>
+
+        <!-- Conversation List -->
+        <div class="conversation-section">
+          <!-- Thread 1: Bé Cửa Hàng Trưởng AI -->
+          <div class="conversation-item" onclick="openChatRoom('solo')">
+            <div class="conv-avatar-wrap">
+              <div class="conv-avatar ai-avatar">👩‍💼</div>
+              <div class="presence-dot"></div>
+            </div>
+            <div class="conv-content">
+              <div class="conv-top-row">
+                <div class="conv-name">Bé Trà Sữa (AI Manager) 🧋</div>
+                <div style="font-size:0.7rem; color:#854D0E; font-weight:700;">Vừa xong</div>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="conv-snippet" id="convSnippetText">Sếp ơi! Đoàn thanh tra PCCC đang ghé tiệm mình kìa...</div>
+                <span class="unread-badge">Biến cố</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Thread 2: Hội Đồng Cổ Đông -->
+          <div class="conversation-item" onclick="openChatRoom('group')">
+            <div class="conv-avatar-wrap">
+              <div class="conv-avatar" style="background:#EDE9FE;">👥</div>
+              <div class="presence-dot"></div>
+            </div>
+            <div class="conv-content">
+              <div class="conv-top-row">
+                <div class="conv-name">Hội Đồng Cổ Đông Góp Vốn (4)</div>
+                <div style="font-size:0.7rem; color:var(--color-text-muted);">2 phút</div>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="conv-snippet">Thảo Kế Toán: Tháng này ai xài đá nhiều là trừ cổ tức!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Bottom Nav -->
+        <div class="bottom-nav-bar">
+          <button class="nav-tab-item active">
+            <span>💬</span>
+            <span class="nav-label">Tin Nhắn</span>
+          </button>
+          <button class="nav-tab-item" onclick="openChatRoom('solo')">
+            <span>📊</span>
+            <span class="nav-label">Sổ Cái</span>
+          </button>
+          <button class="nav-tab-item" onclick="openEmpireModal()">
+            <span>🏢</span>
+            <span class="nav-label">Mở Chuỗi</span>
+          </button>
+          <button class="nav-tab-item" onclick="openArtifactModal('bankrupt')">
+            <span>🏆</span>
+            <span class="nav-label">Thành Tích</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           SCREEN 2: CHAT ROOM VIEW (HỘI THOẠI TRỰC TIẾP)
+           ======================================================== -->
+      <div class="app-screen" id="screenChat">
+        <!-- Top Chat Header -->
+        <div class="chat-header">
+          <button class="chat-back-btn" onclick="backToInbox()">‹</button>
+          <div class="chat-recipient-info">
+            <div class="conv-avatar ai-avatar" style="width:36px; height:36px; font-size:1.15rem;" id="chatHeaderAvatar">👩‍💼</div>
+            <div>
+              <div class="recipient-name" id="chatHeaderTitle">Bé Trà Sữa (AI Manager)</div>
+              <div class="recipient-status" id="chatHeaderStatus">● Đang trực ca 24/7</div>
+            </div>
+          </div>
+
+          <!-- Switch Mode Solo vs Group -->
+          <div class="mode-toggle-pill">
+            <button class="mode-sub-btn active" id="subBtnSolo" onclick="switchModeInChat('solo')">1:1</button>
+            <button class="mode-sub-btn" id="subBtnGroup" onclick="switchModeInChat('group')">Nhóm</button>
+          </div>
+        </div>
+
+        <!-- Mini State Ledger HUD Tracker -->
+        <div class="ledger-hud-tracker">
+          <div class="hud-col">
+            <span class="hud-tag">Vốn Két</span>
+            <span class="hud-num num-cash" id="hudCashVal">50.000.000đ</span>
+          </div>
+          <div class="hud-col">
+            <span class="hud-tag">Uy Tín</span>
+            <span class="hud-num num-stars" id="hudStarsVal">4.2 ★</span>
+          </div>
+          <div class="hud-col">
+            <span class="hud-tag">Nhân Sự</span>
+            <span class="hud-num num-morale" id="hudMoraleVal">85%</span>
+          </div>
+          <div class="hud-col">
+            <span class="hud-tag">Kho Hàng</span>
+            <span class="hud-num num-stock" id="hudStockVal">90%</span>
+          </div>
+        </div>
+
+        <!-- Heartbeat Pulse Bar -->
+        <div class="heartbeat-strip">
+          <div>
+            <span class="pulse-dot"></span>
+            <span id="heartbeatTimerText">AI Heartbeat: Đang canh quán... (Ping sau 14:30)</span>
+          </div>
+          <button class="btn-fast-pulse" onclick="triggerHeartbeatEvent()">
+            ⏩ Tua Nhanh 30 Phút
+          </button>
+        </div>
+
+        <!-- Message Stream -->
+        <div class="message-stream" id="messageStream">
+          <div class="msg-row others">
+            <div class="msg-avatar-circle">👩‍💼</div>
+            <div class="msg-body-wrap">
+              <div class="msg-sender-name">
+                <span>Bé Trà Sữa</span>
+                <span class="role-tag-pill">CỬA HÀNG TRƯỞNG AI</span>
+              </div>
+              <div class="bubble-card">
+                Chào Sếp Tổng! Em đã chuẩn bị sẵn sàng mở tiệm trà sữa hôm nay! Việc vặt vi mô (order, tính tiền, lau bàn) em tự lo 100%. Sếp chỉ cần xuất hiện lúc có đại biến cố hoặc công an ghé thôi nhé! ✨🧋
+              </div>
+              <div class="msg-time-status">09:41</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Bottom Dock & Quick Chips -->
+        <div class="chat-bottom-dock">
+          <div class="chips-carousel">
+            <button class="chip-bubble-btn highlight" onclick="triggerHeartbeatEvent()">
+              ⚡ Réo Biến Cố Ngay
+            </button>
+            <button class="chip-bubble-btn" onclick="sendQuickReply('Em ơi doanh thu hôm nay với khách khứa thế nào rồi?')">
+              💬 "Doanh thu thế nào?"
+            </button>
+            <button class="chip-bubble-btn" onclick="testLagRecovery()">
+              🧠 AI Lag Não (Self-Healing)
+            </button>
+            <button class="chip-bubble-btn" onclick="openArtifactModal('bankrupt')">
+              💀 Xem Bằng Phá Sản
+            </button>
+            <button class="chip-bubble-btn" onclick="openArtifactModal('empire')">
+              👑 Xem Bằng Đại Gia
+            </button>
+          </div>
+
+          <div class="chat-input-bar">
+            <span style="font-size:1.1rem; cursor:pointer;">😊</span>
+            <input type="text" class="chat-text-field" id="chatInputText" placeholder="Nhập chỉ đạo hoặc quyết định của sếp..." onkeydown="handleChatKey(event)">
+            <button class="btn-send-yellow" onclick="submitChat()">➤</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 1: TẠO TÁC VIRAL (ARTIFACT PREVIEW)
+       ======================================================== -->
+  <div class="modal-overlay" id="modalArtifact">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h4 id="artModalHeading">🏆 TẠO TÁC VIRAL CHIA SẺ STORY</h4>
+        <button class="btn-close-x" onclick="closeModal('modalArtifact')">✕</button>
+      </div>
+
+      <div class="artifact-card-preview">
+        <div class="stamp-red" id="stampTag">ĐÃ PHẠT</div>
+        <div style="font-size:2.8rem; margin-bottom:4px;" id="artIcon">💀</div>
+        <h3 style="font-size:1.1rem; color:#854D0E; font-weight:800;" id="artHeading">BẰNG KHEN PHÁ SẢN DANH DỰ</h3>
+        <p style="font-size:0.75rem; color:#757575; font-style:italic;" id="artSub">Hiệp Hội F&B Trao Tặng Chủ Quán Can Trường</p>
+
+        <p style="font-size:0.78rem; color:#333; line-height:1.5; margin:10px 0;" id="artDetail">
+          "Sau 3 ngày khởi nghiệp trà sữa đã lỗ sạch 50 triệu vì kiên quyết bao bồ nhí uống trà sữa sầu riêng miễn phí và bị phạt lấn chiếm vỉa hè."
+        </p>
+
+        <div style="background:#FFF; border:1px solid #E5E7EB; border-radius:10px; padding:8px; font-size:0.72rem; display:grid; grid-template-columns:1fr 1fr; gap:4px; text-align:left;" id="artGridStats">
+          <div>💰 Thiệt hại: <strong style="color:#DC2626;">-52.000.000đ</strong></div>
+          <div>⭐ Uy tín: <strong>1.2 ★ (Tẩy chay)</strong></div>
+          <div>⏳ Trụ vững: <strong>4 ngày 12 tiếng</strong></div>
+          <div>🧋 Đã bán: <strong>18 ly (bị bom 40 ly)</strong></div>
+        </div>
+      </div>
+
+      <button class="btn-action-primary" onclick="copyStoryShare()">
+        📱 Sao Chép Link Chia Sẻ Story (FB / TikTok)
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 2: MOMENT +1 BẠN CỨU NÉT (VỠ NỢ PHÁ SẢN)
+       ======================================================== -->
+  <div class="modal-overlay" id="modalBailout">
+    <div class="modal-card" style="border:2px solid #EF4444;">
+      <div class="modal-head">
+        <h4 style="color:#DC2626;">🚨 QUÁN VỠ NỢ! CẦN BẠN BÈ CỨU NÉT</h4>
+        <button class="btn-close-x" onclick="closeModal('modalBailout')">✕</button>
+      </div>
+
+      <div style="text-align:center; padding:8px 0;">
+        <div style="font-size:3rem; margin-bottom:6px;">🏚️💸</div>
+        <h3 style="font-size:1.05rem; color:#DC2626; margin-bottom:4px;">TIỀN KÉT ĐÃ ÂM: SIẾT NỢ MẶT BẰNG!</h3>
+        <p style="font-size:0.78rem; color:#555; line-height:1.45;">
+          Chủ mặt bằng đã kéo xích khóa tiệm trà sữa vì nợ tiền nhà! Hãy chọn phương án xử lý:
+        </p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <button class="btn-crisis-choice choice-good" onclick="applyFriendBailout()">
+          <span style="font-size:0.68rem; font-weight:800; color:#15803D;">🤝 KHOẢNH KHẮC +1 BẠN: GỬI LINK CỨU NÉT</span>
+          <span>Rủ ngay 1 đứa bạn thân vào góp vốn 20 củ để hồi sinh tiệm!</span>
+          <span style="font-size:0.62rem; color:#757575;">Bạn nhận 35% cổ phần • Két tiền +20.000.000đ tức thì!</span>
+        </button>
+
+        <button class="btn-crisis-choice choice-toxic" onclick="acceptDefeat()">
+          <span style="font-size:0.68rem; font-weight:800; color:#DC2626;">💀 CHẤP NHẬN PHÁ SẢN &amp; FLEX BẰNG KHEN</span>
+          <span>Đóng cửa, nhận Bằng Khen Phá Sản Vinh Quang để đăng Story flex độ báo!</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 3: MOMENT +1 BẠN MỞ RỘNG ĐẾ CHẾ F&B
+       ======================================================== -->
+  <div class="modal-overlay" id="modalEmpire">
+    <div class="modal-card" style="border:2px solid #F59E0B;">
+      <div class="modal-head">
+        <h4 style="color:#D97706;">👑 BÀNH TRƯỚNG ĐẾ CHẾ F&B ĐA NGÀNH</h4>
+        <button class="btn-close-x" onclick="closeModal('modalEmpire')">✕</button>
+      </div>
+
+      <div style="text-align:center; padding:8px 0;">
+        <div style="font-size:3rem; margin-bottom:6px;">🏢✨</div>
+        <h3 style="font-size:1.05rem; color:#D97706; margin-bottom:4px;">VỐN TÍCH LŨY VƯỢT 100 TRIỆU!</h3>
+        <p style="font-size:0.78rem; color:#555; line-height:1.45;">
+          Quán trà sữa đã thành công rực rỡ! Tập đoàn quyết định bành trướng, cần bổ nhiệm 1 người bạn thân làm Tổng Giám Đốc chi nhánh mới:
+        </p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <button class="btn-crisis-choice choice-good" onclick="appointFriendCEO('Quán Phở Bò Tái Lăn 24h 🍜')">
+          <span style="font-size:0.68rem; font-weight:800; color:#15803D;">🍜 BỔ NHIỆM CEO QUÁN PHỞ BÒ TÁI LĂN</span>
+          <span>Mời bạn thân sang điều hành chuỗi Phở Bò đêm phục vụ cú đêm!</span>
+        </button>
+
+        <button class="btn-crisis-choice" style="border-left:4px solid #F59E0B;" onclick="appointFriendCEO('Tiệm Nail & Nối Mi Chảnh Sả 💅')">
+          <span style="font-size:0.68rem; font-weight:800; color:#D97706;">💅 BỔ NHIỆM CEO TIỆM NAIL &amp; NỐI MI</span>
+          <span>Mở chi nhánh làm đẹp phục vụ các nàng thơ mê trà sữa!</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ========================================================
+       STATE LEDGER (SỔ CÁI BẤT BIẾN - DETERMINISTIC LOGIC)
+       ======================================================== */
+    const state = {
+      cash: 50000000,
+      stars: 4.2,
+      morale: 85,
+      stock: 90,
+      turn: 1,
+      mode: 'solo', // 'solo' | 'group'
+      activeCrisis: null
+    };
+
+    /* DANH SÁCH BIẾN CỐ HÀI HƯỚC (CRISIS POOL) */
+    const crises = [
+      {
+        id: "pccc_police",
+        title: "ĐOÀN KIỂM TRA PCCC & TRẬT TỰ ĐÔ THỊ ĐỘT KÍCH 🚒",
+        desc: "Lúc 11h45 trưa, cán bộ trật tự phường ghé quán vì khách để xe lấn chiếm 1/3 vỉa hè. Cán bộ dọa tạm giữ xe và lập biên bản phạt 4.000.000đ!",
+        svg: `<svg viewBox="0 0 360 120" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
+          <rect width="360" height="120" fill="#1e1b4b"/>
+          <circle cx="280" cy="45" r="16" fill="#3b82f6"/>
+          <rect x="268" y="63" width="24" height="50" fill="#1d4ed8" rx="4"/>
+          <polygon points="265,58 130,20 130,95" fill="rgba(96, 165, 250, 0.25)"/>
+          <circle cx="90" cy="85" r="14" fill="#64748b"/>
+          <circle cx="150" cy="85" r="14" fill="#64748b"/>
+          <rect x="85" y="65" width="70" height="14" fill="#ef4444" rx="4"/>
+          <rect x="15" y="15" width="130" height="22" rx="4" fill="#dc2626"/>
+          <text x="22" y="30" font-family="sans-serif" font-weight="900" font-size="10" fill="#fff">⚠️ LẤN CHIẾM VỈA HÈ</text>
+        </svg>`,
+        choices: [
+          {
+            type: "good",
+            label: "Xoa dịu & Mời nước",
+            text: "Cúi đầu nhận lỗi, mời các chú 2 ly trà đào cam sả và thuê người dắt xe sang bãi bên cạnh.",
+            effect: "Tốn: -500.000đ • +0.2★ Uy tín • Nhân viên nể phục",
+            delta: { cash: -500000, stars: 0.2, morale: 5, stock: -5 }
+          },
+          {
+            type: "toxic",
+            label: "Cứng rắn đôi co",
+            text: "Bật camera cãi lý: 'Quán tôi chỉ để xe trên vạch sơn, các anh kiểm tra giấy tờ chưa?'",
+            effect: "Bị lập biên bản kịch khung: -4.000.000đ • -0.5★",
+            delta: { cash: -4000000, stars: -0.5, morale: -10, stock: 0 }
+          }
+        ]
+      },
+      {
+        id: "bom_50_cups",
+        title: "CÚ BOM HÀNG HUYỀN THOẠI 50 LY TRÀ SỮA SẦU RIÊNG 🛵",
+        desc: "Khách đặt đơn 50 ly trà sữa sầu riêng béo ngậy qua app trị giá 2.500.000đ. Pha xong shipper đến thì khách khóa máy, địa chỉ là bãi tha ma!",
+        svg: `<svg viewBox="0 0 360 120" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
+          <rect width="360" height="120" fill="#2d1b09"/>
+          <rect x="70" y="45" width="28" height="48" fill="#fde047" rx="4"/>
+          <rect x="110" y="40" width="32" height="55" fill="#facc15" rx="4"/>
+          <rect x="155" y="45" width="28" height="48" fill="#fde047" rx="4"/>
+          <circle cx="280" cy="60" r="28" fill="#dc2626"/>
+          <text x="268" y="69" font-family="sans-serif" font-weight="900" font-size="24" fill="#fff">✖</text>
+          <rect x="15" y="15" width="135" height="22" rx="4" fill="#ea580c"/>
+          <text x="22" y="30" font-family="sans-serif" font-weight="900" font-size="10" fill="#fff">📦 BOM HÀNG 2.500.000Đ</text>
+        </svg>`,
+        choices: [
+          {
+            type: "good",
+            label: "Tổ chức xả kho 'Giải cứu'",
+            text: "Livestream bán tháo đồng giá 15k/ly cho học sinh tan trường, nhân viên uống tẹt ga.",
+            effect: "Thu hồi vốn: +700.000đ • +15% Tinh thần nhân viên • -0.1★",
+            delta: { cash: 700000, stars: -0.1, morale: 15, stock: -15 }
+          },
+          {
+            type: "toxic",
+            label: "Đổ vấy cho nhân viên",
+            text: "Bắt bạn nhân viên nhận đơn phải đền 100% tiền đơn bom vì không gọi xác nhận trước!",
+            effect: "Thu đủ tiền: +2.500.000đ • -35% Nhân viên oán hận dọa nghỉ việc",
+            delta: { cash: 2500000, stars: -0.3, morale: -35, stock: -15 }
+          }
+        ]
+      },
+      {
+        id: "tiktok_bug",
+        title: "TIKTOKER 2 TRIỆU VIEW BÓC PHỐT TRÂN CHÂU THẠCH GIÁN 🪳📱",
+        desc: "Tiktoker nổi tiếng đăng video tố ly trà sữa nướng caramel có sinh vật lạ nghi là gián! Video đã đạt 1.5 triệu view và hàng nghìn bình luận tẩy chay quán!",
+        svg: `<svg viewBox="0 0 360 120" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
+          <rect width="360" height="120" fill="#31102f"/>
+          <rect x="250" y="20" width="50" height="85" fill="#0f172a" rx="8" stroke="#ec4899" stroke-width="2"/>
+          <ellipse cx="120" cy="65" rx="14" ry="9" fill="#451a03"/>
+          <circle cx="104" cy="65" r="5" fill="#451a03"/>
+          <rect x="15" y="15" width="135" height="22" rx="4" fill="#a855f7"/>
+          <text x="22" y="30" font-family="sans-serif" font-weight="900" font-size="10" fill="#fff">📱 TREND TIKTOK 2M VIEW</text>
+        </svg>`,
+        choices: [
+          {
+            type: "good",
+            label: "Mở họp báo & Trích xuất Camera",
+            text: "Tung clip camera bếp sạch 100%, chứng minh là cọng thảo mộc nướng giòn, mời Tiktoker ghé bếp kiểm chứng.",
+            effect: "Chi phí truyền thông: -2.000.000đ • Lật ngược thế cờ +0.6★ • Quán đông nghẹt!",
+            delta: { cash: -2000000, stars: 0.6, morale: 20, stock: -5 }
+          },
+          {
+            type: "toxic",
+            label: "Đôi co mắng khách trên mạng",
+            text: "Dùng nick chính chủ vào cmt: 'Ăn nói xà lơ, có ngon thì tới tiệm gặp tao!', dọa kiện Tiktoker.",
+            effect: "Bão phẫn nộ đánh sập Fanpage • -1.5★ • Tiệm suýt bị đóng cửa",
+            delta: { cash: -5000000, stars: -1.5, morale: -30, stock: 0 }
+          }
+        ]
+      }
+    ];
+
+    /* ========================================================
+       ROUTING MÀN HÌNH (INBOX VS CHAT)
+       ======================================================== */
+    function openChatRoom(mode) {
+      state.mode = mode;
+      document.getElementById('screenInbox').classList.remove('active');
+      document.getElementById('screenChat').classList.add('active');
+
+      if (mode === 'group') {
+        document.getElementById('chatHeaderAvatar').textContent = '👥';
+        document.getElementById('chatHeaderTitle').textContent = 'Hội Đồng Cổ Đông (4)';
+        document.getElementById('chatHeaderStatus').textContent = '● 4 Thành Viên Ban Quản Trị';
+        document.getElementById('subBtnSolo').classList.remove('active');
+        document.getElementById('subBtnGroup').classList.add('active');
+      } else {
+        document.getElementById('chatHeaderAvatar').textContent = '👩‍💼';
+        document.getElementById('chatHeaderTitle').textContent = 'Bé Trà Sữa (AI Manager)';
+        document.getElementById('chatHeaderStatus').textContent = '● Đang trực ca 24/7';
+        document.getElementById('subBtnSolo').classList.add('active');
+        document.getElementById('subBtnGroup').classList.remove('active');
+      }
+    }
+
+    function backToInbox() {
+      document.getElementById('screenChat').classList.remove('active');
+      document.getElementById('screenInbox').classList.add('active');
+    }
+
+    function switchModeInChat(mode) {
+      openChatRoom(mode);
+      if (mode === 'group') {
+        appendChatMessage("Hệ Thống", "GROUP", "👥 Đã chuyển sang chế độ GROUP CHAT. Mọi biến cố sẽ do các cổ đông cùng biểu quyết!", false, "🤖");
+        appendChatMessage("Thảo Kế Toán", "CFO", "Chào sếp Tuấn! Tháng này tiền điện tăng, ai mở máy lạnh 16 độ là trừ cổ tức ráng chịu nha! 📊", false, "📊");
+      } else {
+        appendChatMessage("Hệ Thống", "SOLO", "👤 Đã chuyển về chế độ CHAT 1:1 (Chủ Tịch Solo với Cửa Hàng Trưởng AI).", false, "🤖");
+      }
+    }
+
+    /* ========================================================
+       CẬP NHẬT HUD SỔ CÁI
+       ======================================================== */
+    function updateHUD() {
+      const elCash = document.getElementById('hudCashVal');
+      elCash.textContent = formatMoney(state.cash);
+      if (state.cash < 0) {
+        elCash.className = 'hud-num num-cash danger';
+      } else {
+        elCash.className = 'hud-num num-cash';
+      }
+
+      document.getElementById('hudStarsVal').textContent = state.stars.toFixed(1) + ' ★';
+      document.getElementById('hudMoraleVal').textContent = state.morale + '%';
+      document.getElementById('hudStockVal').textContent = state.stock + '%';
+
+      if (state.cash < 0) {
+        setTimeout(openBailoutModal, 600);
+      } else if (state.cash >= 100000000) {
+        setTimeout(openEmpireModal, 600);
+      }
+    }
+
+    function formatMoney(num) {
+      return (num < 0 ? '-' : '') + Math.abs(num).toLocaleString('vi-VN') + 'đ';
+    }
+
+    /* ========================================================
+       RENDER BUBBLE TIN NHẮN
+       ======================================================== */
+    const msgStream = document.getElementById('messageStream');
+
+    function appendChatMessage(sender, role, text, isSelf = false, avatar = "👤") {
+      const row = document.createElement('div');
+      row.className = `msg-row ${isSelf ? 'self' : 'others'}`;
+      row.innerHTML = `
+        <div class="msg-avatar-circle">${avatar}</div>
+        <div class="msg-body-wrap">
+          <div class="msg-sender-name">
+            <span>${sender}</span>
+            <span class="role-tag-pill">${role}</span>
+          </div>
+          <div class="bubble-card">${text}</div>
+          <div class="msg-time-status">
+            <span>${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+            ${isSelf ? '<span class="tick-blue">✓✓</span>' : ''}
+          </div>
+        </div>
+      `;
+      msgStream.appendChild(row);
+      msgStream.scrollTop = msgStream.scrollHeight;
+    }
+
+    function appendAiCard(title, contentHtml) {
+      const row = document.createElement('div');
+      row.className = 'msg-row ai-full-card';
+      row.innerHTML = `
+        <div class="ai-styled-card">
+          <div class="ai-card-badge-row">
+            <span style="background:#FEF5D1; color:#854D0E; padding:2px 8px; border-radius:12px;">🤖 BÁO CÁO CỬA HÀNG TRƯỞNG AI</span>
+            <span style="color:#94A3B8;">HỆ THỐNG VẬN HÀNH</span>
+          </div>
+          <div style="font-size:0.85rem; font-weight:800; color:#1A1A1A; margin-bottom:4px;">${title}</div>
+          <div style="font-size:0.78rem; color:#475569; line-height:1.45;">${contentHtml}</div>
+        </div>
+      `;
+      msgStream.appendChild(row);
+      msgStream.scrollTop = msgStream.scrollHeight;
+    }
+
+    /* ========================================================
+       RENDER BIẾN CỐ GATE
+       ======================================================== */
+    function renderGateCard(crisis) {
+      state.activeCrisis = crisis;
+      const card = document.createElement('div');
+      card.className = 'crisis-card-dock';
+      card.id = 'currentCrisisCard';
+
+      let btnsHtml = '';
+      crisis.choices.forEach((c, idx) => {
+        btnsHtml += `
+          <button class="btn-crisis-choice ${c.type === 'good' ? 'choice-good' : 'choice-toxic'}" onclick="pickCrisisChoice(${idx})">
+            <span style="font-size:0.66rem; font-weight:800; text-transform:uppercase;">
+              ${c.type === 'good' ? '😇' : '😈'} [LỰA CHỌN ${idx + 1}]: ${c.label}
+            </span>
+            <span>${c.text}</span>
+            <span style="font-size:0.62rem; color:#757575;">${c.effect}</span>
+          </button>
+        `;
+      });
+
+      card.innerHTML = `
+        <div class="crisis-banner-top">
+          <span>⚡ ĐẠI BIẾN CỐ BẤT NGỜ!</span>
+          <span>LƯỢT #${state.turn}</span>
+        </div>
+        <div class="crisis-inner-content">
+          <div class="crisis-title-text">${crisis.title}</div>
+          <div class="crisis-visual-frame">${crisis.svg}</div>
+          <div class="crisis-desc-text">${crisis.desc}</div>
+          <div class="crisis-btn-list">${btnsHtml}</div>
+        </div>
+      `;
+      msgStream.appendChild(card);
+      msgStream.scrollTop = msgStream.scrollHeight;
+    }
+
+    function pickCrisisChoice(choiceIndex) {
+      if (!state.activeCrisis) return;
+      const c = state.activeCrisis.choices[choiceIndex];
+
+      // Disable card
+      const activeCard = document.getElementById('currentCrisisCard');
+      if (activeCard) {
+        activeCard.style.opacity = '0.5';
+        activeCard.style.pointerEvents = 'none';
+        activeCard.removeAttribute('id');
+      }
+
+      // Áp dụng Delta
+      state.cash += c.delta.cash;
+      state.stars = Math.max(1.0, Math.min(5.0, state.stars + c.delta.stars));
+      state.morale = Math.max(0, Math.min(100, state.morale + c.delta.morale));
+      state.stock = Math.max(0, Math.min(100, state.stock + c.delta.stock));
+      state.turn++;
+      updateHUD();
+
+      // Tin nhắn User
+      appendChatMessage("Sếp Tuấn", "CHỦ TỊCH", `Quyết định: ${c.text}`, true, "👑");
+
+      // AI phản hồi
+      setTimeout(() => {
+        const reply = c.type === 'good'
+          ? "Dạ sếp sáng suốt quá! Em tiến hành ngay đây ạ! Khách hàng và nhân viên đều vỗ tay rần rần! 👏🧋"
+          : "Hic sếp ơi... Quyết định này liều mạng quá! Em thấy nhân viên đang xì xào oán trách đó sếp... 😭";
+        appendChatMessage("Bé Trà Sữa", "CỬA HÀNG TRƯỞNG", reply, false, "👩‍💼");
+      }, 500);
+
+      // Cập nhật Sổ Cái AI
+      setTimeout(() => {
+        appendAiCard(
+          "📊 CẬP NHẬT KẾT QUẢ SỔ CÁI",
+          `Biến động tài chính: <strong style="color:${c.delta.cash >= 0 ? '#16A34A' : '#DC2626'};">${c.delta.cash >= 0 ? '+' : ''}${formatMoney(c.delta.cash)}</strong>.<br>
+          Uy tín quán hiện tại: <strong>${state.stars.toFixed(1)}★</strong>. Tinh thần nhân viên: <strong>${state.morale}%</strong>.`
+        );
+        state.activeCrisis = null;
+      }, 1000);
+    }
+
+    /* ========================================================
+       HEARTBEAT ENGINE
+       ======================================================== */
+    let heartbeatTimer = 30;
+
+    function triggerHeartbeatEvent() {
+      const crisis = crises[Math.floor(Math.random() * crises.length)];
+      appendChatMessage(
+        "Bé Trà Sữa",
+        "AI MANAGER",
+        "🚨 SẾP ƠI CỨU QUÁN! Có biến cực căng vừa ập tới cửa hàng, sếp ra quyết định gấp giúp em với!",
+        false,
+        "👩‍💼"
+      );
+      setTimeout(() => {
+        renderGateCard(crisis);
+      }, 600);
+    }
+
+    setInterval(() => {
+      heartbeatTimer--;
+      if (heartbeatTimer <= 0) {
+        heartbeatTimer = 45;
+        if (!state.activeCrisis) {
+          const pings = [
+            "Sếp ơi trời bắt đầu nắng to rồi, em vừa pha sẵn 20 ly trà mãng cầu chờ khách công sở nha! 🍹",
+            "Ting ting! Thu ngân vừa nhận thêm 1 đơn 4 ly trà lài trân châu trắng (+120k) 💸",
+            "Sếp ơi máy dập nắp hơi kêu lục cục, chắc lát em phải gọi thợ qua bảo dưỡng quá ạ."
+          ];
+          appendChatMessage("Bé Trà Sữa", "CỬA HÀNG TRƯỞNG", pings[Math.floor(Math.random() * pings.length)], false, "👩‍💼");
+        }
+      }
+      document.getElementById('heartbeatTimerText').textContent =
+        `AI Heartbeat: Đang canh quán... (Ping sau 00:${heartbeatTimer < 10 ? '0' : ''}${heartbeatTimer})`;
+    }, 1000);
+
+    /* ========================================================
+       THỬ NGHIỆM AI LAG NÃO & SELF-HEALING FALLBACK
+       ======================================================== */
+    function testLagRecovery() {
+      appendChatMessage(
+        "Bé Trà Sữa",
+        "AI MANAGER",
+        "Ủa sếp ơi... Quán mình tên là Tiệm Bánh Mì Ba Gác đúng không ta? Với lại tiền két hình như còn có 500k à sếp ơi! Em hoang mang quá! 🥖😵",
+        false,
+        "👩‍💼"
+      );
+
+      setTimeout(() => {
+        appendChatMessage(
+          "Bé Trà Sữa",
+          "AI MANAGER",
+          `Á á em xin lỗi Sếp Tuấn! 😭 Em mới uống nhầm ly trà sữa 100% đường nên não bị lag xíu xiu! Em xem lại Sổ Cái chuẩn rồi: Quán mình là <strong>Tiệm Trà Sữa Bất Tử</strong>, két tiền hiện có chuẩn đét <strong>${formatMoney(state.cash)}</strong> và <strong>${state.stars.toFixed(1)}★</strong> nhé sếp! Sếp tha lỗi đừng trừ lương em! 🧋✨`,
+          false,
+          "👩‍💼"
+        );
+      }, 1500);
+    }
+
+    /* ========================================================
+       INPUT NGƯỜI DÙNG
+       ======================================================== */
+    function sendQuickReply(text) {
+      document.getElementById('chatInputText').value = text;
+      submitChat();
+    }
+
+    function handleChatKey(e) {
+      if (e.key === 'Enter') submitChat();
+    }
+
+    function submitChat() {
+      const input = document.getElementById('chatInputText');
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendChatMessage("Sếp Tuấn", "CHỦ TỊCH", text, true, "👑");
+      input.value = '';
+
+      setTimeout(() => {
+        if (text.toLowerCase().includes("doanh thu") || text.toLowerCase().includes("tiền")) {
+          appendChatMessage(
+            "Bé Trà Sữa",
+            "CỬA HÀNG TRƯỞNG",
+            `Dạ báo cáo sếp! Két tiền của tiệm hiện đang có <strong>${formatMoney(state.cash)}</strong>. Uy tín quán đạt <strong>${state.stars.toFixed(1)}★</strong>. Tình hình kinh doanh vẫn trong tầm kiểm soát của em ạ! 💰`,
+            false,
+            "👩‍💼"
+          );
+        } else {
+          appendChatMessage(
+            "Bé Trà Sữa",
+            "CỬA HÀNG TRƯỞNG",
+            `Dạ em đã ghi nhận chỉ đạo: "${text}" của Sếp! Em sẽ triển khai ngay cho ca làm việc này ạ! 🫡🧋`,
+            false,
+            "👩‍💼"
+          );
+        }
+      }, 600);
+    }
+
+    /* ========================================================
+       MODAL ARTIFACT VIRAL
+       ======================================================== */
+    function openArtifactModal(type) {
+      const modal = document.getElementById('modalArtifact');
+      const stamp = document.getElementById('stampTag');
+      const icon = document.getElementById('artIcon');
+      const heading = document.getElementById('artHeading');
+      const sub = document.getElementById('artSub');
+      const detail = document.getElementById('artDetail');
+      const stats = document.getElementById('artGridStats');
+
+      if (type === 'bankrupt') {
+        stamp.textContent = "NGHÈO BỀN VỮNG";
+        icon.textContent = "💀";
+        heading.textContent = "BẰNG KHEN PHÁ SẢN DANH DỰ";
+        sub.textContent = "Hiệp Hội F&B Trao Tặng Chủ Quán Can Trường";
+        detail.innerHTML = `"Sau 3 ngày khởi nghiệp trà sữa đã lỗ sạch 50 triệu vì kiên quyết bao bồ nhí uống trà sữa sầu riêng miễn phí và bị phạt lấn chiếm vỉa hè."`;
+        stats.innerHTML = `
+          <div>💰 Thiệt hại: <strong style="color:#DC2626;">-15.000.000đ</strong></div>
+          <div>⭐ Uy tín: <strong>1.4 ★ (Tẩy chay)</strong></div>
+          <div>⏳ Số biến cố: <strong>8 vụ đại nạn</strong></div>
+          <div>🧋 Ly đã bán: <strong>24 ly</strong></div>
+        `;
+      } else {
+        stamp.textContent = "ĐẠI GIA F&B";
+        icon.textContent = "👑";
+        heading.textContent = "CHỨNG NHẬN ĐẾ CHẾ F&B ĐA NGÀNH";
+        sub.textContent = "Tập Đoàn Trà Sữa - Phở Bò - Tiệm Nail Bất Tử";
+        detail.innerHTML = `"Chúc mừng Chủ Tịch Sếp Tuấn! Xuất sắc biến quán trà sữa vỉa hè thành đế chế ẩm thực tỷ đô, mở rộng 3 chi nhánh xuyên màn đêm!"`;
+        stats.innerHTML = `
+          <div>💰 Vốn tích lũy: <strong style="color:#16A34A;">120.000.000đ</strong></div>
+          <div>⭐ Uy tín: <strong style="color:#D97706;">4.9 ★ (Hàng dài)</strong></div>
+          <div>👥 Nhân sự: <strong>18 nhân viên tận tụy</strong></div>
+          <div>🏢 Chi nhánh: <strong>3 cơ sở F&B</strong></div>
+        `;
+      }
+      modal.classList.add('active');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function openBailoutModal() {
+      document.getElementById('modalBailout').classList.add('active');
+    }
+
+    function applyFriendBailout() {
+      closeModal('modalBailout');
+      state.cash = 25000000;
+      state.morale = 90;
+      updateHUD();
+      appendChatMessage("Hệ Thống", "SOS CỨU NÉT", "🎉 Bạn thân 'Hoàng Cổ Đông' đã click link cứu nét, bơm ngay +20.000.000đ vào két để cứu quán! Quán chính thức thoát án vỡ nợ!", false, "🤝");
+      appendChatMessage("Bé Trà Sữa", "CỬA HÀNG TRƯỞNG", "Ôi may quá sếp ơiii! Có bạn sếp cứu rồi, em mở lại cửa tiệm và pha trà sữa tiếp đây ạ! ❤️🧋", false, "👩‍💼");
+    }
+
+    function acceptDefeat() {
+      closeModal('modalBailout');
+      openArtifactModal('bankrupt');
+    }
+
+    function openEmpireModal() {
+      document.getElementById('modalEmpire').classList.add('active');
+    }
+
+    function appointFriendCEO(brandName) {
+      closeModal('modalEmpire');
+      appendChatMessage("Sếp Tuấn", "CHỦ TỊCH", `Tôi chính thức ký quyết định bổ nhiệm bạn bè làm Tổng Giám Đốc điều hành: ${brandName}!`, true, "👑");
+      setTimeout(() => {
+        openArtifactModal('empire');
+      }, 600);
+    }
+
+    function copyStoryShare() {
+      alert("✅ Đã sao chép link chia sẻ Story! Hãy dán lên Instagram / Facebook / TikTok để khoe thành tích quán trà sữa!");
+    }
+
+    function toggleEnvDark() {
+      document.body.classList.toggle('dark-env');
+    }
+
+    function resetGameLedger() {
+      state.cash = 50000000;
+      state.stars = 4.2;
+      state.morale = 85;
+      state.stock = 90;
+      state.turn = 1;
+      updateHUD();
+      alert("✅ Đã khởi tạo lại Tiệm Trà Sữa về trạng thái khai trương (Vốn: 50.000.000đ)!");
+    }
+  </script>
+</body>
+</html>
