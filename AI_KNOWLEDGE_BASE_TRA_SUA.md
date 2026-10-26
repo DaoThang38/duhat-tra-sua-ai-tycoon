@@ -63,12 +63,19 @@ Mọi phản hồi từ hệ thống (kể cả tự động hay do AI sinh ra) 
 
 ### Bảng Quy Đổi Trạng Thái & Hạn Mức Tác Động:
 
-| Chỉ Số (Metric) | Khởi Điểm | Ngưỡng Nguy Cấp | Ngưỡng Thịnh Vượng | Hậu Quả Kích Hoạt |
+### 2.1. Ma Trận Chỉ Số Tối Giản (Streamlined Metrics - Tránh Nặng Nề Về Game)
+Nhằm tránh biến tính năng thành một con game quản lý phức tạp (sim/strategy), hệ thống **loại bỏ các chỉ số vi mô không cần thiết** (như Tồn kho nguyên liệu %, Tinh thần nhân viên %) và **chỉ giữ lại 2 chỉ số cốt lõi phục vụ tính năng vui vẻ và đòn bẩy +1 bạn**:
+
+| Chỉ Số (Metric) | Khởi Điểm | Ngưỡng Nguy Cấp | Ngưỡng Thịnh Vượng | Hậu Quả & Đòn Bẩy +1 Bạn |
 | :--- | :--- | :--- | :--- | :--- |
-| **Vốn Tiền Mặt** | `50.000.000đ` | `< 0đ` (Vỡ nợ) | `> 100.000.000đ` | Kích hoạt **Moment +1 Bạn: Cứu Nét** hoặc **Mở Rộng Chuỗi Phở/Nail**. |
-| **Sao Đánh Giá** | `4.2 ★` | `< 2.5 ★` (Tẩy chay) | `= 5.0 ★` (Quán Hot Trend) | Dưới 2.5★: Khách giảm 80%, dọa sập tiệm. Đạt 5.0★: Khách xếp hàng dài, quá tải thiết bị. |
-| **Tinh Thần Nhân Viên**| `85 %` | `< 20 %` (Đình công) | `100 %` (Tận tụy) | Dưới 20%: Nhân viên ném tạp dề bỏ về, quán phải tự đóng cửa ngừng nhận order. |
-| **Tồn Kho Nguyên Liệu**| `90 %` | `< 15 %` (Cạn kho) | `100 %` (Đầy kho) | Hết trân châu/trà: Không pha được món chính, khách hủy đơn liên tục. |
+| **💰 Tiền Két (Cash Flow)** | `50.000.000đ` | `< 0đ` (Vỡ nợ âm tiền) | `> 100.000.000đ` (Đại gia F&B) | **Nguy cấp:** Kéo xích niêm phong tiệm -> Rủ bạn bè vào góp vốn 20 củ cứu nét (+1 Bạn)!<br>**Thịnh vượng:** Bổ nhiệm bạn bè làm CEO Quán Phở Bò / Tiệm Nail (+1 Bạn)! |
+| **⭐ Độ Uy Tín (Stars)** | `4.2 ★` | `< 2.5 ★` (Tẩy chay) | `= 5.0 ★` (Quán Hot Trend) | Thước đo danh dự và meme. Đạt 5.0★ khách chen lấn quá tải; Dưới 2.5★ dính phốt tẩy chay. |
+
+### 2.2. Cơ Chế Xử Lý Khi Có Biến: Đôi Co Đa Kênh [A], [B], [C / Other]
+Khi có biến cố ập đến (Công an PCCC, Hot Tiktoker bóc phốt, Shipper bom hàng), đối tượng liên quan (NPC) sẽ **nhảy thẳng vào khung chat buông lời khiêu khích / dọa nạt**. Chủ quán có 3 cách xử lý:
+1. **Lựa chọn [A] 😇 (Ngoại giao mềm mỏng):** Xin lỗi, mời trà đào cam sả, giải thích hòa nhã (-Ít tiền, +Uy tín).
+2. **Lựa chọn [B] 😈 (Cứng rắn cãi lý):** Bật camera đôi co, ăn miếng trả miếng (Bị phạt kịch khung, mất nhiều tiền nhưng mang lại tiếng cười sảng khoái).
+3. **Lựa chọn [C / Other] 💬 (Tự do gõ chat đôi co):** Người chơi tự gõ câu chửi xéo hoặc câu nịnh vào khung chat. AI trích xuất ý định (Intent Parser) và để NPC phản hồi động theo đúng văn phong đường phố/công sở Việt Nam!
 
 ---
 
