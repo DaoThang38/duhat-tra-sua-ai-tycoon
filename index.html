@@ -10,7 +10,7 @@
 
   <style>
     /* ==========================================================================
-       1. DESIGN SYSTEM & COLOR TOKENS (DUHAT SPECIFICATION - CHAT-FIRST)
+       DUHAT DESIGN SYSTEM - CHAT-FIRST F&B TYCOON
        ========================================================================== */
     :root {
       --color-primary: #FDC830;
@@ -33,7 +33,6 @@
       --color-read-tick: #0284C7;
       --color-unread-badge: #EF4444;
 
-      /* Visual status */
       --good-green: #15803D;
       --risky-orange: #F97316;
       --toxic-red: #DC2626;
@@ -356,7 +355,6 @@
       margin-left: 8px;
     }
 
-    /* Mascot Banner Tycoon */
     .banner-wrapper {
       padding: 4px 20px 12px 20px;
     }
@@ -591,7 +589,7 @@
     }
 
     /* ==========================================================================
-       SCREEN 2: CHAT ROOM VIEW (TẬP TRUNG VUI VẺ, ĐÔI CO, +1 BẠN)
+       SCREEN 2: CHAT ROOM VIEW (STREAMLINED 2 METRICS + NGÀY/CA + ĐÔI CO)
        ========================================================================== */
     .chat-header {
       padding: 8px 14px;
@@ -633,27 +631,33 @@
       font-weight: 600;
     }
 
-    /* GỌN GÀNG: CHỈ GIỮ 2 CHỈ SỐ CỐT LÕI (TIỀN KÉT & SAO) */
+    /* TỐI GIẢN: HUD CHỈ GIỮ NGÀY, TIỀN KÉT & SAO */
     .streamlined-hud {
       background: #FFFFFF;
-      padding: 6px 14px;
+      padding: 7px 14px;
       border-bottom: 1px solid var(--color-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      gap: 6px;
     }
 
     .hud-pill {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       background: #F8FAFC;
       border: 1px solid #E2E8F0;
-      padding: 4px 10px;
+      padding: 4px 9px;
       border-radius: var(--radius-full);
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 800;
+    }
+
+    .hud-pill.day-pill {
+      background: #EFF6FF;
+      border-color: #BFDBFE;
+      color: #1D4ED8;
     }
 
     .hud-pill.cash-pill {
@@ -666,12 +670,12 @@
       background: #FEF2F2;
       border-color: #FECACA;
       color: #DC2626;
-      animation: alertPulse 1s infinite alternate;
+      animation: alertPulse 0.9s infinite alternate;
     }
 
     @keyframes alertPulse {
       from { transform: scale(1); }
-      to { transform: scale(1.03); }
+      to { transform: scale(1.04); }
     }
 
     .hud-pill.stars-pill {
@@ -704,7 +708,7 @@
       color: #FFFFFF;
     }
 
-    /* HEARTBEAT TICKER */
+    /* HEARTBEAT TICKER & COUNTDOWN */
     .heartbeat-strip {
       background: #FFFBEB;
       border-bottom: 1px solid #FDE68A;
@@ -758,6 +762,7 @@
       background-color: var(--color-bg-chat);
       background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px);
       background-size: 24px 24px;
+      scroll-behavior: smooth;
     }
 
     .msg-row {
@@ -858,26 +863,29 @@
 
     .tick-blue { color: var(--color-read-tick); font-weight: 700; }
 
-    /* HỘP QUYẾT ĐỊNH & ĐÔI CO (CRISIS INTERACTIVE CARD) */
+    /* ========================================================
+       HỘP QUYẾT ĐỊNH & ĐÔI CO (CRISIS DECISION BOX CHUẨN A, B, C)
+       ======================================================== */
     .crisis-decision-box {
+      width: 100%;
       background: #FFFFFF;
       border: 2px solid #EF4444;
       border-radius: 18px;
       overflow: hidden;
-      margin: 6px 0;
-      box-shadow: 0 8px 24px rgba(239, 68, 68, 0.18);
-      animation: slideInBox 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      margin: 8px 0;
+      box-shadow: 0 8px 24px rgba(239, 68, 68, 0.2);
+      animation: popDecision 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    @keyframes slideInBox {
-      from { opacity: 0; transform: scale(0.96); }
+    @keyframes popDecision {
+      from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
     }
 
     .crisis-box-header {
       background: linear-gradient(90deg, #DC2626, #EF4444);
       color: #FFFFFF;
-      padding: 6px 12px;
+      padding: 7px 12px;
       font-size: 0.68rem;
       font-weight: 800;
       display: flex;
@@ -887,6 +895,9 @@
 
     .crisis-box-body {
       padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .crisis-box-title {
@@ -894,7 +905,19 @@
       font-weight: 800;
       color: #991B1B;
       line-height: 1.35;
-      margin-bottom: 6px;
+    }
+
+    .countdown-warning-strip {
+      background: #FEF2F2;
+      border: 1px dashed #EF4444;
+      border-radius: 8px;
+      padding: 5px 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #DC2626;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .crisis-choice-btn {
@@ -902,17 +925,16 @@
       background: #F8FAFC;
       border: 1.5px solid #CBD5E1;
       border-radius: 12px;
-      padding: 9px 12px;
+      padding: 10px 12px;
       color: #1E293B;
       font-family: inherit;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 700;
       text-align: left;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 2px;
-      margin-top: 6px;
+      gap: 3px;
       transition: all 0.15s;
     }
 
@@ -931,6 +953,58 @@
     .crisis-choice-btn.opt-c {
       border-left: 5px solid #F59E0B;
       background: #FFFDF5;
+    }
+
+    /* CARD THÔNG BÁO KẾT CA (SHIFT RECAP CARD) */
+    .shift-recap-box {
+      width: 100%;
+      background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
+      color: #FFFFFF;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      animation: popDecision 0.3s ease-out;
+      border: 1.5px solid #F59E0B;
+      margin: 8px 0;
+    }
+
+    .shift-recap-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 6px;
+    }
+
+    .shift-recap-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #FDE047;
+    }
+
+    .shift-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 0.74rem;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .btn-next-shift {
+      background: linear-gradient(135deg, #FDC830 0%, #F59E0B 100%);
+      color: #1A1A1A;
+      border: none;
+      padding: 9px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      cursor: pointer;
+      text-align: center;
     }
 
     /* QUICK CHIPS & INPUT DOCK */
@@ -973,6 +1047,12 @@
       color: #1A1A1A;
       border-color: #F59E0B;
       box-shadow: 0 2px 6px rgba(253, 200, 48, 0.4);
+    }
+
+    .chip-bubble-btn.danger-chip {
+      background: #FEF2F2;
+      color: #DC2626;
+      border-color: #FECACA;
     }
 
     .chat-input-bar {
@@ -1237,9 +1317,9 @@
             <span>💬</span>
             <span class="nav-label">Tin Nhắn</span>
           </button>
-          <button class="nav-tab-item" onclick="openChatRoom('solo')">
-            <span>📊</span>
-            <span class="nav-label">Sổ Cái</span>
+          <button class="nav-tab-item" onclick="triggerShiftClose()">
+            <span>🌙</span>
+            <span class="nav-label">Kết Ca</span>
           </button>
           <button class="nav-tab-item" onclick="openEmpireModal()">
             <span>🏢</span>
@@ -1274,8 +1354,13 @@
           </div>
         </div>
 
-        <!-- TỐI GIẢN: CHỈ GIỮ 2 CHỈ SỐ CỐT LÕI (TIỀN KÉT & SAO) -->
+        <!-- TỐI GIẢN: HUD CHỈ GIỮ NGÀY, TIỀN KÉT & SAO UY TÍN -->
         <div class="streamlined-hud">
+          <div class="hud-pill day-pill" id="hudDayPill">
+            <span>📅</span>
+            <strong id="hudDayVal">Ngày 1 (Trưa)</strong>
+          </div>
+
           <div class="hud-pill cash-pill" id="hudCashPill">
             <span>💰 Tiền Két:</span>
             <strong id="hudCashVal">50.000.000đ</strong>
@@ -1308,7 +1393,8 @@
                 <span class="role-tag-pill">CỬA HÀNG TRƯỞNG AI</span>
               </div>
               <div class="bubble-card">
-                Chào Sếp Tổng! Việc vặt vi mô (order, pha trà, tính tiền lẻ) em tự lo 100%. Sếp chỉ cần xuất hiện lúc có đại biến cố: công an phường kiểm tra, bom 50 ly, khách bóc phốt để chỉ đạo thôi nha! Sếp có thể bấm chọn cách xử lý hoặc <strong>tự gõ chat đôi co</strong> với họ nhé! ✨🧋
+                Chào Sếp Tổng! Việc vi mô (order, pha trà, tính tiền lẻ) em tự lo 100%. Sếp chỉ cần xuất hiện lúc có đại biến cố (công an phường, bom 50 ly, khách bóc phốt) để ra tay thôi nha!<br><br>
+                💡 <strong>Lưu ý:</strong> Khi có biến cố, sếp có <strong>Hộp Quyết Định [A], [B], [C]</strong> ngay bên dưới. Nếu sếp <em>"bơ"</em> tin nhắn của em quá lâu thì quán sẽ nhận <strong>CÁI KẾT TỆ</strong> đấy nhé! 🚨
               </div>
               <div class="msg-time-status">09:41</div>
             </div>
@@ -1317,15 +1403,19 @@
 
         <!-- Chat Bottom Dock & Quick Chips -->
         <div class="chat-bottom-dock">
-          <div class="chips-carousel">
+          <!-- Dynamic Action Chips Bar -->
+          <div class="chips-carousel" id="quickChipsContainer">
             <button class="chip-bubble-btn highlight" onclick="triggerHeartbeatEvent()">
               ⚡ Réo Biến Cố Ngay
             </button>
-            <button class="chip-bubble-btn" onclick="sendQuickReply('Em ơi doanh thu hôm nay thế nào rồi?')">
-              💬 "Doanh thu thế nào?"
+            <button class="chip-bubble-btn" onclick="triggerShiftClose()">
+              🌙 Kết Ca Ngày 1
+            </button>
+            <button class="chip-bubble-btn danger-chip" onclick="simulateIgnoredCrisis()">
+              ⏰ Thử Bơ Tin 30p (Kết Tệ)
             </button>
             <button class="chip-bubble-btn" onclick="testLagRecovery()">
-              🧠 Thử Nghiệm AI Lag Não
+              🧠 AI Lag Não
             </button>
             <button class="chip-bubble-btn" onclick="openArtifactModal('bankrupt')">
               💀 Xem Bằng Phá Sản
@@ -1336,7 +1426,7 @@
           </div>
 
           <div class="chat-input-bar">
-            <span style="font-size:1.1rem; cursor:pointer;" onclick="triggerSecretBailout()">💡</span>
+            <span style="font-size:1.1rem; cursor:pointer;" onclick="triggerSecretBailout()" title="Nhấn để thử nghiệm phá sản vỡ nợ">💡</span>
             <input type="text" class="chat-text-field" id="chatInputText" placeholder="Nhập chỉ đạo hoặc gõ chat đôi co..." onkeydown="handleChatKey(event)">
             <button class="btn-send-yellow" onclick="submitChat()">➤</button>
           </div>
@@ -1363,13 +1453,13 @@
         <p style="font-size:0.75rem; color:#757575; font-style:italic;" id="artSub">Hiệp Hội F&B Trao Tặng Chủ Quán Can Trường</p>
 
         <p style="font-size:0.78rem; color:#333; line-height:1.5; margin:10px 0;" id="artDetail">
-          "Sau 3 ngày khởi nghiệp trà sữa đã lỗ sạch 50 triệu vì kiên quyết bao bồ nhí uống trà sữa sầu riêng miễn phí và bị phạt lấn chiếm vỉa hè."
+          "Sau 3 ngày khởi nghiệp trà sữa đã lỗ sạch 50 triệu vì kiên quyết bao bồ nhí uống trà sữa sầu riêng miễn phí và bơ tin nhắn của AI Cửa Hàng Trưởng."
         </p>
 
         <div style="background:#FFF; border:1px solid #E5E7EB; border-radius:10px; padding:8px; font-size:0.74rem; display:grid; grid-template-columns:1fr 1fr; gap:4px; text-align:left;" id="artGridStats">
           <div>💰 Thiệt hại: <strong style="color:#DC2626;">-52.000.000đ</strong></div>
           <div>⭐ Uy tín: <strong>1.2 ★ (Tẩy chay)</strong></div>
-          <div>⏳ Trụ vững: <strong>4 ngày 12 tiếng</strong></div>
+          <div>⏳ Trụ vững: <strong>Ngày 3 (Ca Tối)</strong></div>
           <div>🧋 Đã bán: <strong>18 ly (bị bom 40 ly)</strong></div>
         </div>
       </div>
@@ -1399,13 +1489,13 @@
       </div>
 
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <button class="btn-crisis-choice opt-a" onclick="applyFriendBailout()">
+        <button class="crisis-choice-btn opt-a" onclick="applyFriendBailout()">
           <span style="font-size:0.7rem; font-weight:800; color:#15803D;">🤝 KHOẢNH KHẮC +1 BẠN: GỬI LINK CỨU NÉT</span>
           <span>Rủ ngay 1 đứa bạn thân vào góp vốn 20 củ để hồi sinh tiệm!</span>
           <span style="font-size:0.62rem; color:#757575;">Bạn nhận 35% cổ phần • Két tiền +20.000.000đ tức thì!</span>
         </button>
 
-        <button class="btn-crisis-choice opt-b" onclick="acceptDefeat()">
+        <button class="crisis-choice-btn opt-b" onclick="acceptDefeat()">
           <span style="font-size:0.7rem; font-weight:800; color:#DC2626;">💀 CHẤP NHẬN PHÁ SẢN &amp; FLEX BẰNG KHEN</span>
           <span>Đóng cửa, nhận Bằng Khen Phá Sản Vinh Quang để đăng Story flex độ báo!</span>
         </button>
@@ -1432,12 +1522,12 @@
       </div>
 
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <button class="btn-crisis-choice opt-a" onclick="appointFriendCEO('Quán Phở Bò Tái Lăn 24h 🍜')">
+        <button class="crisis-choice-btn opt-a" onclick="appointFriendCEO('Quán Phở Bò Tái Lăn 24h 🍜')">
           <span style="font-size:0.7rem; font-weight:800; color:#15803D;">🍜 BỔ NHIỆM CEO QUÁN PHỞ BÒ TÁI LĂN</span>
           <span>Mời bạn thân sang điều hành chuỗi Phở Bò đêm phục vụ cú đêm!</span>
         </button>
 
-        <button class="btn-crisis-choice opt-c" onclick="appointFriendCEO('Tiệm Nail & Nối Mi Chảnh Sả 💅')">
+        <button class="crisis-choice-btn opt-c" onclick="appointFriendCEO('Tiệm Nail & Nối Mi Chảnh Sả 💅')">
           <span style="font-size:0.7rem; font-weight:800; color:#D97706;">💅 BỔ NHIỆM CEO TIỆM NAIL &amp; NỐI MI</span>
           <span>Mở chi nhánh làm đẹp phục vụ các nàng thơ mê trà sữa!</span>
         </button>
@@ -1447,30 +1537,36 @@
 
   <script>
     /* ========================================================
-       STATE LEDGER (TỐI GIẢN: CHỈ GIỮ TIỀN KÉT & SAO UY TÍN)
+       STATE GAME (NGÀY, CA LÀM, TIỀN KÉT & SAO UY TÍN)
        ======================================================== */
     const state = {
+      day: 1,
+      shiftPhase: 'Trưa (Giờ Cao Điểm)', // 'Sáng', 'Trưa', 'Tối (Kết Ca)'
+      cupsSoldToday: 0,
       cash: 50000000,
       stars: 4.2,
       turn: 1,
       mode: 'solo',
-      activeDrama: null // Lưu trữ biến cố đang diễn ra để user có thể chat đôi co
+      activeDrama: null,
+      countdownTimer: null,
+      countdownSeconds: 20
     };
 
     /* DANH SÁCH BIẾN CỐ ĐÔI CO HÀI HƯỚC (DRAMA POOL) */
     const dramaList = [
       {
         id: "cong_an_phuong",
+        title: "ĐOÀN KIỂM TRA TRẬT TỰ ĐÔ THỊ ĐỘT KÍCH 🚒",
         npcName: "Cán bộ Đô Thị (Đ/c Hùng)",
         npcAvatar: "👮‍♂️",
         npcRole: "CÔNG AN TRẬT TỰ",
-        npcChat: "Này chủ quán! Xe máy của khách dựng tràn hết cả 2/3 vỉa hè người đi bộ thế này à? Có dắt vào ngõ ngay không thì tôi lập biên bản phạt 4.000.000đ và cẩu sạch 5 xe về phường?",
+        npcChat: "Này chủ quán! Xe máy của khách dựng tràn hết cả 2/3 vỉa hè người đi bộ thế này à? Có dắt gọn vào ngõ ngay không thì tôi lập biên bản phạt 4.000.000đ và cẩu sạch 5 xe về phường?",
         options: [
           {
             key: "A",
             label: "Ngoại giao mềm mỏng & Mời nước",
             replyText: "Dạ em xin lỗi cán bộ! Em mời các anh 2 ly trà đào cam sả trân châu hạ hỏa, em cho nhân viên dắt gọn xe vào ngõ bên cạnh ngay đây ạ!",
-            npcReaction: "Cán bộ Hùng nhấp ngụm trà đào tấm tắc khen ngon: 'Thôi được rồi, nhắc nhở lần đầu nhé, dọn xe gọn vào!'",
+            npcReaction: "Cán bộ Hùng nhấp ngụm trà đào tấm tắc khen ngon: 'Thôi được rồi, quán làm ăn tử tế, nhắc nhở lần đầu nhé, dọn xe gọn vào!'",
             deltaCash: -500000,
             deltaStars: 0.3
           },
@@ -1478,14 +1574,21 @@
             key: "B",
             label: "Cứng rắn cãi lý kịch liệt",
             replyText: "Bật camera điện thoại lên: 'Vỉa hè này không có biển cấm đỗ, các anh kiểm tra có kế hoạch chuyên đề chưa mà dọa cẩu xe?'",
-            npcReaction: "Cán bộ Hùng lập biên bản kịch khung: 'Chống đối người thi hành công vụ! Phạt 4.000.000đ và tạm giữ phương tiện!'",
+            npcReaction: "Cán bộ Hùng lập biên bản kịch khung: 'Chống đối người thi hành công vụ! Phạt 4.000.000đ và tạm giữ 5 xe máy phương tiện vi phạm!'",
             deltaCash: -4000000,
             deltaStars: -0.6
           }
-        ]
+        ],
+        ignoredBadEnd: {
+          warning: "Sếp ơiii! Cán bộ đang kéo dây xích chuẩn bị cẩu xe rồi kìa! Sếp không trả lời là toang đó sếp! 😭🚨",
+          disaster: "TOANG RỒI SẾP ƠI! Vì sếp 'bơ' tin nhắn không chịu xử lý, công an phường đã lập biên bản niêm phong quán và cẩu sạch 5 xe máy! Quán bị phạt kịch khung -6.000.000đ và bị dân mạng bóc phốt tụt thảm hại xuống 2.8★! 💀💸",
+          deltaCash: -6000000,
+          deltaStars: -1.4
+        }
       },
       {
         id: "tiktoker_boc_phot",
+        title: "TIKTOKER 2 TRIỆU VIEW BÓC PHỐT TRÂN CHÂU THẠCH GIÁN 📱",
         npcName: "Minh Review (Tiktoker 2M View)",
         npcAvatar: "📱",
         npcRole: "FOOD REVIEWER",
@@ -1495,7 +1598,7 @@
             key: "A",
             label: "Xoa dịu, trích xuất camera & Tặng voucher",
             replyText: "Dạ tiệm xin lỗi anh Minh! Bếp em vừa trích xuất camera kiểm tra, trân châu nướng caramel tươi 100%. Em xin gửi anh voucher trà sữa trọn đời và hỗ trợ chi phí khám răng ạ!",
-            npcReaction: "Tiktoker Minh quay xe làm clip 'Chủ quán trà sữa dễ thương nhất quả đất', video lên xu hướng 3 triệu view, khách xếp hàng dài!",
+            npcReaction: "Tiktoker Minh quay xe làm clip 'Chủ quán trà sữa dễ thương nhất quả đất', video lên xu hướng 3 triệu view, khách xếp hàng dài mua!",
             deltaCash: -2000000,
             deltaStars: 0.8
           },
@@ -1507,10 +1610,17 @@
             deltaCash: -6000000,
             deltaStars: -1.2
           }
-        ]
+        ],
+        ignoredBadEnd: {
+          warning: "Sếp ơiii! Clip bóc phốt của Tiktoker đã lên 2 triệu view rồi, người ta đang tràn vào đánh giá 1 sao tiệm mình kìa! 😭",
+          disaster: "ĐẠI THẢM HỌA TRUYỀN THÔNG! Do sếp im lặng không lên tiếng đính chính, cả mạng xã hội tẩy chay kịch liệt! Doanh thu đóng băng, quán bị phạt -5.000.000đ tiền khủng hoảng truyền thông và rớt còn 2.2★! 💀",
+          deltaCash: -5000000,
+          deltaStars: -1.6
+        }
       },
       {
         id: "bom_50_ly",
+        title: "CÚ BOM HÀNG HUYỀN THOẠI 50 LY SẦU RIÊNG 🛵",
         npcName: "Anh Ba Shipper",
         npcAvatar: "🛵",
         npcRole: "TÀI XẾ CÔNG NGHỆ",
@@ -1532,7 +1642,13 @@
             deltaCash: -3000000,
             deltaStars: -0.7
           }
-        ]
+        ],
+        ignoredBadEnd: {
+          warning: "Sếp ơiii! Đá trong 50 ly trà sữa tan chảy nhão nhoét rồi, shipper đang ngồi khóc trước cửa tiệm kìa sếp! 😭",
+          disaster: "HỎNG TOÀN BỘ ĐƠN HÀNG! Vì sếp bỏ mặc không xử lý, 50 ly trà sữa ôi thiu hỏng bét, shipper uất ức đăng bài bóc phốt tiệm trà sữa vô cảm lên hội nhóm giao hàng! Quán lỗ sạch -3.500.000đ và mất uy tín! 💀",
+          deltaCash: -3500000,
+          deltaStars: -1.1
+        }
       }
     ];
 
@@ -1540,6 +1656,7 @@
        CẬP NHẬT GIAO DIỆN HUD TỐI GIẢN
        ======================================================== */
     function updateHUD() {
+      document.getElementById('hudDayVal').textContent = `Ngày ${state.day} (${state.shiftPhase})`;
       const elCash = document.getElementById('hudCashVal');
       const pillCash = document.getElementById('hudCashPill');
       elCash.textContent = formatMoney(state.cash);
@@ -1627,18 +1744,20 @@
     }
 
     /* ========================================================
-       KÍCH HOẠT BIẾN CỐ & HỘP ĐÔI CO (A, B, C HOẶC TỰ GÕ)
+       KÍCH HOẠT BIẾN CỐ & HỘP ĐÔI CO [A], [B], [C]
        ======================================================== */
     function triggerHeartbeatEvent() {
-      // Chọn 1 biến cố ngẫu nhiên
+      if (state.activeDrama) return; // Nếu đang có biến thì xử lý nốt
+
       const drama = dramaList[Math.floor(Math.random() * dramaList.length)];
       state.activeDrama = drama;
+      state.countdownSeconds = 20;
 
       // 1. Bé Trà Sữa réo khẩn cấp
       appendChatMessage(
         "Bé Trà Sữa",
         "AI MANAGER",
-        "🚨 SẾP ƠI CỨU QUÁN! Có biến căng cực kìa, sếp ra mặt giải quyết giúp em với!",
+        `🚨 SẾP ƠI CỨU QUÁN! [BIẾN CỐ NGÀY ${state.day}]: ${drama.title} vừa ập đến tiệm mình kìa! Sếp ra mặt quyết định gấp giúp em với!`,
         false,
         "👩‍💼"
       );
@@ -1647,45 +1766,102 @@
       setTimeout(() => {
         appendChatMessage(drama.npcName, drama.npcRole, drama.npcChat, false, drama.npcAvatar);
 
-        // 3. Hiện Hộp Lựa Chọn Quyết Định (A, B, C hoặc Tự Gõ)
+        // 3. Hiện Hộp Lựa Chọn Quyết Định (A, B, C)
         setTimeout(() => {
           renderDecisionBox(drama);
+          startCrisisCountdown();
         }, 400);
       }, 500);
     }
 
     function renderDecisionBox(drama) {
+      // Xóa box cũ nếu có
+      const old = document.getElementById('activeDecisionBox');
+      if (old) old.remove();
+
       const box = document.createElement('div');
       box.className = 'crisis-decision-box';
       box.id = 'activeDecisionBox';
 
       box.innerHTML = `
         <div class="crisis-box-header">
-          <span>⚡ PHÁN QUYẾT CỦA SẾP (LƯỢT #${state.turn})</span>
-          <span>CHỌN HOẶC GÕ CHAT</span>
+          <span>⚡ BẢNG QUYẾT ĐỊNH XỬ LÝ (NGÀY ${state.day})</span>
+          <span>CHỌN [A], [B] HOẶC [C]</span>
         </div>
         <div class="crisis-box-body">
           <div class="crisis-box-title">Đang đôi co với: ${drama.npcName}</div>
+
+          <div class="countdown-warning-strip">
+            <span>⏳ Hạn chót xử lý: <strong id="crisisTimerCount">00:20s</strong></span>
+            <span>(Sếp bơ tin sẽ nhận cái kết tệ!)</span>
+          </div>
           
           <button class="crisis-choice-btn opt-a" onclick="resolveOption('A')">
-            <span style="font-size:0.68rem; font-weight:800; color:#15803D;">[A] 😇 ${drama.options[0].label}</span>
+            <span style="font-size:0.7rem; font-weight:800; color:#15803D;">[A] 😇 ${drama.options[0].label}</span>
             <span style="font-size:0.75rem;">"${drama.options[0].replyText}"</span>
+            <small style="color:#757575; font-size:0.62rem;">Chi: -500k • Tăng uy tín sao</small>
           </button>
 
           <button class="crisis-choice-btn opt-b" onclick="resolveOption('B')">
-            <span style="font-size:0.68rem; font-weight:800; color:#DC2626;">[B] 😈 ${drama.options[1].label}</span>
+            <span style="font-size:0.7rem; font-weight:800; color:#DC2626;">[B] 😈 ${drama.options[1].label}</span>
             <span style="font-size:0.75rem;">"${drama.options[1].replyText}"</span>
+            <small style="color:#757575; font-size:0.62rem;">Cãi tới bến • Nguy cơ phạt kịch khung</small>
           </button>
 
           <button class="crisis-choice-btn opt-c" onclick="focusChatInput()">
-            <span style="font-size:0.68rem; font-weight:800; color:#B45309;">[C / Other] 💬 Tự gõ chat đôi co quái chiêu bên dưới</span>
-            <span style="font-size:0.72rem; color:#757575;">Bấm vào đây để tự nhập câu chửi hoặc câu nịnh vào ô chat!</span>
+            <span style="font-size:0.7rem; font-weight:800; color:#B45309;">[C / Other] 💬 Tự gõ chat đôi co quái chiêu</span>
+            <span style="font-size:0.72rem; color:#757575;">Bấm vào đây để tự nhập câu chửi hoặc câu nịnh vào khung chat!</span>
           </button>
         </div>
       `;
 
       msgStream.appendChild(box);
       msgStream.scrollTop = msgStream.scrollHeight;
+
+      // Cập nhật thanh Quick Chips ở dưới cùng để user không thể bỏ lỡ
+      updateChipsForCrisis();
+    }
+
+    function updateChipsForCrisis() {
+      const container = document.getElementById('quickChipsContainer');
+      container.innerHTML = `
+        <button class="chip-bubble-btn highlight" onclick="resolveOption('A')">
+          👉 [A] Ngoại Giao Mềm Mỏng
+        </button>
+        <button class="chip-bubble-btn" style="border-color:#EF4444; color:#DC2626;" onclick="resolveOption('B')">
+          👉 [B] Cứng Rắn Cãi Lý
+        </button>
+        <button class="chip-bubble-btn" onclick="focusChatInput()">
+          👉 [C] Tự Gõ Chat Đôi Co
+        </button>
+        <button class="chip-bubble-btn danger-chip" onclick="simulateIgnoredCrisis()">
+          ⏰ Giả Lập Bơ Tin (Cái Kết Tệ)
+        </button>
+      `;
+    }
+
+    function restoreNormalChips() {
+      const container = document.getElementById('quickChipsContainer');
+      container.innerHTML = `
+        <button class="chip-bubble-btn highlight" onclick="triggerHeartbeatEvent()">
+          ⚡ Réo Biến Cố Ngay
+        </button>
+        <button class="chip-bubble-btn" onclick="triggerShiftClose()">
+          🌙 Kết Ca Ngày ${state.day}
+        </button>
+        <button class="chip-bubble-btn danger-chip" onclick="simulateIgnoredCrisis()">
+          ⏰ Thử Bơ Tin 30p (Kết Tệ)
+        </button>
+        <button class="chip-bubble-btn" onclick="testLagRecovery()">
+          🧠 AI Lag Não
+        </button>
+        <button class="chip-bubble-btn" onclick="openArtifactModal('bankrupt')">
+          💀 Xem Bằng Phá Sản
+        </button>
+        <button class="chip-bubble-btn" onclick="openArtifactModal('empire')">
+          👑 Xem Bằng Đại Gia
+        </button>
+      `;
     }
 
     function focusChatInput() {
@@ -1694,8 +1870,90 @@
       input.focus();
     }
 
+    /* ĐẾM NGƯỢC XỬ LÝ BIẾN CỐ */
+    function startCrisisCountdown() {
+      if (state.countdownTimer) clearInterval(state.countdownTimer);
+
+      state.countdownTimer = setInterval(() => {
+        state.countdownSeconds--;
+        const el = document.getElementById('crisisTimerCount');
+        if (el) {
+          el.textContent = `00:${state.countdownSeconds < 10 ? '0' : ''}${state.countdownSeconds}s`;
+        }
+
+        // Sau 10s: AI nhắn tin réo giục lần 2
+        if (state.countdownSeconds === 10 && state.activeDrama) {
+          appendChatMessage(
+            "Bé Trà Sữa",
+            "AI MANAGER",
+            state.activeDrama.ignoredBadEnd.warning,
+            false,
+            "👩‍💼"
+          );
+        }
+
+        // Hết giờ (0s): CÁI KẾT TỆ VÌ USER BƠ TIN NHẮN
+        if (state.countdownSeconds <= 0) {
+          clearInterval(state.countdownTimer);
+          triggerBadEndingBecauseIgnored();
+        }
+      }, 1000);
+    }
+
+    /* GIẢ LẬP HÀNH VI BƠ TIN NHẮN 30 PHÚT -> CÁI KẾT TỆ */
+    function simulateIgnoredCrisis() {
+      if (!state.activeDrama) {
+        // Nếu chưa có biến thì tạo biến trước
+        const drama = dramaList[Math.floor(Math.random() * dramaList.length)];
+        state.activeDrama = drama;
+        appendChatMessage("Bé Trà Sữa", "AI MANAGER", `🚨 Sếp ơi có biến: ${drama.title}!`, false, "👩‍💼");
+        appendChatMessage(drama.npcName, drama.npcRole, drama.npcChat, false, drama.npcAvatar);
+      }
+      if (state.countdownTimer) clearInterval(state.countdownTimer);
+      triggerBadEndingBecauseIgnored();
+    }
+
+    function triggerBadEndingBecauseIgnored() {
+      if (!state.activeDrama) return;
+      const drama = state.activeDrama;
+
+      // Xóa box quyết định
+      const box = document.getElementById('activeDecisionBox');
+      if (box) box.remove();
+
+      // NPC nổi giận
+      appendChatMessage(
+        drama.npcName,
+        drama.npcRole,
+        `Chủ quán trốn tránh không thèm ra mặt giải quyết! Lập biên bản niêm phong quán và phạt kịch khung!`,
+        false,
+        drama.npcAvatar
+      );
+
+      // Bé Trà Sữa gửi thông báo CÁI KẾT TỆ
+      setTimeout(() => {
+        state.cash += drama.ignoredBadEnd.deltaCash;
+        state.stars = Math.max(1.0, Math.min(5.0, state.stars + drama.ignoredBadEnd.deltaStars));
+        state.turn++;
+        updateHUD();
+
+        appendChatMessage(
+          "Bé Trà Sữa",
+          "AI MANAGER",
+          drama.ignoredBadEnd.disaster,
+          false,
+          "👩‍💼"
+        );
+
+        state.activeDrama = null;
+        restoreNormalChips();
+      }, 700);
+    }
+
     function resolveOption(key) {
       if (!state.activeDrama) return;
+      if (state.countdownTimer) clearInterval(state.countdownTimer);
+
       const drama = state.activeDrama;
       const opt = key === 'A' ? drama.options[0] : drama.options[1];
 
@@ -1714,10 +1972,11 @@
       setTimeout(() => {
         appendChatMessage(drama.npcName, drama.npcRole, opt.npcReaction, false, drama.npcAvatar);
 
-        // 3. Bé Trà Sữa tổng kết sổ cái
+        // 3. Bé Trà Sữa tổng kết két tiền & sao
         setTimeout(() => {
           state.cash += opt.deltaCash;
           state.stars = Math.max(1.0, Math.min(5.0, state.stars + opt.deltaStars));
+          state.cupsSoldToday += 35;
           state.turn++;
           updateHUD();
 
@@ -1730,6 +1989,7 @@
           );
 
           state.activeDrama = null;
+          restoreNormalChips();
         }, 600);
       }, 600);
     }
@@ -1739,11 +1999,6 @@
        ======================================================== */
     function handleChatKey(e) {
       if (e.key === 'Enter') submitChat();
-    }
-
-    function sendQuickReply(text) {
-      document.getElementById('chatInputText').value = text;
-      submitChat();
     }
 
     function submitChat() {
@@ -1757,20 +2012,16 @@
 
       // Nếu đang trong biến cố mà người chơi tự gõ chat (Option C):
       if (state.activeDrama) {
+        if (state.countdownTimer) clearInterval(state.countdownTimer);
         const drama = state.activeDrama;
         const activeBox = document.getElementById('activeDecisionBox');
-        if (activeBox) {
-          activeBox.style.opacity = '0.5';
-          activeBox.style.pointerEvents = 'none';
-          activeBox.removeAttribute('id');
-        }
+        if (activeBox) activeBox.remove();
 
         setTimeout(() => {
-          // NPC phản hồi lại câu chat tự do của sếp
           const npcResponses = [
-            `"${text}" à? Nghe chủ quán nói cũng có lý, thôi nể mặt lần này đấy nhé!`,
-            `Chủ quán ăn nói cứng nhỉ! Nhưng thôi, thấy tiệm trà sữa đông vui nên tôi châm chước đấy!`,
-            `Haha, nói chuyện nghe lọt tai đấy! Thôi anh dọn dẹp sạch sẽ rồi tiếp tục bán đi nhé!`
+            `"${text}" à? Nghe chủ quán nói cũng xuôi tai, thôi nể mặt lần này tôi chỉ phạt nhẹ đấy nhé!`,
+            `Chủ quán ăn nói cứng đấy! Thôi thấy tiệm trà sữa đông vui nên tôi châm chước nhắc nhở lần đầu!`,
+            `Haha, nói chuyện nghe lọt lỗ tai đấy! Thôi anh dọn dẹp sạch sẽ rồi tiếp tục bán đi nhé!`
           ];
           const chosenNpcReply = npcResponses[Math.floor(Math.random() * npcResponses.length)];
           appendChatMessage(drama.npcName, drama.npcRole, chosenNpcReply, false, drama.npcAvatar);
@@ -1778,23 +2029,25 @@
           setTimeout(() => {
             state.cash -= 300000;
             state.stars = Math.min(5.0, state.stars + 0.2);
+            state.cupsSoldToday += 28;
             state.turn++;
             updateHUD();
 
             appendChatMessage(
               "Bé Trà Sữa",
               "AI MANAGER",
-              `Trời ơi sếp đối đáp đỉnh quá! Đối phương xuôi xuôi rồi kìa! Quán chỉ tốn 300k chi phí ngoại giao mà giữ được uy tín <strong>${state.stars.toFixed(1)}★</strong> nhé sếp! 👏🧋`,
+              `Trời ơi sếp đối đáp đỉnh chóp! Đối phương xuôi xuôi rồi kìa! Quán chỉ tốn 300k chi phí ngoại giao mà giữ được uy tín <strong>${state.stars.toFixed(1)}★</strong> nhé sếp! 👏🧋`,
               false,
               "👩‍💼"
             );
             state.activeDrama = null;
+            restoreNormalChips();
           }, 600);
         }, 600);
         return;
       }
 
-      // Xử lý chat bình thường khi không có biến
+      // Chat thông thường khi không có biến
       setTimeout(() => {
         if (text.toLowerCase().includes("doanh thu") || text.toLowerCase().includes("tiền")) {
           appendChatMessage(
@@ -1808,12 +2061,64 @@
           appendChatMessage(
             "Bé Trà Sữa",
             "CỬA HÀNG TRƯỞNG",
-            `Dạ em đã nghe rõ chỉ đạo: "${text}" của sếp! Em đang làm theo ngay đây ạ! 🫡🧋`,
+            `Dạ em đã nghe rõ chỉ đạo: "${text}" của sếp! Em đang triển khai ngay cho ca này ạ! 🫡🧋`,
             false,
             "👩‍💼"
           );
         }
       }, 500);
+    }
+
+    /* ========================================================
+       TÍNH NĂNG: KẾT CA & SANG NGÀY MỚI (NGÀY 1, NGÀY 2...)
+       ======================================================== */
+    function triggerShiftClose() {
+      state.shiftPhase = 'Tối (Kết Ca)';
+      updateHUD();
+
+      const todayRevenue = 15500000 + Math.floor(Math.random() * 5000000);
+      const todayCups = 80 + state.cupsSoldToday;
+      state.cash += todayRevenue;
+      updateHUD();
+
+      const recapCard = document.createElement('div');
+      recapCard.className = 'shift-recap-box';
+      recapCard.innerHTML = `
+        <div class="shift-recap-header">
+          <span class="shift-recap-title">🌙 BÁO CÁO KẾT CA - NGÀY ${state.day} (22:00 ĐÓNG CỬA)</span>
+          <span style="font-size:0.65rem; color:#A7F3D0; font-weight:800;">ĐÃ CHỐT SỔ</span>
+        </div>
+        <p style="font-size:0.76rem; color:#CBD5E1; line-height:1.45;">
+          Hôm nay quán hoạt động hết công suất! Cửa hàng trưởng AI đã đối soát két tiền và khử trùng bếp xong xuôi cho sếp:
+        </p>
+        <div class="shift-stats-grid">
+          <div>💸 Doanh thu ca: <strong style="color:#34D399;">+${formatMoney(todayRevenue)}</strong></div>
+          <div>🧋 Ly đã bán: <strong>${todayCups} ly</strong></div>
+          <div>⭐ Uy tín tích lũy: <strong>${state.stars.toFixed(1)}★</strong></div>
+          <div>💰 Tổng két hiện tại: <strong>${formatMoney(state.cash)}</strong></div>
+        </div>
+        <button class="btn-next-shift" onclick="startNextDay()">
+          ▶ BẮT ĐẦU NGÀY ${state.day + 1} (KHAI CA SÁNG 07:30) ☀️
+        </button>
+      `;
+
+      msgStream.appendChild(recapCard);
+      msgStream.scrollTop = msgStream.scrollHeight;
+    }
+
+    function startNextDay() {
+      state.day++;
+      state.shiftPhase = 'Sáng (Khai Ca)';
+      state.cupsSoldToday = 0;
+      updateHUD();
+
+      appendChatMessage(
+        "Bé Trà Sữa",
+        "CỬA HÀNG TRƯỞNG",
+        `☀️ CHÀO BUỔI SÁNG SẾP TỔNG! Hôm nay là <strong>NGÀY ${state.day}</strong> kinh doanh! Em vừa nhập đá lạnh và nấu sẵn nồi trân châu đường đen thơm phức! Dự kiến trưa nay khách công sở sẽ đông nghẹt sếp nhé! ✨🧋`,
+        false,
+        "👩‍💼"
+      );
     }
 
     /* ========================================================
@@ -1877,12 +2182,12 @@
         icon.textContent = "💀";
         heading.textContent = "BẰNG KHEN PHÁ SẢN DANH DỰ";
         sub.textContent = "Hiệp Hội F&B Trao Tặng Chủ Quán Can Trường";
-        detail.innerHTML = `"Sau 3 ngày khởi nghiệp trà sữa đã lỗ sạch 50 triệu vì kiên quyết bao bồ nhí uống trà sữa sầu riêng miễn phí và cãi nhau với công an phường."`;
+        detail.innerHTML = `"Sau ${state.day} ngày khởi nghiệp trà sữa đã lỗ sạch 50 triệu vì kiên quyết bao bồ nhí uống trà sữa miễn phí và bơ tin nhắn của AI Cửa Hàng Trưởng."`;
         stats.innerHTML = `
           <div>💰 Thiệt hại: <strong style="color:#DC2626;">-15.000.000đ</strong></div>
           <div>⭐ Uy tín: <strong>1.4 ★ (Tẩy chay)</strong></div>
-          <div>⏳ Số biến cố: <strong>8 vụ đại nạn</strong></div>
-          <div>🧋 Ly đã bán: <strong>24 ly</strong></div>
+          <div>⏳ Số ngày trụ: <strong>Ngày ${state.day}</strong></div>
+          <div>🧋 Đã bán: <strong>24 ly</strong></div>
         `;
       } else {
         stamp.textContent = "ĐẠI GIA F&B";
@@ -1947,11 +2252,16 @@
     }
 
     function resetGameLedger() {
+      state.day = 1;
+      state.shiftPhase = 'Trưa (Giờ Cao Điểm)';
       state.cash = 50000000;
       state.stars = 4.2;
       state.turn = 1;
+      state.activeDrama = null;
+      if (state.countdownTimer) clearInterval(state.countdownTimer);
       updateHUD();
-      alert("✅ Đã khởi tạo lại Tiệm Trà Sữa về trạng thái ban đầu (Vốn: 50.000.000đ, 4.2★)!");
+      restoreNormalChips();
+      alert("✅ Đã khởi tạo lại Tiệm Trà Sữa về Ngày 1 (Vốn: 50.000.000đ, 4.2★)!");
     }
   </script>
 </body>
