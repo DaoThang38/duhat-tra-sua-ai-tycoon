@@ -78,21 +78,16 @@ Game thiết kế sẵn 3 điểm bùng phát tâm lý khiến người chơi **
 
 ## 4. MA TRẬN TÁC ĐỘNG & OUTPUT MONG MUỐN (METRICS MATRIX)
 
-Mọi quyết định của Chủ Quán sẽ tác động trực tiếp lên 4 biến số cốt lõi của Sổ Cái (Ledger):
+### 4.1. Ma Trận Logic Vận Hành Cho Người Non-Tech (Ai Đọc Cũng Hiểu Ngay)
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        SỔ CÁI HOẠT ĐỘNG QUÁN NƯỚC                     │
-├────────────────────┬────────────────────┬──────────────────────────────┤
-│ 1. VỐN TIỀN MẶT    │ 2. UY TÍN THƯƠNG HIỆU │ 3. VẬN HÀNH & NHÂN SỰ     │
-│    (Cash Flow)     │    (Rating 1-5★)   │    (Morale & Inventory)      │
-│ Khởi đầu: 50.000k  │ Khởi đầu: 4.2★     │ Tinh thần: 85%               │
-│ < 0: Báo động vỡ nợ│ < 2.0★: Tẩy chay   │ Kho nguyên liệu: 90%         │
-│ > 100M: Mở chuỗi   │ = 5.0★: Chuỗi Hot  │ Tinh thần < 20%: Đình công   │
-├────────────────────┴────────────────────┴──────────────────────────────┤
-│ 4. TẠO TÁC VIRAL (Generated Artifacts): Bằng khen, Biên bản phạt, Card │
-└────────────────────────────────────────────────────────────────────────┘
-```
+| # | Tình Huống / Sự Kiện | Ai Phụ Trách? | Thao Tác Của Người Chơi | Hậu Quả & Biến Động Số Liệu | Ý Nghĩa Thực Tế (Dành Cho Non-Tech) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **1** | **Vận hành thường nhật**<br>• Pha trà, nấu trân châu<br>• Nhận đơn Grab/Shopee | 🤖 **AI tự động 100%**<br>(Bé Trà Sữa, Barista, Thu ngân) | **Không cần làm gì!**<br>Ngắm tiền nhảy số hoặc gõ chat | 💵 **Tiền két tăng đều** (`+35k ~ +225k/đơn`)<br>⭐ Uy tín giữ vững 4.2★ ~ 5.0★ | AI làm culi lo việc vặt, chủ quán không phải cày cuốc clicker. |
+| **2** | **Biến cố mềm mỏng**<br>• Khách chê ngọt, shipper cáu | 👔 **Chủ quán ra mặt**<br>(Người chơi trực tiếp) | Chọn **[A] 😇 Ngoại Giao**<br>Tặng voucher, mời nước xoa dịu | 💵 **Tốn ít tiền** (`-50k ~ -150k`)<br>⭐ **Uy tín tăng** (`+0.2★ ~ +0.5★`) | Lùi một bước trời cao biển rộng, giữ chân khách dài lâu. |
+| **3** | **Biến cố cãi lý**<br>• Tiktoker vòi tiền, đối thủ chơi bẩn | 👔 **Chủ quán ra mặt**<br>(Người chơi trực tiếp) | Chọn **[B] 😈 Cãi Lý Tới Cùng**<br>Bật camera đôi co, ăn miếng trả miếng | 💵 **0đ đền bù**<br>⭐ **Rủi ro:** Dễ bị bóc phốt, tụt sao (`-0.5★`) | Thỏa mãn cơn giận, kịch tính nhưng tiềm ẩn rủi ro dính phốt. |
+| **4** | **Ứng biến quái chiêu**<br>• Chửi xéo, đút lót, gọi bảo kê | 🧠 **AI NLP Phân Tích Ý Định**<br>(Intent Parser + LLM) | **Tự do gõ câu chat vào ô input**<br>(VD: *"Alo gọi bác Ba phường nhé!"*) | 💬 NPC phản hồi động theo đúng văn phong đời thực | Tự do tuyệt đối như đang nhắn tin với người thật qua app. |
+| **5** | **Nguy cơ vỡ nợ**<br>• Tiền két âm / siết cọc 30M | 👥 **Người Chơi + Bạn Bè**<br>(Group Chat Co-op) | Bấm **[👥 +1 Bạn Cứu Quán]**<br>Gửi link rủ bạn thân góp vốn | 💰 **+20.000.000đ** bạn thân bơm cứu nét<br>🤝 Lập group 4 người cùng gánh | **Đòn bẩy lan truyền:** Bạn bè cùng chơi, cùng chịu trách nhiệm. |
+| **6** | **Chốt ca tối & Sang ngày**<br>• Hết ca trực, quyết toán | 📊 **Bé Trà Sữa (AI Manager)**<br>(Báo cáo tài chính tự động) | Bấm **[🌙 Chốt Ca P&L]** | 🧾 Bảng sao kê minh bạch: Doanh thu - Mặt bằng = Lãi ròng | Cảm giác thành tựu của người làm chủ sau mỗi ngày kinh doanh. |
 
 ---
 

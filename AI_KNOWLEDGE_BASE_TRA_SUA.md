@@ -52,8 +52,23 @@ Do đó, kiến trúc bắt buộc phải tuân thủ nguyên tắc: **"Determin
 
 ---
 
-## 2. MA TRẬN OUTPUT MONG MUỐN (DESIRED OUTPUT MATRIX)
+## 2. MA TRẬN LOGIC VẬN HÀNH (LOGIC MATRIX) & OUTPUT CHUẨN HÓA
 
+### 2.0. Ma Trận Logic Vận Hành Dành Cho Người Non-Tech (Ai Đọc Cũng Hiểu Ngay)
+Bảng ma trận này quy đổi toàn bộ luồng logic của tựa game sang góc nhìn thực tế đời thường, giúp tất cả các thành viên (Product, Marketing, Vận hành, Thiết kế, Ban giám đốc) nắm rõ luật chơi mà không cần đọc một dòng code kỹ thuật nào:
+
+| # | Tình Huống / Sự Kiện | Ai Phụ Trách? | Thao Tác Của Người Chơi | Hậu Quả & Biến Động Số Liệu | Ý Nghĩa Thực Tế (Dành Cho Non-Tech) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **1** | **Vận hành thường nhật**<br>• Pha trà, nấu trân châu<br>• Nhận đơn Grab/Shopee<br>• Dắt xe vỉa hè | 🤖 **Đội ngũ AI tự động 100%**<br>(Bé Trà Sữa, Tuấn Barista, Bé Thư, Cu Bo) | **Không cần thao tác gì!**<br>Người chơi chỉ việc quan sát thông báo hoặc gõ chat chém gió | 💵 **Tiền két tăng đều** (`+35k ~ +225k/đơn`)<br>🥤 Ly đã bán tăng dần<br>⭐ Uy tín ổn định (`4.2★ ~ 5.0★`) | **AI làm "culi" lo hết việc vặt.** Người chơi không phải bấm clicker cày cuốc vi mô như các game cổ điển. |
+| **2** | **Biến cố mềm mỏng**<br>• Khách chê trà ngọt<br>• Shipper chờ lâu cáu<br>• CSGT nhắc nhở vỉa hè | 👔 **Chủ quán ra mặt**<br>(Người chơi trực tiếp) | Bấm chọn **[A] 😇 Ngoại Giao Mềm Mỏng**<br>(Xin lỗi, mời nước xoa dịu, tặng voucher) | 💵 **Tốn ít tiền** (`-50k ~ -150k`)<br>⭐ **Uy tín tăng vọt** (`+0.2★ ~ +0.5★`)<br>❤️ Khách hài lòng, khen quán có tâm | **Lùi một bước biển rộng trời cao.** Tốn chút tiền con nhưng giữ chân khách và bảo vệ thương hiệu lâu dài. |
+| **3** | **Biến cố cãi lý / gay gắt**<br>• Tiktoker vòi tiền ăn chặn<br>• Đối thủ chơi bẩn<br>• Khách quỵt tiền | 👔 **Chủ quán ra mặt**<br>(Người chơi trực tiếp) | Bấm chọn **[B] 😈 Cãi Lý Tới Cùng**<br>(Bật camera đôi co, ăn miếng trả miếng, đuổi đi) | 💵 **Không mất tiền đền** (`+0đ`)<br>⭐ **Rủi ro cao:** Dễ bị bóc phốt, tụt sao (`-0.3★ ~ -1.0★`) hoặc bị phạt nặng | **Thỏa mãn cơn giận, cười ra nước mắt.** Mang lại kịch tính hài hước cho cuộc hội thoại nhưng tiềm ẩn rủi ro dính phốt. |
+| **4** | **Ứng biến tự do quái chiêu**<br>• Đút lót, dọa nạt<br>• Khoe quen biết người to<br>• Cà khịa lầy lội | 🧠 **AI NLP Phân Tích Ý Định**<br>(Intent Classifier + LLM) | **Tự do gõ câu chỉ đạo vào ô chat**<br>(VD: *"Alo gọi bác Ba phường xuống giải quyết!"*) | 🤖 AI phân loại ý định: Cầu hòa / Đe dọa / Hối lộ / Lầy lội<br>💬 NPC phản hồi động theo đúng văn phong đường phố | **Trải nghiệm hội thoại tự do tuyệt đối.** Người chơi cảm giác như đang nhắn tin với người thật, không bị gò bó vào kịch bản có sẵn. |
+| **5** | **Khủng hoảng vỡ nợ / Bước ngoặt**<br>• Tiền két âm (`< 0đ`)<br>• Chủ nhà siết cọc 30 triệu trong 2 tiếng | 👥 **Người Chơi + Bạn Bè**<br>(Chuyển sang Group Chat Co-op) | Bấm nút **[👥 +1 Bạn Vào Cứu Quán]** hoặc gửi link rủ bạn thân góp vốn | 🤝 Chuyển thành Group Chat 4 người<br>💰 Bạn thân bơm ngay +20.000.000đ cứu nét<br>🗳️ Mở quyền biểu quyết chung | **Đòn bẩy lan truyền (Viral Hook cốt lõi).** Kéo bạn bè vào cùng chịu trách nhiệm, cùng cãi nhau và đổ lỗi hài hước khi đưa ra quyết định sai. |
+| **6** | **Chốt ca tối & Tiến trình ngày**<br>• Hết ca làm việc<br>• Quyết toán sổ sách | 📊 **Bé Trà Sữa tổng kết**<br>(Báo cáo tài chính tự động) | Bấm nút **[🌙 Chốt Ca P&L]** | 🧾 Bảng sao kê minh bạch: Doanh thu - Chi phí mặt bằng = Lãi ròng thực tế<br>☀️ Bước sang ngày tiếp theo | **Cảm giác thành tựu của người làm chủ.** Nhìn thấy số dư két tăng trưởng và mở khóa danh hiệu F&B sau mỗi ngày vượt cạn. |
+
+---
+
+### 2.1. Cấu Trúc Dữ Liệu Kỹ Thuật (Dành Cho Đội Dev / Kỹ Thuật)
 Mọi phản hồi từ hệ thống (kể cả tự động hay do AI sinh ra) đều phải chuẩn hóa về một cấu trúc dữ liệu duy nhất (`GameTurnResult`):
 
 ```json
