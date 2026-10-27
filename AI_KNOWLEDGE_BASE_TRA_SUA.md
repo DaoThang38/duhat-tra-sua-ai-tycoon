@@ -34,6 +34,22 @@ Do đó, kiến trúc bắt buộc phải tuân thủ nguyên tắc: **"Determin
 | **Touchpoint 4: Group Chat Mediator** | Điều phối thảo luận nhóm, chọc ngoáy, kích động tranh cãi giữa các cổ đông bạn bè. | Danh sách vote của các thành viên, Tin nhắn tranh cãi trong group. | Lời bình châm biếm, Tuyên bố kết quả biểu quyết, Phong danh hiệu (vd: *"Chúa tể keo kiệt"*). | Tăng tính gắn kết xã hội và tính cạnh tranh nội bộ nhóm bạn. |
 | **Touchpoint 5: Viral Artifact Scribe** | Chắp bút các văn bản hài hước dựa trên toàn bộ lịch sử chơi. | Lịch sử các quyết định dại dột / khôn ngoan của chủ quán, Số tiền lỗ/lãi. | Nội dung "Bằng Khen Phá Sản", "Biên Bản Xử Phạt", "Nghị Quyết Bổ Nhiệm Chủ Tịch F&B". | Cá nhân hóa 100% chiến tích của người chơi, kích thích nhu cầu chia sẻ lên Story. |
 
+### Quy Trình Onboarding & Bản Giải Thích Luật Chơi (Game Rules Onboarding Framework):
+Để giải quyết triệt để rủi ro người chơi bỡ ngỡ không hiểu luật khi mới bắt đầu vào game:
+1. **Modal Sổ Tay Khởi Nghiệp (Tự động mở khi lần đầu truy cập):**
+   - 6 quy tắc sống còn tóm gọn trong 30 giây:
+     • **Quy tắc 1: AI Làm Culi, Sếp Làm Chủ:** Bé Trà Sữa tự lo 100% order, pha trà, tính tiền lẻ. Sếp không cần bấm pha từng ly!
+     • **Quy tắc 2: Nhịp Tim 30 Phút & Biến Cố Đời Thực:** AI chủ động ping drama (Công an đô thị 👮‍♂️, Tiktoker bóc phốt 📱, Bom hàng 50 ly 🛵, Mất điện ⚡).
+     • **Quy tắc 3: Ba Cách Đối Mặt [A], [B] Hay [C] Chat:** [A] Ngoại giao mềm mỏng (tốn tiền nhưng tăng sao), [B] Cãi lý (tiết kiệm tiền nhưng dễ ăn biên bản), [C] Tự gõ chat đôi co quái chiêu để AI & NPC ứng biến theo ngữ cảnh.
+     • **Quy tắc 4: Cảnh Báo Cấm "Bơ" Tin Nhắn AI:** Có đồng hồ đếm ngược; nếu bơ tin nhắn quá 30 phút sẽ nhận **CÁI KẾT TỆ** (bị niêm phong quán, cẩu xe, phạt -6.000.000đ, sao rớt thảm hại).
+     • **Quy tắc 5: 2 Chỉ Số Sinh Tử & Tiến Trình Theo Ca:** Chỉ quản lý 💰 Tiền Két và ⭐ Uy Tín. Hết ngày bấm "🌙 Kết Ca" để chốt sổ và sang Ngày 2, Ngày 3...
+     • **Quy tắc 6: Khoảnh Khắc +1 Bạn & Flex Viral:** Vỡ nợ (<0đ) gửi link SOS rủ bạn cứu nét 20 củ; Lãi (>100M) mở chuỗi bổ nhiệm bạn làm CEO Phở/Nail; Flex Bằng Khen Phá Sản lên Story.
+2. **Điểm Chạm Truy Cập Mọi Nơi (Omnipresent Access):**
+   - Nút `📖 Luật Chơi` nổi bật trên Outer Control Bar.
+   - Nút `📖 Luật Chơi (30s)` trên Mascot Banner và Tab `📖 Luật Chơi` ở Bottom Navigation.
+   - Welcome Card từ Bé Trà Sữa ở đầu luồng chat tóm tắt 3 quy tắc sống còn kèm nút mở Sổ tay.
+   - Quick Chip `📖 Luật Chơi 30s` ở thanh tác vụ nhanh dưới khung chat.
+
 ---
 
 ## 2. MA TRẬN OUTPUT MONG MUỐN (DESIRED OUTPUT MATRIX)
