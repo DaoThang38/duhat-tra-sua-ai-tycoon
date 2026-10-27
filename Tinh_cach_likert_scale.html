@@ -1102,11 +1102,11 @@
 
     /* MODALS */
     .modal-overlay {
-      position: absolute;
+      position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.82);
-      backdrop-filter: blur(6px);
-      z-index: 100;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
       display: none;
       align-items: center;
       justify-content: center;
@@ -1119,11 +1119,12 @@
 
     .modal-card {
       width: 100%;
-      max-height: 90%;
+      max-width: 440px;
+      max-height: 88vh;
       background: #FFFFFF;
       border-radius: 24px;
       padding: 18px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.5);
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -1150,6 +1151,133 @@
       font-size: 1.25rem;
       cursor: pointer;
       color: var(--color-text-muted);
+    }
+
+    /* RULES ONBOARDING CARD & MODAL */
+    .rules-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 8px 0;
+    }
+
+    .rule-card-item {
+      background: #F9FAFB;
+      border: 1.5px solid #E5E7EB;
+      border-radius: 14px;
+      padding: 11px 13px;
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      transition: all 0.2s ease;
+    }
+
+    .rule-card-item:hover {
+      border-color: #FDC830;
+      background: #FFFDF5;
+    }
+
+    .rule-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .rule-info {
+      flex: 1;
+    }
+
+    .rule-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3px;
+    }
+
+    .rule-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #1A1A1A;
+    }
+
+    .rule-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    .rule-desc {
+      font-size: 0.74rem;
+      color: #555555;
+      line-height: 1.45;
+    }
+
+    .rule-desc strong {
+      color: #1A1A1A;
+    }
+
+    /* Inline summary box inside message bubble */
+    .rules-summary-box {
+      background: #FFFDF5;
+      border: 1.5px dashed #F59E0B;
+      border-radius: 12px;
+      padding: 10px;
+      margin-top: 8px;
+    }
+
+    .rules-summary-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #854D0E;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .rules-summary-item {
+      font-size: 0.74rem;
+      color: #444;
+      line-height: 1.45;
+      margin-bottom: 4px;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .rules-summary-item::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      color: #F59E0B;
+      font-weight: bold;
+    }
+
+    .btn-inline-rules {
+      background: #FEF5D1;
+      border: 1px solid #FDC830;
+      color: #854D0E;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 7px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-inline-rules:hover {
+      background: #FDC830;
+      color: #1A1A1A;
     }
 
     .artifact-card-preview {
@@ -1200,6 +1328,9 @@
     </div>
 
     <div class="control-actions">
+      <button class="ctrl-btn highlight-gold" onclick="openRulesModal()" style="background:#FEF5D1; border-color:#FDC830; color:#854D0E; font-weight:700;">
+        📖 Luật Chơi
+      </button>
       <button class="ctrl-btn" onclick="toggleEnvDark()">🌓 Giao diện</button>
       <button class="ctrl-btn" onclick="resetGameLedger()">🔄 Reset Quán</button>
       <a href="AI_KNOWLEDGE_BASE_PRESENTATION.html" target="_blank" class="ctrl-btn">
@@ -1254,15 +1385,20 @@
 
         <!-- Mascot Banner -->
         <div class="banner-wrapper">
-          <div class="interactive-banner" onclick="openChatRoom('solo')">
+          <div class="interactive-banner">
             <div class="banner-content">
               <span class="banner-pill-tag">🏆 THỬ TÀI KINH DOANH F&B</span>
               <div class="banner-heading">Vào Vai Chủ Quán:<br>AI Vận Hành, Bạn Gánh Drama!</div>
-              <button class="banner-cta-button">
-                ▶ Vào Ca Trực Quán Ngay
-              </button>
+              <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+                <button class="banner-cta-button" onclick="openChatRoom('solo')">
+                  ▶ Vào Ca Trực Quán
+                </button>
+                <button class="banner-sub-btn" onclick="openRulesModal()" style="background:rgba(255,255,255,0.92); border:1px solid #E5E7EB; color:#854D0E; padding:6px 12px; border-radius:12px; font-size:0.75rem; font-weight:700; cursor:pointer; box-shadow:var(--shadow-sm);">
+                  📖 Luật Chơi (30s)
+                </button>
+              </div>
             </div>
-            <div class="banner-mascot-visual">🧋</div>
+            <div class="banner-mascot-visual" onclick="openChatRoom('solo')">🧋</div>
           </div>
         </div>
 
@@ -1313,9 +1449,13 @@
 
         <!-- Floating Bottom Nav -->
         <div class="bottom-nav-bar">
-          <button class="nav-tab-item active">
+          <button class="nav-tab-item active" onclick="backToInbox()">
             <span>💬</span>
             <span class="nav-label">Tin Nhắn</span>
+          </button>
+          <button class="nav-tab-item" onclick="openRulesModal()">
+            <span>📖</span>
+            <span class="nav-label">Luật Chơi</span>
           </button>
           <button class="nav-tab-item" onclick="triggerShiftClose()">
             <span>🌙</span>
@@ -1347,10 +1487,15 @@
             </div>
           </div>
 
-          <!-- Switch Mode Solo vs Group -->
-          <div class="mode-toggle-chip">
-            <button class="mode-sub-btn active" id="subBtnSolo" onclick="switchModeInChat('solo')">1:1</button>
-            <button class="mode-sub-btn" id="subBtnGroup" onclick="switchModeInChat('group')">Nhóm</button>
+          <!-- Switch Mode Solo vs Group & Quick Rules Button -->
+          <div style="display:flex; align-items:center; gap:6px;">
+            <button class="btn-chat-rules" onclick="openRulesModal()" title="Xem Luật Chơi" style="background:#FEF5D1; border:1px solid #FDC830; color:#854D0E; font-size:0.75rem; font-weight:700; padding:4px 8px; border-radius:12px; cursor:pointer;">
+              📖 Luật
+            </button>
+            <div class="mode-toggle-chip">
+              <button class="mode-sub-btn active" id="subBtnSolo" onclick="switchModeInChat('solo')">1:1</button>
+              <button class="mode-sub-btn" id="subBtnGroup" onclick="switchModeInChat('group')">Nhóm</button>
+            </div>
           </div>
         </div>
 
@@ -1393,8 +1538,20 @@
                 <span class="role-tag-pill">CỬA HÀNG TRƯỞNG AI</span>
               </div>
               <div class="bubble-card">
-                Chào Sếp Tổng! Việc vi mô (order, pha trà, tính tiền lẻ) em tự lo 100%. Sếp chỉ cần xuất hiện lúc có đại biến cố (công an phường, bom 50 ly, khách bóc phốt) để ra tay thôi nha!<br><br>
-                💡 <strong>Lưu ý:</strong> Khi có biến cố, sếp có <strong>Hộp Quyết Định [A], [B], [C]</strong> ngay bên dưới. Nếu sếp <em>"bơ"</em> tin nhắn của em quá lâu thì quán sẽ nhận <strong>CÁI KẾT TỆ</strong> đấy nhé! 🚨
+                Chào Sếp Tổng! Em là <strong>Bé Trà Sữa</strong> - Cửa hàng trưởng AI lo 100% việc vi mô vận hành quán cho sếp! 🧋🫡<br><br>
+                
+                <div class="rules-summary-box">
+                  <div class="rules-summary-title">📜 3 QUY TẮC SỐNG CÒN CỦA QUÁN:</div>
+                  <div class="rules-summary-item"><strong>1. AI lo việc vặt:</strong> Order, nấu trân châu, pha trà, tính tiền em tự lo. Sếp không cần bấm pha từng ly!</div>
+                  <div class="rules-summary-item"><strong>2. Có biến cố là sếp ra mặt:</strong> Chọn [A] 😇, [B] 😈 hoặc [C] 💬 tự gõ chat đôi co.</div>
+                  <div class="rules-summary-item"><strong>3. Tuyệt đối đừng "bơ" tin nhắn:</strong> Bơ em quá 30 phút là quán nhận <strong>CÁI KẾT TỆ</strong> (niêm phong quán, cẩu xe, phạt -6M)!</div>
+                </div>
+
+                <div style="margin-top:10px;">
+                  <button class="btn-inline-rules" onclick="openRulesModal()">
+                    📖 Xem Đầy Đủ Luật Chơi &amp; Bí Kíp Khởi Nghiệp (30s)
+                  </button>
+                </div>
               </div>
               <div class="msg-time-status">09:41</div>
             </div>
@@ -1405,6 +1562,9 @@
         <div class="chat-bottom-dock">
           <!-- Dynamic Action Chips Bar -->
           <div class="chips-carousel" id="quickChipsContainer">
+            <button class="chip-bubble-btn highlight" onclick="openRulesModal()">
+              📖 Luật Chơi 30s
+            </button>
             <button class="chip-bubble-btn highlight" onclick="triggerHeartbeatEvent()">
               ⚡ Réo Biến Cố Ngay
             </button>
@@ -1433,6 +1593,118 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 0: HƯỚNG DẪN & LUẬT CHƠI (GAME RULES & ONBOARDING)
+       ======================================================== -->
+  <div class="modal-overlay" id="modalRules">
+    <div class="modal-card" style="border: 2px solid #FDC830;">
+      <div class="modal-head">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.4rem;">📖</span>
+          <div>
+            <h4 style="color:#854D0E; font-size:0.95rem; font-weight:800;">SỔ TAY KHỞI NGHIỆP: LUẬT CHƠI TIỆM TRÀ SỮA</h4>
+            <div style="font-size:0.68rem; color:#757575;">Nắm vững trong 30 giây để không bị phá sản vỡ nợ!</div>
+          </div>
+        </div>
+        <button class="btn-close-x" onclick="closeModal('modalRules')">✕</button>
+      </div>
+
+      <div class="rules-grid">
+        <!-- Rule 1 -->
+        <div class="rule-card-item">
+          <div class="rule-icon-box" style="background:#FEF5D1; color:#854D0E;">👩‍💼</div>
+          <div class="rule-info">
+            <div class="rule-title-row">
+              <span class="rule-title">1. AI Làm Culi, Sếp Làm Chủ</span>
+              <span class="rule-badge" style="background:#DCFCE7; color:#15803D;">Tự động 100%</span>
+            </div>
+            <div class="rule-desc">
+              Bé Trà Sữa (AI) tự động lo 100% việc vi mô: nhập đá, pha chế, order, tính tiền lẻ. Sếp <strong>không cần bấm pha từng ly trà</strong>, chỉ cần ra mặt khi có biến lớn!
+            </div>
+          </div>
+        </div>
+
+        <!-- Rule 2 -->
+        <div class="rule-card-item">
+          <div class="rule-icon-box" style="background:#FEE2E2; color:#DC2626;">⚡</div>
+          <div class="rule-info">
+            <div class="rule-title-row">
+              <span class="rule-title">2. Nhịp Tim 30 Phút &amp; Biến Cố Đời Thực</span>
+              <span class="rule-badge" style="background:#FEE2E2; color:#DC2626;">Heartbeat AI</span>
+            </div>
+            <div class="rule-desc">
+              Mỗi 30 phút (hoặc bấm <em>"⚡ Réo Biến Cố"</em>), drama sẽ nổ ra: <strong>Công an đô thị dẹp vỉa hè 👮‍♂️, Tiktoker bóc phốt 📱, Bom hàng 50 ly 🛵, Mất điện rã đá ⚡...</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rule 3 -->
+        <div class="rule-card-item">
+          <div class="rule-icon-box" style="background:#EFF6FF; color:#2563EB;">⚖️</div>
+          <div class="rule-info">
+            <div class="rule-title-row">
+              <span class="rule-title">3. Ba Cách Đối Mặt: [A], [B] hay [C] Chat</span>
+              <span class="rule-badge" style="background:#DBEAFE; color:#1E40AF;">Đôi co tự do</span>
+            </div>
+            <div class="rule-desc">
+              • <strong>[A] 😇 Ngoại giao mềm mỏng:</strong> Mời nước xoa dịu (tốn tí tiền nhưng tăng Uy Tín ⭐).<br>
+              • <strong>[B] 😈 Cãi lý tới cùng:</strong> Bật cam đôi co (tiết kiệm tiền nhưng dễ bị phạt nặng/tụt sao 📉).<br>
+              • <strong>[C] 💬 Tự gõ chat quái chiêu:</strong> Tự gõ văn mẫu của Sếp vào ô chat để AI &amp; NPC ứng biến!
+            </div>
+          </div>
+        </div>
+
+        <!-- Rule 4 -->
+        <div class="rule-card-item" style="border-color:#FECACA; background:#FFF5F5;">
+          <div class="rule-icon-box" style="background:#DC2626; color:#FFF;">⏰</div>
+          <div class="rule-info">
+            <div class="rule-title-row">
+              <span class="rule-title" style="color:#DC2626;">4. Cảnh Báo: Cấm "Bơ" Tin Nhắn AI</span>
+              <span class="rule-badge" style="background:#DC2626; color:#FFF;">Cái Kết Tệ 🚨</span>
+            </div>
+            <div class="rule-desc">
+              Khi có biến sẽ có đồng hồ đếm ngược ⏱️. Nếu sếp <em>"bơ" tin nhắn quá 30 phút</em>, quán sẽ tự động nhận <strong>CÁI KẾT TỆ</strong>: bị niêm phong, cẩu xe, phạt -6.000.000đ và sao rớt thảm hại!
+            </div>
+          </div>
+        </div>
+
+        <!-- Rule 5 -->
+        <div class="rule-card-item">
+          <div class="rule-icon-box" style="background:#F0FDF4; color:#16A34A;">📊</div>
+          <div class="rule-info">
+            <div class="rule-title-row">
+              <span class="rule-title">5. Hai Chỉ Số &amp; Tiến Trình Ngày 1, 2...</span>
+              <span class="rule-badge" style="background:#DCFCE7; color:#15803D;">Chốt ca tối</span>
+            </div>
+            <div class="rule-desc">
+              Chỉ cần theo dõi 💰 <strong>Tiền Két</strong> (tránh &lt;0đ) và ⭐ <strong>Uy Tín</strong> (tránh &lt;2.5★). Hết ngày, bấm <strong>"🌙 Kết Ca"</strong> để thu tiền két và bước sang <strong>Ngày tiếp theo</strong>.
+            </div>
+          </div>
+        </div>
+
+        <!-- Rule 6 -->
+        <div class="rule-card-item">
+          <div class="rule-icon-box" style="background:#FAF5FF; color:#7E22CE;">🤝</div>
+          <div class="rule-info">
+            <div class="rule-title-row">
+              <span class="rule-title">6. Khoảnh Khắc +1 Bạn &amp; Flex Viral</span>
+              <span class="rule-badge" style="background:#F3E8FF; color:#6B21A8;">Viral Story</span>
+            </div>
+            <div class="rule-desc">
+              • <strong>Thủng két (&lt;0đ):</strong> Gửi link SOS rủ bạn thân góp 20 củ cứu nét.<br>
+              • <strong>Đại gia (&gt;100M):</strong> Bổ nhiệm bạn thân làm CEO Quán Phở 🍜 / Tiệm Nail 💅.<br>
+              • <strong>Flex Tạo Tác:</strong> Tải / Share <em>Bằng Khen Phá Sản</em> hoặc <em>Chứng Nhận Đế Chế</em> lên Story!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-action-primary" onclick="confirmRulesUnderstood()" style="padding:12px; font-size:0.85rem;">
+        🚀 TÔI ĐÃ HIỂU! BẮT ĐẦU MỞ QUÁN NGAY
+      </button>
     </div>
   </div>
 
@@ -2208,6 +2480,27 @@
     function closeModal(id) {
       document.getElementById(id).classList.remove('active');
     }
+
+    /* ========================================================
+       MODAL LUẬT CHƠI & BÍ KÍP KHỞI NGHIỆP
+       ======================================================== */
+    function openRulesModal() {
+      document.getElementById('modalRules').classList.add('active');
+    }
+
+    function confirmRulesUnderstood() {
+      sessionStorage.setItem('duhat_tra_sua_rules_seen', 'true');
+      closeModal('modalRules');
+    }
+
+    // Tự động hiển thị Sổ Tay Luật Chơi khi vào web lần đầu tiên
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!sessionStorage.getItem('duhat_tra_sua_rules_seen')) {
+        setTimeout(() => {
+          openRulesModal();
+        }, 500);
+      }
+    });
 
     function openBailoutModal() {
       document.getElementById('modalBailout').classList.add('active');
