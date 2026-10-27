@@ -42,13 +42,15 @@
   - Thẻ Biến Cố (Crisis Gate Cards): Banner minh họa visual + Tóm tắt hiểm họa + 2-3 nút phản hồi nhanh (Decision Chips).
   - Tự do gõ lệnh (Free-text prompt): Người chơi có thể tự gõ phương án xử lý dị biệt ("Cho anh công an 2 ly trà đào thêm trân châu cám ơn các chú đã ghé") để AI tự suy luận hậu quả.
 
-### Trụ cột 2: AI Có "Nhịp Tim" (Heartbeat & Proactive Pacing)
-- Khắc phục điểm yếu lớn nhất của chatbot thông thường là **sự thụ động** (User không hỏi thì bot im re).
-- **Proactive Heartbeat System:**
-  - AI được lập lịch theo nhịp sinh học của một quán nước thực tế (07:00 Mở cửa quét dọn -> 11:30 Đỉnh điểm công sở -> 15:00 Giờ trà chiều -> 21:00 Dọn quán chốt két).
-  - Cứ mỗi 30 phút - 1 tiếng (hoặc theo timer cấu hình), AI chủ động "réo" chủ quán:
-    - *"Sếp ơi cứu bé! Bên giao đá lạnh dọa ngắt hàng vì tuần trước sếp quên chuyển khoản!"*
-    - *"Sếp ơi trời đổ mưa rào rồi, vắng tanh như chùa Bà Đanh, có nên xả kho giảm giá 50% không sếp?"*
+### Trụ cột 2: Đội Ngũ AI Multi-Agent Tự Vận Hành & Live Operations Feed
+- Khắc phục hoàn toàn sự im ắng của chatbot thông thường. Một tiệm trà sữa thực tế không bao giờ tĩnh lặng!
+- **Đội Ngũ 4 Nhân Sự AI Đa Vai Chạy Ca Tự Động:**
+  - **Bé Trà Sữa (AI Store Manager 👩‍💼):** Điều phối chung, đối soát sổ quỹ POS, báo cáo doanh thu và chăm sóc sếp.
+  - **Tuấn Barista (Pha Chế Trưởng 🧑‍🍳):** Nấu trân châu hoàng kim, ủ cốt trà Ô Long, đánh kem cheese, bảo dưỡng máy móc.
+  - **Bé Thư (Thu Ngân & CSKH 👧):** Báo cáo đơn app Grab/ShopeeFood ting ting, khách công sở mua số lượng lớn, chuẩn bị tiền lẻ.
+  - **Cu Bo (Phụ Bếp & Hậu Cần 👦):** Nhận đá sạch 2 lớp, xếp sữa Dalat Milk vào tủ mát 4°C, lau sàn sả chanh, dắt xe thẳng hàng vỉa hè.
+- **Tác Động Thực Tế Lên Dòng Tiền & Sản Lượng:** Mỗi thông báo đơn hàng tự động đều thực sự cộng doanh thu (+135.000đ, +225.000đ) vào két, nhảy số ly đã bán và nâng uy tín sao.
+- **Thanh Điều Khiển Live Stream Linh Hoạt:** Nhịp tim tự động phát tin mỗi 8 giây; tích hợp nút **[⚡ Báo Cáo Ngay]** nhận báo cáo tức thì và nút **[⏸️ Tạm Dừng / ▶️ Tiếp Tục]** tùy chỉnh.
 
 ### Trụ cột 3: Khoảnh khắc +1 Bạn (Co-op & Viral Tipping Points)
 Game thiết kế sẵn 3 điểm bùng phát tâm lý khiến người chơi **bắt buộc hoặc cực kỳ thôi thúc muốn kéo bạn bè vào**:

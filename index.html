@@ -875,10 +875,11 @@
     .heartbeat-strip {
       background: #FFFBEB;
       border-bottom: 1px solid #FDE68A;
-      padding: 5px 14px;
+      padding: 5px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 6px;
       font-size: 0.68rem;
       font-weight: 700;
     }
@@ -902,16 +903,37 @@
       background: #1E293B;
       color: #FFFFFF;
       border: none;
-      padding: 3px 9px;
+      padding: 3px 8px;
       border-radius: 10px;
       font-size: 0.62rem;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+
+    .btn-fast-pulse:hover {
+      opacity: 0.9;
     }
 
     .btn-fast-pulse:active {
       transform: scale(0.95);
+    }
+
+    .store-live-status-bar {
+      background: #F8FAFC;
+      border-bottom: 1px solid #E2E8F0;
+      padding: 3px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.62rem;
+      color: #64748B;
+      font-weight: 600;
+      overflow-x: auto;
+      white-space: nowrap;
     }
 
     /* MESSAGE STREAM WITH DOODLE WALLPAPER */
@@ -1873,11 +1895,11 @@
           </div>
         </div>
 
-        <!-- TỐI GIẢN: HUD CHỈ GIỮ NGÀY, TIỀN KÉT & SAO UY TÍN -->
+        <!-- TỐI GIẢN: HUD CHỈ GIỮ NGÀY, TIỀN KÉT, SAO UY TÍN & ĐÃ BÁN -->
         <div class="streamlined-hud">
           <div class="hud-pill day-pill" id="hudDayPill">
             <span>📅</span>
-            <strong id="hudDayVal">Ngày 1 (Trưa)</strong>
+            <strong id="hudDayVal">Ngày 1 (Sáng)</strong>
           </div>
 
           <div class="hud-pill cash-pill" id="hudCashPill">
@@ -1886,8 +1908,13 @@
           </div>
 
           <div class="hud-pill stars-pill">
-            <span>⭐ Uy Tín:</span>
+            <span>⭐</span>
             <strong id="hudStarsVal">4.2★</strong>
+          </div>
+
+          <div class="hud-pill" style="background:#FDF2F8; border-color:#FBCFE8; color:#9D174D;">
+            <span>🧋 Đã bán:</span>
+            <strong id="hudCupsVal">0 ly</strong>
           </div>
         </div>
 
@@ -1916,13 +1943,32 @@
 
         <!-- Heartbeat Pulse Bar -->
         <div class="heartbeat-strip">
-          <div>
+          <div style="display:flex; align-items:center; gap:5px; overflow:hidden;">
             <span class="pulse-dot"></span>
-            <span id="heartbeatTimerText">AI Heartbeat: Đang canh quán... (Ping sau 14:30)</span>
+            <span id="heartbeatTimerText" style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">🟢 AI Tự Vận Hành: Đang trực ca (8s)</span>
           </div>
-          <button class="btn-fast-pulse" onclick="advanceShiftFlow()">
-            ⏩ Tiến Trình Ca
-          </button>
+          <div style="display:flex; align-items:center; gap:4px; flex-shrink:0;">
+            <button class="btn-fast-pulse" onclick="triggerManualOpEvent()" title="AI Cửa hàng trưởng báo cáo tình hình ngay" style="background:#2563EB;">
+              ⚡ Báo Cáo Ngay
+            </button>
+            <button class="btn-fast-pulse" id="btnToggleAutoStream" onclick="toggleAutoStream()" title="Tạm dừng / Tiếp tục luồng tin nhắn tự động" style="background:#64748B;">
+              ⏸️ Dừng
+            </button>
+            <button class="btn-fast-pulse" onclick="advanceShiftFlow()" title="Chuyển sang ca tiếp theo" style="background:#0F172A;">
+              ⏩ Tiến Ca
+            </button>
+          </div>
+        </div>
+
+        <!-- Ambient Store Status Bar -->
+        <div class="store-live-status-bar" id="storeLiveStatusBar">
+          <span>☕ Cối xay: <strong style="color:#16A34A;">Sẵn sàng</strong></span>
+          <span>•</span>
+          <span>🍯 Nồi trân châu: <strong id="livePearlStatus" style="color:#D97706;">Đầy (65°C)</strong></span>
+          <span>•</span>
+          <span>🛵 Shipper: <strong id="liveShipperStatus" style="color:#2563EB;">Kết nối</strong></span>
+          <span>•</span>
+          <span>❄️ ĐH: <strong style="color:#0284C7;">23°C</strong></span>
         </div>
 
         <!-- Message Stream -->
@@ -1950,7 +1996,35 @@
                   </button>
                 </div>
               </div>
-              <div class="msg-time-status">09:41</div>
+              <div class="msg-time-status">08:00</div>
+            </div>
+          </div>
+
+          <div class="msg-row others">
+            <div class="msg-avatar-circle">🧑‍🍳</div>
+            <div class="msg-body-wrap">
+              <div class="msg-sender-name">
+                <span>Tuấn Barista</span>
+                <span class="role-tag-pill">BARISTA TRƯỞNG</span>
+              </div>
+              <div class="bubble-card">
+                Bếp đã đỏ lửa sẵn sàng sếp ơi! Nồi trân châu hoàng kim 40 ly đang bốc khói thơm nức, cốt trà Ô Long nướng đã ủ xong mẻ đầu. Chúc tiệm mình hôm nay bão đơn! 🍯🧋
+              </div>
+              <div class="msg-time-status">08:02</div>
+            </div>
+          </div>
+
+          <div class="msg-row others">
+            <div class="msg-avatar-circle">👧</div>
+            <div class="msg-body-wrap">
+              <div class="msg-sender-name">
+                <span>Bé Thư</span>
+                <span class="role-tag-pill">THU NGÂN &amp; CSKH</span>
+              </div>
+              <div class="bubble-card">
+                Máy POS và ứng dụng đặt món ShopeeFood/GrabFood đã bật online sếp nhé! Em đã sẵn sàng nhận order ting ting! 🛵📱
+              </div>
+              <div class="msg-time-status">08:05</div>
             </div>
           </div>
 
@@ -2284,6 +2358,9 @@
       </div>
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:16px 20px;">
+        <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); triggerManualOpEvent();" style="padding:10px; justify-content:center; background:#ECFDF5; color:#065F46; font-weight:800;">
+          🛵 Thử Báo Cáo Đơn / Pha Chế Ngay
+        </button>
         <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); triggerHeartbeatEvent();" style="padding:10px; justify-content:center; background:#FEF3C7; color:#92400E; font-weight:800;">
           ⚡ Réo Biến Cố Ngẫu Nhiên
         </button>
@@ -2305,7 +2382,7 @@
         <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); triggerShiftClose();" style="padding:10px; justify-content:center; background:#F5F3FF; color:#6D28D9; font-weight:800;">
           🌙 Đóng Ca &amp; Xem Báo Cáo P&amp;L
         </button>
-        <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); resetGameLedger();" style="padding:10px; justify-content:center; color:#DC2626; font-weight:800;">
+        <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); resetGameLedger();" style="padding:10px; justify-content:center; color:#DC2626; font-weight:800; grid-column:span 2;">
           🔄 Reset Toàn Bộ Game
         </button>
       </div>
@@ -2326,6 +2403,7 @@
       turn: 1,
       mode: 'solo',
       soundEnabled: true,
+      autoStreamPaused: false,
       activeDrama: null,
       countdownTimer: null,
       countdownSeconds: 20
@@ -2522,6 +2600,9 @@
 
       document.getElementById('hudStarsVal').textContent = state.stars.toFixed(1) + '★';
 
+      const elCups = document.getElementById('hudCupsVal');
+      if (elCups) elCups.textContent = `${state.cupsSoldToday} ly`;
+
       if (state.cash >= 100000000) {
         setTimeout(openEmpireModal, 500);
       }
@@ -2571,20 +2652,44 @@
         queueTypingMessage(
           "Bé Trà Sữa",
           "CỬA HÀNG TRƯỞNG",
-          `🌤️ <strong>12:00 TRƯA - GIỜ CAO ĐIỂM BÙNG NỔ!</strong> Khách công sở tan làm ùa vào đặt 40 ly! Két tiền ting ting <strong>+1.600.000đ</strong>! 💸 Nhưng sếp ơi...`,
+          `🌤️ <strong>12:00 TRƯA - GIỜ CAO ĐIỂM BÙNG NỔ!</strong> Khách công sở các tòa nhà tan ca ùa vào dồn dập!`,
           false,
           "👩‍💼",
-          600,
+          400,
           () => {
-            state.cash += 1600000;
-            state.cupsSoldToday += 40;
-            spawnFloatingStat('+1.600.000đ 💸', 'plus');
-            SoundFX.playCash();
-            updateHUD();
-
             setTimeout(() => {
-              triggerHeartbeatEvent();
-            }, 800);
+              queueTypingMessage(
+                "Tuấn Barista",
+                "BARISTA TRƯỞNG",
+                `Cả 4 cối lắc và máy pha đang chạy hết công suất! Em vừa bổ sung mẻ trân châu hoàng kim thứ hai để kịp đơn 40 ly! 🍯🧋`,
+                false,
+                "🧑‍🍳",
+                500,
+                () => {
+                  setTimeout(() => {
+                    queueTypingMessage(
+                      "Bé Thư",
+                      "THU NGÂN & CSKH",
+                      `Két tiền thu ngân ting ting liên hồi: Ca trưa vừa thu về <strong>+1.600.000đ</strong> tiền mặt & QR! 💸 Nhưng khoan đã sếp ơi... có biến căng xuất hiện kìa!`,
+                      false,
+                      "👧",
+                      500,
+                      () => {
+                        state.cash += 1600000;
+                        state.cupsSoldToday += 40;
+                        spawnFloatingStat('+1.600.000đ 💸', 'plus');
+                        SoundFX.playCash();
+                        updateHUD();
+
+                        setTimeout(() => {
+                          triggerHeartbeatEvent();
+                        }, 700);
+                      }
+                    );
+                  }, 400);
+                }
+              );
+            }, 400);
           }
         );
       } else if (state.shiftIndex === 1) {
@@ -2596,16 +2701,40 @@
         queueTypingMessage(
           "Bé Trà Sữa",
           "CỬA HÀNG TRƯỞNG",
-          `🌆 <strong>16:00 CHIỀU - GIỜ TRÀ XẾ CÔNG SỞ!</strong> Các phòng ban công ty đua nhau order qua ShopeeFood/Grab! Quán vừa chốt thêm 35 ly trà lài kem cheese! Két tiền tăng thêm <strong>+1.400.000đ</strong>! ✨🧋`,
+          `🌆 <strong>16:00 CHIỀU - GIỜ VÀNG TRÀ XẾ CÔNG SỞ!</strong> Cả chục phòng ban công ty đua nhau order qua Grab/ShopeeFood!`,
           false,
           "👩‍💼",
-          600,
+          400,
           () => {
-            state.cash += 1400000;
-            state.cupsSoldToday += 35;
-            spawnFloatingStat('+1.400.000đ 💸', 'plus');
-            SoundFX.playCash();
-            updateHUD();
+            setTimeout(() => {
+              queueTypingMessage(
+                "Cu Bo",
+                "PHỤ BẾP & HẬU CẦN",
+                `Shipper đứng xếp hàng kín hiên quán, em đã phát số thứ tự phân luồng cực kỳ trật tự và mời các anh uống nước mát! 🛵`,
+                false,
+                "👦",
+                500,
+                () => {
+                  setTimeout(() => {
+                    queueTypingMessage(
+                      "Bé Thư",
+                      "THU NGÂN & CSKH",
+                      `Quán vừa hoàn thành xuất sắc 35 ly trà sữa nướng & trà lài kem cheese! Két tiền tăng thêm <strong>+1.400.000đ</strong>! ✨🧋`,
+                      false,
+                      "👧",
+                      500,
+                      () => {
+                        state.cash += 1400000;
+                        state.cupsSoldToday += 35;
+                        spawnFloatingStat('+1.400.000đ 💸', 'plus');
+                        SoundFX.playCash();
+                        updateHUD();
+                      }
+                    );
+                  }, 400);
+                }
+              );
+            }, 400);
           }
         );
       } else if (state.shiftIndex === 2) {
@@ -2613,7 +2742,42 @@
         state.shiftIndex = 3;
         state.shiftPhase = 'Tối (Đóng Cửa)';
         updateHUD();
-        triggerShiftClose();
+
+        queueTypingMessage(
+          "Tuấn Barista",
+          "BARISTA TRƯỞNG",
+          `Quầy pha chế đã dọn dẹp sạch bóng, sấy khô cối xay và niêm phong toàn bộ nguyên liệu vào tủ đông an toàn vệ sinh 100%!`,
+          false,
+          "🧑‍🍳",
+          400,
+          () => {
+            setTimeout(() => {
+              queueTypingMessage(
+                "Cu Bo",
+                "PHỤ BẾP & HẬU CẦN",
+                `Em đã lau sàn 2 lượt tinh dầu sả, gom rác tái chế và dắt toàn bộ xe máy của nhân viên vào nhà khóa chốt an toàn ạ!`,
+                false,
+                "👦",
+                450,
+                () => {
+                  setTimeout(() => {
+                    queueTypingMessage(
+                      "Bé Trà Sữa",
+                      "CỬA HÀNG TRƯỞNG",
+                      `🌙 <strong>21:30 - KẾT THÚC NGÀY ${state.day}!</strong> Toàn bộ sổ quỹ tiền mặt và tài khoản ngân hàng đã được khóa sổ minh bạch. Kính mời Sếp duyệt Báo Cáo P&L tổng kết ca hôm nay ạ!`,
+                      false,
+                      "👩‍💼",
+                      500,
+                      () => {
+                        triggerShiftClose();
+                      }
+                    );
+                  }, 400);
+                }
+              );
+            }, 400);
+          }
+        );
       } else {
         // Khai ca ngày mới
         startNextDay();
@@ -3349,34 +3513,283 @@
       updateHUD();
 
       queueTypingMessage(
-        "Bé Trà Sữa",
-        "CỬA HÀNG TRƯỞNG",
-        `☀️ CHÀO BUỔI SÁNG SẾP TỔNG! Hôm nay là <strong>NGÀY ${state.day}</strong> kinh doanh! Em vừa nhập đá lạnh và nấu sẵn nồi trân châu đường đen thơm phức! Dự kiến trưa nay khách công sở sẽ đông nghẹt sếp nhé! ✨🧋`,
+        "Cu Bo",
+        "PHỤ BẾP & HẬU CẦN",
+        `07:30 sáng - Em vừa mở cửa cuốn đón ánh nắng mai, lau lại bảng hiệu tiệm sáng bóng đón chào Ngày ${state.day}! ☀️🧹`,
         false,
-        "👩‍💼",
-        600
+        "👦",
+        400,
+        () => {
+          setTimeout(() => {
+            queueTypingMessage(
+              "Tuấn Barista",
+              "BARISTA TRƯỞNG",
+              `Bếp đã đỏ lửa, nước cốt trà Ô Long mới đang sôi sùng sục, mẻ trân châu sớm dẻo quánh thơm nức nở cả gian nhà! 🧋`,
+              false,
+              "🧑‍🍳",
+              450,
+              () => {
+                setTimeout(() => {
+                  queueTypingMessage(
+                    "Bé Trà Sữa",
+                    "CỬA HÀNG TRƯỞNG",
+                    `☀️ CHÀO BUỔI SÁNG SẾP TỔNG! Quán đã sẵn sàng khai ca <strong>NGÀY ${state.day}</strong>! Toàn bộ đội ngũ AI vào vị trí trực chiến, mục tiêu hôm nay là bứt phá doanh thu sếp nhé! ✨💸`,
+                    false,
+                    "👩‍💼",
+                    500
+                  );
+                }, 400);
+              }
+            );
+          }, 400);
+        }
       );
     }
 
     /* ========================================================
-       HEARTBEAT TIMER TỰ ĐỘNG
+       HỆ THỐNG ĐỘI NGŨ AI TỰ VẬN HÀNH QUÁN (MULTI-AGENT AUTONOMOUS STORE)
        ======================================================== */
-    let heartbeatSecs = 30;
+    const opEventsList = [
+      // 1. ĐƠN HÀNG APPS & KHÁCH TẠI CHỖ (REVENUE EVENTS)
+      {
+        sender: "Bé Thư",
+        role: "THU NGÂN & CSKH",
+        avatar: "👧",
+        text: "🛵 <strong>Đơn ShopeeFood hoàn tất!</strong> Tài xế vừa lấy 3 ly Ô Long Mắc Ca Sữa Nướng giao tòa Ree Tower (+135.000đ)! Két tiền ting ting nhảy số ạ! 💸",
+        revenue: 135000,
+        cups: 3,
+        deltaStars: 0,
+        pearlStatus: "Đang phục vụ tốt (80%)"
+      },
+      {
+        sender: "Bé Thư",
+        role: "THU NGÂN & CSKH",
+        avatar: "👧",
+        text: "🍹 <strong>Khách công sở ghé quán!</strong> Chị Trưởng phòng Nhân sự công ty kế bên vừa đặt 5 ly Trà Trái Cây giải nhiệt cho team (+225.000đ)! Chị khen trà đào thơm mát chuẩn vị!",
+        revenue: 225000,
+        cups: 5,
+        deltaStars: 0.05,
+        pearlStatus: "Cốt trà trái cây: Xuất sắc"
+      },
+      {
+        sender: "Bé Thư",
+        role: "THU NGÂN & CSKH",
+        avatar: "👧",
+        text: "🛵 <strong>Đơn GrabFood siêu tốc!</strong> Tài xế nhận 2 ly Sữa Tươi Trân Châu Đường Đen size L (+110.000đ). Anh shipper khen quán làm nhanh chưa đầy 3 phút!",
+        revenue: 110000,
+        cups: 2,
+        deltaStars: 0,
+        pearlStatus: "Trân châu đường đen: -2 phần"
+      },
+      {
+        sender: "Bé Thư",
+        role: "THU NGÂN & CSKH",
+        avatar: "👧",
+        text: "✨ <strong>Bàn số 3 gọi thêm món!</strong> Khách vừa quét mã VietQR gọi 1 ly Trà Sữa Nướng và 1 hũ Bánh Flan trứng gà béo ngậy (+65.000đ)!",
+        revenue: 65000,
+        cups: 1,
+        deltaStars: 0,
+        pearlStatus: "Bánh Flan: Đã phục vụ"
+      },
+      {
+        sender: "Bé Thư",
+        role: "THU NGÂN & CSKH",
+        avatar: "👧",
+        text: "📚 <strong>Nhóm học sinh tan trường:</strong> 4 bạn sinh viên ghé bàn góc gọi 4 ly Trà Sữa Trân Châu Sợi size M (+160.000đ). Tiền mặt đã vào két an toàn ạ!",
+        revenue: 160000,
+        cups: 4,
+        deltaStars: 0,
+        pearlStatus: "Trân châu sợi: -4 phần"
+      },
+
+      // 2. QUẦY BAR & NẤU NGUYÊN LIỆU (BARISTA EVENTS)
+      {
+        sender: "Tuấn Barista",
+        role: "BARISTA TRƯỞNG",
+        avatar: "🧑‍🍳",
+        text: "🍯 <strong>Nồi trân châu hoàng kim mới ra lò!</strong> Nấu đường đen 45 phút dẻo quánh, hạt trân châu bóng bẩy bốc khói thơm nức. Đã chia vào khay ủ giữ ấm 65°C!",
+        revenue: 0,
+        cups: 0,
+        deltaStars: 0.05,
+        pearlStatus: "Đầy nồi (Nóng hổi 65°C)"
+      },
+      {
+        sender: "Tuấn Barista",
+        role: "BARISTA TRƯỞNG",
+        avatar: "🧑‍🍳",
+        text: "🧋 <strong>Ủ xong mẻ cốt trà Ô Long nướng số 9!</strong> Nước trà màu hổ phách đậm đà sánh mịn, thơm nồng không hề bị chát đắng. Sẵn sàng cho 50 ly kế tiếp!",
+        revenue: 0,
+        cups: 0,
+        deltaStars: 0,
+        pearlStatus: "Cốt trà Ô Long: Đạt chuẩn"
+      },
+      {
+        sender: "Tuấn Barista",
+        role: "BARISTA TRƯỞNG",
+        avatar: "🧑‍🍳",
+        text: "🧀 <strong>Đánh mẻ kem cheese Anchor mới!</strong> Độ sánh mịn và vị béo mặn chuẩn tỉ lệ vàng, dốc ngược cối không chảy. Khách nào gọi macchiato là mê tít!",
+        revenue: 0,
+        cups: 0,
+        deltaStars: 0.05,
+        pearlStatus: "Kem cheese: Đầy khay"
+      },
+      {
+        sender: "Tuấn Barista",
+        role: "BARISTA TRƯỞNG",
+        avatar: "🧑‍🍳",
+        text: "⚙️ <strong>Bảo dưỡng máy dập nắp:</strong> Em vừa lau mắt cảm biến quang học và căn nhiệt độ khuôn 165°C. Màng bọc dập khít 100%, không lo bung rách khi giao hàng!",
+        revenue: 0,
+        cups: 0,
+        deltaStars: 0,
+        pearlStatus: "Máy dập: Hoàn hảo"
+      },
+
+      // 3. HẬU CẦN & KHÔNG GIAN (SUPPORT STAFF EVENTS)
+      {
+        sender: "Cu Bo",
+        role: "PHỤ BẾP & HẬU CẦN",
+        avatar: "👦",
+        text: "🧊 <strong>Nhận đá viên tinh khiết:</strong> Xe chở đá vừa giao 4 bao đá bi sạch, em đã xếp vào hầm xốp 2 lớp đậy kín, bảo đảm đá không tan hao hụt ạ!",
+        revenue: 0,
+        cups: 0,
+        deltaStars: 0,
+        pearlStatus: "Đá viên: Đầy hầm"
+      },
+      {
+        sender: "Cu Bo",
+        role: "PHỤ BẾP & HẬU CẦN",
+        avatar: "👦",
+        text: "📦 <strong>Nhập kho sữa tươi:</strong> 3 thùng sữa Dalat Milk date mới tinh vừa được kiểm tra tem và xếp ngay ngắn vào ngăn mát 4°C tủ lạnh chuyên dụng.",
+        revenue: 0,
+        cups: 0,
+        deltaStars: 0,
+        pearlStatus: "Sữa Dalat: Chuẩn 4°C"
+      },
+      {
+        sender: "Cu Bo",
+        role: "PHỤ BẾP & HẬU CẦN",
+        avatar: "👦",
+        text: "🧹 <strong>Vệ sinh sảnh đón khách:</strong> Em vừa lau sàn xong xuôi với tinh dầu sả chanh, bật nhạc lofi nhẹ nhàng, không gian quán cực thơm mát và chill!",
+        revenue: 0,
+        cups: 0,
+        deltaStars: 0.05,
+        pearlStatus: "Không gian: Sạch mát"
+      },
+      {
+        sender: "Cu Bo",
+        role: "PHỤ BẾP & HẬU CẦN",
+        avatar: "👦",
+        text: "🛵 <strong>Chỉnh trang vỉa hè:</strong> Dãy xe của khách em đã xếp thẳng tắp theo vạch sơn, khóa dây an toàn và chừa rộng 2m vỉa hè cho người đi bộ!",
+        revenue: 0,
+        cups: 0,
+        deltaStars: 0.05,
+        pearlStatus: "Vỉa hè: Ngăn nắp"
+      },
+
+      // 4. REVIEW, CSKH & GIÁM SÁT (STORE MANAGER EVENTS)
+      {
+        sender: "Bé Trà Sữa",
+        role: "CỬA HÀNG TRƯỞNG AI",
+        avatar: "👩‍💼",
+        text: "⭐ <strong>Khách review 5 sao Google Maps!</strong> 'Trà sữa thơm thanh béo dịu, topping trân châu dẻo mềm, nhân viên lễ phép'. Uy tín quán tăng nhẹ <strong>+0.1★</strong> nha sếp!",
+        revenue: 0,
+        cups: 0,
+        deltaStars: 0.1,
+        pearlStatus: "Uy tín: Tăng nhẹ"
+      },
+      {
+        sender: "Bé Trà Sữa",
+        role: "CỬA HÀNG TRƯỞNG AI",
+        avatar: "👩‍💼",
+        text: "⏱️ <strong>Báo cáo tốc độ phục vụ:</strong> Trong 20 phút qua toàn quán đã ra lò 22 ly nước, tốc độ trung bình đạt 1.9 phút/ly! 100% khách không phải đợi lâu!",
+        revenue: 0,
+        cups: 0,
+        deltaStars: 0,
+        pearlStatus: "Tốc độ: 1.9 phút/ly"
+      },
+      {
+        sender: "Bé Trà Sữa",
+        role: "CỬA HÀNG TRƯỞNG AI",
+        avatar: "👩‍💼",
+        text: "📸 <strong>Viral Story:</strong> Có bạn khách nữ vừa chụp hình ly Trà Lài Kem Cheese check-in lên Threads khen ly thiết kế xinh xắn, tag tên quán tiệm mình sếp ơi!",
+        revenue: 0,
+        cups: 0,
+        deltaStars: 0.05,
+        pearlStatus: "Mạng xã hội: Tích cực"
+      },
+      {
+        sender: "Bé Trà Sữa",
+        role: "CỬA HÀNG TRƯỞNG AI",
+        avatar: "👩‍💼",
+        text: "🧾 <strong>Đối soát sổ quỹ mini:</strong> Em vừa khớp số tiền mặt và các bill chuyển khoản VietQR ca sáng, 100% khớp lệnh theo Sổ Cái trong hệ thống!",
+        revenue: 0,
+        cups: 0,
+        deltaStars: 0,
+        pearlStatus: "Két tiền: Khớp 100%"
+      }
+    ];
+
+    let currentOpIndex = 0;
+    function triggerNextOpEvent(isManual = false) {
+      if (state.activeDrama) return;
+
+      const ev = opEventsList[currentOpIndex % opEventsList.length];
+      currentOpIndex++;
+
+      queueTypingMessage(ev.sender, ev.role, ev.text, false, ev.avatar, isManual ? 300 : 450, () => {
+        if (ev.revenue > 0) {
+          state.cash += ev.revenue;
+          state.cupsSoldToday += ev.cups;
+          SoundFX.playCash();
+          spawnFloatingStat(`+${formatMoney(ev.revenue)} 💸`, 'plus');
+        } else if (ev.deltaStars > 0) {
+          state.stars = Math.min(5.0, Number((state.stars + ev.deltaStars).toFixed(2)));
+          SoundFX.playPop();
+          spawnFloatingStat(`+${ev.deltaStars.toFixed(1)}★ ⭐`, 'plus');
+        }
+
+        if (ev.pearlStatus) {
+          const elP = document.getElementById('livePearlStatus');
+          if (elP) elP.textContent = ev.pearlStatus;
+        }
+
+        updateHUD();
+      });
+    }
+
+    function triggerManualOpEvent() {
+      heartbeatSecs = 8;
+      triggerNextOpEvent(true);
+    }
+
+    function toggleAutoStream() {
+      state.autoStreamPaused = !state.autoStreamPaused;
+      const btn = document.getElementById('btnToggleAutoStream');
+      const text = document.getElementById('heartbeatTimerText');
+      if (state.autoStreamPaused) {
+        if (btn) { btn.innerHTML = '▶️ Tiếp Tục'; btn.style.background = '#16A34A'; }
+        if (text) text.innerHTML = '🟡 Stream tạm dừng (Bấm Tiếp tục hoặc Báo Cáo Ngay)';
+      } else {
+        if (btn) { btn.innerHTML = '⏸️ Dừng'; btn.style.background = '#64748B'; }
+        heartbeatSecs = 8;
+        if (text) text.innerHTML = `🟢 AI Tự Vận Hành: Đang trực ca (8s)`;
+      }
+    }
+
+    let heartbeatSecs = 8;
     setInterval(() => {
+      if (state.activeDrama || state.autoStreamPaused) return;
+
       heartbeatSecs--;
       if (heartbeatSecs <= 0) {
-        heartbeatSecs = 40;
-        if (!state.activeDrama) {
-          const softChats = [
-            "Sếp ơi trời bắt đầu nắng to rồi, em pha sẵn 20 ly trà đào cam sả chờ khách công sở nha! 🍹",
-            "Ting ting! Thu ngân vừa nhận thêm 1 đơn 4 ly trà lài (+120k) 💸",
-            "Sếp ơi máy dập nắp hơi kêu lục cục, chắc lát em phải gọi thợ qua bảo dưỡng quá ạ."
-          ];
-          appendChatMessage("Bé Trà Sữa", "CỬA HÀNG TRƯỞNG", softChats[Math.floor(Math.random() * softChats.length)], false, "👩‍💼");
-        }
+        heartbeatSecs = 8;
+        triggerNextOpEvent(false);
       }
-      document.getElementById('heartbeatTimerText').textContent =
-        `AI Heartbeat: Đang canh quán... (Ping sau 00:${heartbeatSecs < 10 ? '0' : ''}${heartbeatSecs})`;
+
+      const timerEl = document.getElementById('heartbeatTimerText');
+      if (timerEl && !state.autoStreamPaused) {
+        timerEl.textContent = `🟢 AI Tự Vận Hành: Đang trực ca (00:${heartbeatSecs < 10 ? '0' : ''}${heartbeatSecs})`;
+      }
     }, 1000);
 
     /* ========================================================
