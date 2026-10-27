@@ -1936,6 +1936,9 @@
             <button class="chip-bubble-btn highlight" id="btnMainShiftAction" onclick="advanceShiftFlow()" style="background:#0F172A; color:#FFFFFF; font-weight:800; border:none;">
               ▶ Vào Giờ Cao Điểm Trưa (12:00) ⚡
             </button>
+            <button class="chip-bubble-btn" onclick="triggerHeartbeatEvent()" style="background:#FEF3C7; color:#92400E; font-weight:800; border:1px solid #FDE68A;">
+              🎲 Ra Quyết Định Mới ⚡
+            </button>
             <button class="chip-bubble-btn" onclick="openStoreInfoModal()" style="background:#F1F5F9; color:#334155; font-weight:700;">
               🏪 Chi Tiết Quán
             </button>
@@ -2510,8 +2513,75 @@
       setTimeout(() => badge.remove(), 1200);
     }
 
-    /* DANH SÁCH BIẾN CỐ ĐÔI CO HÀI HƯỚC (DRAMA POOL) */
+    /* ========================================================
+       DANH SÁCH BIẾN CỐ & QUYẾT ĐỊNH QUẢN LÝ (4 OPTIONS & ĐÁNH ĐỔI THỰC TẾ)
+       ======================================================== */
     const dramaList = [
+      {
+        id: "nhap_nguyen_lieu",
+        title: "CẠN KHO NGUYÊN LIỆU: BÀI TOÁN NHẬP HÀNG SINH TỬ 📦",
+        npcName: "Tuấn Barista",
+        npcAvatar: "🧑‍🍳",
+        npcRole: "BARISTA TRƯỞNG",
+        npcChat: "Sếp ơi khẩn cấp! Kho vừa cạn sạch cốt trà Ô Long & sữa tươi cho ca trưa rồi! Khách công sở sắp ùa ra đặt 60 ly, sếp chỉ đạo nhập nguồn nào gấp đây ạ?",
+        options: [
+          {
+            key: "A",
+            color: "#16A34A",
+            badge: "🟢 Siêu Thị Kiểm Định",
+            label: "Mua Siêu Thị MegaMarket",
+            tradeoff: "💰 Chi: -1.2M • ⭐ +0.3★ (An toàn 100%, lãi mỏng)",
+            replyText: "Chạy ngay ra MegaMarket mua sữa tươi thanh trùng chuẩn kiểm định cho an toàn!",
+            npcReaction: "Tuấn Barista thở phào: 'Dạ sếp! Nguyên liệu chuẩn xịn, khách uống khen trà thơm ngậy chuẩn vị, đánh giá 5 sao ầm ầm ạ!'",
+            deltaCash: -1200000,
+            deltaStars: 0.3
+          },
+          {
+            key: "B",
+            color: "#D97706",
+            badge: "🟡 Chợ Đầu Mối",
+            label: "Nhập Đại Lý Chợ Đầu Mối",
+            tradeoff: "💰 Chi: -450k • ⭐ 0★ (Giá vừa, chất lượng 50/50)",
+            replyText: "Ra đại lý chợ đầu mối lấy 2 bao bột sữa về pha tạm ca trưa!",
+            npcReaction: "Tuấn Barista: 'Hàng chợ đầu mối pha vừa vặn sếp ơi, khách uống tạm ổn, không ai chê cũng không ai khen!'",
+            deltaCash: -450000,
+            deltaStars: 0.0
+          },
+          {
+            key: "C",
+            color: "#DC2626",
+            badge: "🔴 Hàng Trôi Nổi Giá Rẻ",
+            label: "Mua Mối Quen Bao Bì Tiếng Lạ",
+            tradeoff: "⚡ Chi: -150k • 💸 Lãi khủng • ⚠️ 35% khách đau bụng",
+            replyText: "Nhập mối hàng rẻ trôi nổi đi, tiết kiệm tiền lời ca trưa là thượng sách!",
+            hasRisk: true,
+            riskChance: 0.35,
+            safeReaction: "Bé Trà Sữa: 'Hú vía sếp ơi! Mẻ này pha trót lọt, tiền lãi hôm nay tăng thêm +850k mà khách chưa ai mắng vốn!'",
+            safeDeltaCash: 850000,
+            safeDeltaStars: 0.1,
+            badReaction: "Bé Thư hớt hải: 'TOANG RỒI SẾP ƠI! Có 3 khách công sở uống xong bị tào tháo rượt đòi kiện! Quán phải đền -2.000.000đ tiền thuốc men và bị vote 1 sao rầm rộ! 💀'",
+            badDeltaCash: -2000000,
+            badDeltaStars: -0.8
+          },
+          {
+            key: "D",
+            color: "#7C3AED",
+            badge: "🟣 Pha Loãng Ăn Gian",
+            label: "Bớt Sữa Tăng Nước & Đá",
+            tradeoff: "💰 Chi: 0đ • ⭐ -0.6★ (Bớt 50% sữa, khách chê nhạt)",
+            replyText: "Pha loãng công thức ra, tăng nước lọc và đá lạnh lên cho đủ 60 ly!",
+            npcReaction: "Khách công sở uống xong nhận xét: 'Trà sữa nhạt toẹt như nước lã pha đường, không bao giờ quay lại!'",
+            deltaCash: 0,
+            deltaStars: -0.6
+          }
+        ],
+        ignoredBadEnd: {
+          warning: "Sếp ơiii! Khách công sở đang đứng kín quầy đòi trà sữa mà không có nguyên liệu kìa sếp! 😭🚨",
+          disaster: "MẤT TRẮNG KHÁCH CA TRƯA! Vì sếp bỏ mặc không quyết định nguồn hàng, 60 khách công sở bực bội bỏ đi sang quán đối thủ! Quán mất doanh thu và bị phốt phục vụ chậm chạp rớt -1.0★! 💀",
+          deltaCash: -2500000,
+          deltaStars: -1.0
+        }
+      },
       {
         id: "cong_an_phuong",
         title: "ĐOÀN KIỂM TRA TRẬT TỰ ĐÔ THỊ ĐỘT KÍCH 🚒",
@@ -2522,7 +2592,10 @@
         options: [
           {
             key: "A",
-            label: "Ngoại giao mềm mỏng & Mời nước",
+            color: "#16A34A",
+            badge: "😇 Ngoại Giao Mềm Mỏng",
+            label: "Mời Trà Đào & Xin Tự Dọn",
+            tradeoff: "💰 Chi: -500k • ⭐ +0.3★ (Xoa dịu, an toàn)",
             replyText: "Dạ em xin lỗi cán bộ! Em mời các anh 2 ly trà đào cam sả trân châu hạ hỏa, em cho nhân viên dắt gọn xe vào ngõ bên cạnh ngay đây ạ!",
             npcReaction: "Cán bộ Hùng nhấp ngụm trà đào tấm tắc khen ngon: 'Thôi được rồi, quán làm ăn tử tế, nhắc nhở lần đầu nhé, dọn xe gọn vào!'",
             deltaCash: -500000,
@@ -2530,11 +2603,36 @@
           },
           {
             key: "B",
-            label: "Cứng rắn cãi lý kịch liệt",
+            color: "#DC2626",
+            badge: "😈 Cãi Lý Tới Cùng",
+            label: "Bật Cam Đòi Kế Hoạch Chuyên Đề",
+            tradeoff: "💰 Chi 0đ ngay • ⭐ -0.8★ • Phạt kịch khung -4.000.000đ",
             replyText: "Bật camera điện thoại lên: 'Vỉa hè này không có biển cấm đỗ, các anh kiểm tra có kế hoạch chuyên đề chưa mà dọa cẩu xe?'",
             npcReaction: "Cán bộ Hùng lập biên bản kịch khung: 'Chống đối người thi hành công vụ! Phạt 4.000.000đ và tạm giữ 5 xe máy phương tiện vi phạm!'",
             deltaCash: -4000000,
-            deltaStars: -0.6
+            deltaStars: -0.8
+          },
+          {
+            key: "C",
+            color: "#D97706",
+            badge: "🤝 Nhờ Người Quen",
+            label: "Gọi Bác Ba Tổ Trưởng Đỡ Lời",
+            tradeoff: "💰 Chi: -300k trà nước • ⭐ 0★ (Thoát hiểm êm)",
+            replyText: "Alo Bác Ba tổ trưởng ra đỡ lời bảo lãnh giúp tiệm cháu với ạ!",
+            npcReaction: "Bác Ba ra nói đỡ vài câu thân tình, các cán bộ chỉ nhắc nhở nhẹ rồi chuyển sang ngõ khác kiểm tra.",
+            deltaCash: -300000,
+            deltaStars: 0.0
+          },
+          {
+            key: "D",
+            color: "#7C3AED",
+            badge: "🏃 Tẩu Thoát Tạm Thời",
+            label: "Cho Nhân Viên Nổ Máy Chạy Trốn",
+            tradeoff: "💰 Chi: 0đ • ⭐ -0.3★ (Khách cáu vì phải đợi)",
+            replyText: "Cu Bo đâu, dắt 5 xe nổ máy chạy lòng vòng phố chờ công an đi qua rồi dắt về!",
+            npcReaction: "Cu Bo dắt xe chạy trốn thoát phạt, nhưng 2 khách vội về họp đứng chờ xe bực mình càm ràm vì trễ giờ!",
+            deltaCash: 0,
+            deltaStars: -0.3
           }
         ],
         ignoredBadEnd: {
@@ -2546,7 +2644,7 @@
       },
       {
         id: "tiktoker_boc_phot",
-        title: "TIKTOKER 2 TRIỆU VIEW BÓC PHỐT TRÂN CHÂU THẠCH GIÁN 📱",
+        title: "TIKTOKER 2 TRIỆU VIEW BÓC PHỐT TRÂN CHÂU THẠCH DỊ VẬT 📱",
         npcName: "Minh Review (Tiktoker 2M View)",
         npcAvatar: "📱",
         npcRole: "FOOD REVIEWER",
@@ -2554,19 +2652,52 @@
         options: [
           {
             key: "A",
-            label: "Xoa dịu, trích xuất camera & Tặng voucher",
-            replyText: "Dạ tiệm xin lỗi anh Minh! Bếp em vừa trích xuất camera kiểm tra, trân châu nướng caramel tươi 100%. Em xin gửi anh voucher trà sữa trọn đời và hỗ trợ chi phí khám răng ạ!",
+            color: "#16A34A",
+            badge: "🎁 Xoa Dịu Có Tâm",
+            label: "Trích Xuất Cam & Tặng Voucher",
+            tradeoff: "💰 Chi: -1.5M • ⭐ +0.8★ (Biến nguy thành cơ, viral xịn)",
+            replyText: "Dạ tiệm xin lỗi anh Minh! Bếp em vừa trích xuất camera kiểm tra, trân châu tươi nấu mới. Em xin gửi voucher trọn đời và hỗ trợ chi phí khám răng ạ!",
             npcReaction: "Tiktoker Minh quay xe làm clip 'Chủ quán trà sữa dễ thương nhất quả đất', video lên xu hướng 3 triệu view, khách xếp hàng dài mua!",
-            deltaCash: -2000000,
+            deltaCash: -1500000,
             deltaStars: 0.8
           },
           {
             key: "B",
-            label: "Vào chửi xéo đôi co tay đôi",
-            replyText: "Dùng nick quán vào cmt: 'Ăn nói xà lơ, răng sứ rởm ăn kẹo kéo cũng mẻ chứ đổ thừa trân châu! Thích thì ra quán solo!'",
-            npcReaction: "Cộng đồng mạng phẫn nộ đánh sập Fanpage và vote 1 sao rầm rộ, tiệm vắng tanh như chùa Bà Đanh!",
-            deltaCash: -6000000,
-            deltaStars: -1.2
+            color: "#DC2626",
+            badge: "⚔️ Chiến Tranh Mạng",
+            label: "Tung Cam Tố Tiktoker Tống Tiền",
+            tradeoff: "💰 Chi: 0đ • ⚠️ 50/50 Rủi ro chiến tranh mạng",
+            replyText: "Tung clip camera: 'Khách này cố tình cắn nắp ly rồi vu vạ trân châu, tống tiền tiệm 15 triệu không thành!'",
+            hasRisk: true,
+            riskChance: 0.5,
+            safeReaction: "Cộng đồng mạng quay sang ném đá Tiktoker tống tiền, tiệm được khen dũng cảm bảo vệ danh dự (+500k, +0.6★)!",
+            safeDeltaCash: 500000,
+            safeDeltaStars: 0.6,
+            badReaction: "Fan của Tiktoker tràn vào đánh giá 1 sao và spam report Fanpage, quán bị tụt uy tín thảm hại (-2.5M, -1.0★)!",
+            badDeltaCash: -2500000,
+            badDeltaStars: -1.0
+          },
+          {
+            key: "C",
+            color: "#D97706",
+            badge: "🤫 Đi Cửa Sau",
+            label: "Chi Tiền Bịt Miệng Gỡ Clip",
+            tradeoff: "💰 Chi: -2.5M • ⭐ 0★ (Êm chuyện nhưng mất tiền oan)",
+            replyText: "Chuyển khoản lót tay 2.500.000đ xin anh Minh gỡ clip trong êm đẹp.",
+            npcReaction: "Tiktoker nhận tiền xong xóa clip ngay. Mọi chuyện êm thấm nhưng két tiền hụt một khoản xót ruột.",
+            deltaCash: -2500000,
+            deltaStars: 0.0
+          },
+          {
+            key: "D",
+            color: "#7C3AED",
+            badge: "🏷️ Bắt Trend Meme",
+            label: "Mở Bán 'Trà Sữa Mẻ Răng' 19k",
+            tradeoff: "💰 Lãi: +1.2M • ⭐ +0.4★ (Viral meme giới trẻ)",
+            replyText: "Treo biển ngay: 'Trà sữa mẻ răng siêu giòn đồng giá 19k' thách thức các Tiktoker đến thử!",
+            npcReaction: "Giới trẻ kéo đến check-in ầm ầm vì tò mò, bán sạch 80 ly trong buổi chiều, viral hài hước khắp cõi mạng!",
+            deltaCash: 1200000,
+            deltaStars: 0.4
           }
         ],
         ignoredBadEnd: {
@@ -2582,23 +2713,51 @@
         npcName: "Anh Ba Shipper",
         npcAvatar: "🛵",
         npcRole: "TÀI XẾ CÔNG NGHỆ",
-        npcChat: "Chủ quán ơi cứu tui! Đơn 50 ly trà sữa sầu riêng béo ngậy 2.500.000đ giao tới địa chỉ bãi tha ma lúc 12h trưa, khách khóa máy xóa app rồi! Giờ giải quyết sao sếp ơi?",
+        npcChat: "Chủ quán ơi cứu tui! Đơn 50 ly trà sữa sầu riêng béo ngậy 2.500.000đ giao tới địa chỉ bãi đất hoang, khách khóa máy xóa app rồi! Giờ giải quyết sao sếp ơi?",
         options: [
           {
             key: "A",
-            label: "Livestream xả kho cứu nét đồng giá 15k",
-            replyText: "Không sao anh Ba ơi! Bật livestream bán tháo đồng giá 15k cho học sinh tan trường, phần còn lại mời anh em shipper uống tẹt ga!",
+            color: "#16A34A",
+            badge: "📣 Bán Tháo Giải Cứu",
+            label: "Livestream Đồng Giá 15k",
+            tradeoff: "💰 Thu hồi: +700k • ⭐ +0.3★ (Cộng đồng vui vẻ)",
+            replyText: "Không sao anh Ba ơi! Bật livestream bán tháo đồng giá 15k cho học sinh tan trường, phần còn lại mời shipper uống tẹt ga!",
             npcReaction: "Học sinh ùa vào mua sạch trong 15 phút, tài xế cảm kích đăng bài khen nức nở tiệm trà sữa có tâm!",
-            deltaCash: 800000,
+            deltaCash: 700000,
             deltaStars: 0.3
           },
           {
             key: "B",
-            label: "Đổ vấy bắt nhân viên nhận đơn đền",
+            color: "#D97706",
+            badge: "🍕 Tặng Shipper & Lao Công",
+            label: "Khao Cả Đội Shipper Quanh Khu",
+            tradeoff: "💰 Lỗ vốn: -1.2M • ⭐ +0.9★ (Tài xế tôn sùng)",
+            replyText: "Tặng hết 50 ly cho anh em shipper đang đợi đơn và các cô chú lao công quanh phố giải nhiệt!",
+            npcReaction: "Hội tài xế công nghệ xúc động phong tiệm là 'Quán trà sữa quốc dân', từ nay nhận đơn của quán trong 30 giây!",
+            deltaCash: -1200000,
+            deltaStars: 0.9
+          },
+          {
+            key: "C",
+            color: "#DC2626",
+            badge: "🤬 Đổ Lỗi Trừ Lương",
+            label: "Bắt Thu Ngân & Barista Đền 100%",
+            tradeoff: "💰 Giữ 0đ • ⭐ -0.8★ (Nhân viên đình công ném tạp dề)",
             replyText: "Lỗi tại con bé thu ngân không gọi xác nhận trước! Trừ 100% lương tháng này của nó để bù tiền!",
-            npcReaction: "Nhân viên ném tạp dề khóc lóc nghỉ việc tập thể, quán phải đóng cửa vì không có người pha trà!",
-            deltaCash: -3000000,
-            deltaStars: -0.7
+            npcReaction: "Bé Thư và Tuấn Barista khóc lóc ném tạp dề đình công, quán phải đóng cửa vì không có người pha trà!",
+            deltaCash: 0,
+            deltaStars: -0.8
+          },
+          {
+            key: "D",
+            color: "#7C3AED",
+            badge: "🧊 Cất Tủ Đông Bán Lại",
+            label: "Rã Đông Bán Cho Khách Ngày Mai",
+            tradeoff: "💰 Chi: 0đ • ⭐ -1.0★ (Vị trà thiu chua, khách mắng vốn)",
+            replyText: "Bỏ vào tủ đông cất, ngày mai rã đông đem bán lại cho khách vãng lai!",
+            npcReaction: "Hôm sau khách uống phải trà sầu riêng chua loét, đánh giá 1 sao và cảnh báo tiệm bán đồ ôi thiu!",
+            deltaCash: 0,
+            deltaStars: -1.0
           }
         ],
         ignoredBadEnd: {
@@ -2606,6 +2765,126 @@
           disaster: "HỎNG TOÀN BỘ ĐƠN HÀNG! Vì sếp bỏ mặc không xử lý, 50 ly trà sữa ôi thiu hỏng bét, shipper uất ức đăng bài bóc phốt tiệm trà sữa vô cảm lên hội nhóm giao hàng! Quán lỗ sạch -3.500.000đ và mất uy tín! 💀",
           deltaCash: -3500000,
           deltaStars: -1.1
+        }
+      },
+      {
+        id: "may_moc_su_co",
+        title: "MÁY DẬP NẮP CHÁY MOTOR & TỦ ĐÁ RÒ GAS ⚡",
+        npcName: "Tuấn Barista",
+        npcAvatar: "🧑‍🍳",
+        npcRole: "BARISTA TRƯỞNG",
+        npcChat: "Sếp ơi gay go rồi! Máy dập nắp ly tự động vừa bốc khói khét lẹt, tủ làm đá thì rò gas đá tan chảy hết! Khách đang đợi 30 ly ngoài quầy, làm sao đây sếp?",
+        options: [
+          {
+            key: "A",
+            color: "#16A34A",
+            badge: "🛠️ Thợ Hãng Siêu Tốc",
+            label: "Gọi Bảo Hành Chính Hãng (30 Phút)",
+            tradeoff: "💰 Chi: -1.5M • ⭐ +0.3★ (Sửa chuẩn xịn, máy chạy êm ru)",
+            replyText: "Gọi ngay trung tâm bảo hành chính hãng xuống thay motor và bơm gas mới gấp!",
+            npcReaction: "Thợ có mặt sau 25 phút, máy móc chạy êm ru bóng bẩy, quán phục vụ thông suốt không gián đoạn!",
+            deltaCash: -1500000,
+            deltaStars: 0.3
+          },
+          {
+            key: "B",
+            color: "#DC2626",
+            badge: "🩹 Dán Băng Dính Tạm",
+            label: "Tự Sửa & Đậy Nắp Nhựa",
+            tradeoff: "💰 Chi: -30k • ⭐ -0.4★ (Nắp dễ bung đổ vào người khách)",
+            replyText: "Lấy nắp nhựa đậy tạm rồi lấy băng dính dán viền lại, đỡ tốn tiền triệu gọi thợ!",
+            npcReaction: "Khách cầm ly trà sữa đi đường bị bung nắp đổ tràn áo trắng, giận dữ chụp ảnh mắng vốn tiệm cẩu thả!",
+            deltaCash: -30000,
+            deltaStars: -0.4
+          },
+          {
+            key: "C",
+            color: "#D97706",
+            badge: "🤝 Mua Ké Hàng Xóm",
+            label: "Nhờ Quán Đối Thủ Dập Nắp Hộ",
+            tradeoff: "💰 Chi: -350k • ⭐ -0.1★ (Bị đối thủ mỉa mai chụp hình)",
+            replyText: "Chạy sang tiệm trà sữa kế bên gửi 300k nhờ dập nắp nhờ và mua 2 bao đá sạch!",
+            npcReaction: "Tiệm đối thủ dập nắp giúp nhưng chụp ảnh đăng story cà khịa: 'Cứu bồ quán hàng xóm bị cháy máy nè kkk'.",
+            deltaCash: -350000,
+            deltaStars: -0.1
+          },
+          {
+            key: "D",
+            color: "#7C3AED",
+            badge: "🛑 Đóng Cửa Ca Trưa",
+            label: "Treo Biển Nghỉ Bán Sớm",
+            tradeoff: "💰 Mất -1.8M doanh thu • ⭐ 0★ (Khách quay xe bỏ đi)",
+            replyText: "Treo biển hết đá đóng cửa tiệm nghỉ ca trưa luôn, chiều tối tính tiếp!",
+            npcReaction: "Khách đến thấy đóng cửa đành quay xe sang quán khác, doanh thu ca trưa bốc hơi sạch sẽ.",
+            deltaCash: -1800000,
+            deltaStars: 0.0
+          }
+        ],
+        ignoredBadEnd: {
+          warning: "Sếp ơiii! Khói khét mù mịt bốc ra từ máy dập nắp kìa, khách đang hoảng hốt bỏ chạy! 😭🚨",
+          disaster: "CHÁY RỤI BÀN PHA CHẾ! Vì sếp bơ tin không gọi thợ sửa, máy chập điện gây cháy bàn pha chế! Quán phải đền bù sửa chữa -4.000.000đ và bị đình chỉ hoạt động cả ngày! 💀",
+          deltaCash: -4000000,
+          deltaStars: -1.3
+        }
+      },
+      {
+        id: "doi_thu_canh_tranh",
+        title: "CHUỖI LỚN SÁT VÁCH MỞ DEAL MUA 1 TẶNG 1 🏷️",
+        npcName: "Bé Thư",
+        npcAvatar: "👧",
+        npcRole: "THU NGÂN & CSKH",
+        npcChat: "Sếp ơi, quán 'Trà Sữa Đô Thị' sát vách vừa khai trương chi nhánh, họ đang giăng băng rôn 'MUA 1 TẶNG 1 - TẶNG GẤU BÔNG' hút sạch khách của mình rồi! Quán mình vắng như chùa, tính sao sếp?",
+        options: [
+          {
+            key: "A",
+            color: "#DC2626",
+            badge: "🩸 Giảm Giá Khô Máu",
+            label: "Khô Máu: Mua 1 Tặng 2",
+            tradeoff: "💰 Lỗ: -2.0M • ⭐ +0.5★ (Khách đông nghẹt thở nhưng lỗ)",
+            replyText: "Chơi tới bến luôn! Treo biển 'MUA 1 TẶNG 2 - BƠM TRÂN CHÂU NGẬP LY' khô máu với họ!",
+            npcReaction: "Học sinh sinh viên xếp hàng tràn ra đường mua trà sữa, quầy pha chế thở không ra hơi nhưng cuối ngày lỗ tiền sữa!",
+            deltaCash: -2000000,
+            deltaStars: 0.5
+          },
+          {
+            key: "B",
+            color: "#16A34A",
+            badge: "🌟 Topping Độc Quyền",
+            label: "Tặng Kèm Bánh Flan Béo Ngậy",
+            tradeoff: "💰 Chi: -400k • ⭐ +0.4★ (Giữ giá kiêu hãnh, khách sành)",
+            replyText: "Không giảm giá! Tặng kèm 1 hũ Flan trứng gà béo ngậy độc quyền cho mỗi ly size L!",
+            npcReaction: "Khách sành trà khen quán đẳng cấp, topping flan trứng béo ngậy chuẩn vị ăn đứt trà sữa công nghiệp bên kia!",
+            deltaCash: -400000,
+            deltaStars: 0.4
+          },
+          {
+            key: "C",
+            color: "#D97706",
+            badge: "📸 Treo Biển Cà Khịa",
+            label: "'Bên Kia Ngon 9 Thì Em Ngon 10'",
+            tradeoff: "💰 Chi: -100k • 💸 Lãi: +1.0M • ⭐ +0.6★ (Viral)",
+            replyText: "In băng rôn treo ngay: 'Bên kia ngon 9 thì bên em ngon 10 - Tặng nụ cười của chủ quán'!",
+            npcReaction: "Cư dân mạng đi qua chụp ảnh biển hiệu đăng TikTok đạt 1 triệu view, khách rủ nhau đến vừa uống vừa cười vui vẻ!",
+            deltaCash: 1000000,
+            deltaStars: 0.6
+          },
+          {
+            key: "D",
+            color: "#7C3AED",
+            badge: "🕵️ Mua Về Bán Lại Phá Giá",
+            label: "Gom Hàng Đối Thủ Bán Lại Rẻ Hơn",
+            tradeoff: "💰 Chi: -600k • ⭐ -0.7★ (Chiêu bẩn, dễ dính kiện)",
+            replyText: "Cho người sang mua sạch 50 ly khuyến mãi của họ rồi đem về quán mình bán lại giá rẻ hơn!",
+            npcReaction: "Bên kia phát hiện sang cãi lộn ầm ĩ trước cửa, bảo vệ 2 bên suýt ẩu đả, dân tình quay clip chê quán chơi xấu!",
+            deltaCash: -600000,
+            deltaStars: -0.7
+          }
+        ],
+        ignoredBadEnd: {
+          warning: "Sếp ơiii! Toàn bộ khách quen của tiệm đã kéo sang quán bên kia xếp hàng nhận gấu bông hết rồi! 😭🚨",
+          disaster: "MẤT TRẮNG THỊ PHẦN! Vì sếp im lặng không có bất kỳ chiến lược phản ứng nào, đối thủ chiếm trọn toàn bộ khách hàng trên con phố! Quán rơi vào cảnh ế ẩm vắng tanh, lỗ -3.000.000đ chi phí vận hành! 💀",
+          deltaCash: -3000000,
+          deltaStars: -1.2
         }
       }
     ];
@@ -3153,14 +3432,20 @@
     }
 
     /* ========================================================
-       KÍCH HOẠT BIẾN CỐ & HỘP ĐÔI CO [A], [B], [C]
+       KÍCH HOẠT BIẾN CỐ & HỘP ĐÔI CO [A], [B], [C], [D]
        ======================================================== */
+    let lastDramaIndex = -1;
     function triggerHeartbeatEvent() {
       if (state.activeDrama) return;
 
-      const drama = dramaList[Math.floor(Math.random() * dramaList.length)];
+      let nextIndex = Math.floor(Math.random() * dramaList.length);
+      if (nextIndex === lastDramaIndex) {
+        nextIndex = (nextIndex + 1) % dramaList.length;
+      }
+      lastDramaIndex = nextIndex;
+      const drama = dramaList[nextIndex];
       state.activeDrama = drama;
-      state.countdownSeconds = 20;
+      state.countdownSeconds = 25;
 
       SoundFX.playAlert();
 
@@ -3193,35 +3478,49 @@
       box.className = 'crisis-decision-box';
       box.id = 'activeDecisionBox';
 
+      let optionsHtml = '';
+      if (drama.options && drama.options.length) {
+        drama.options.forEach(opt => {
+          optionsHtml += `
+            <button class="crisis-choice-btn" onclick="resolveOption('${opt.key}')" style="border-left: 4.5px solid ${opt.color || '#3B82F6'}; margin-bottom:6px; background:#FFFFFF;">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:4px; flex-wrap:wrap;">
+                <span style="font-size:0.75rem; font-weight:800; color:${opt.color || '#1E293B'};">[${opt.key}] ${opt.badge || opt.label}</span>
+                <span class="tradeoff-pill" style="font-size:0.63rem; padding:2px 7px; border-radius:6px; background:#F8FAFC; border:1px solid #E2E8F0; color:#475569; font-weight:700;">${opt.tradeoff || ''}</span>
+              </div>
+              <div style="font-size:0.75rem; color:#334155; margin-top:3px; font-weight:500;">"${opt.replyText}"</div>
+            </button>
+          `;
+        });
+      }
+
       box.innerHTML = `
         <div class="crisis-box-header">
-          <span>⚡ BẢNG QUYẾT ĐỊNH XỬ LÝ (NGÀY ${state.day})</span>
-          <span>CHỌN [A], [B] HOẶC [C]</span>
+          <span>⚡ BẢNG QUYẾT ĐỊNH QUẢN LÝ (NGÀY ${state.day})</span>
+          <span>CHỌN [A], [B], [C], [D] HOẶC GÕ CHAT</span>
         </div>
         <div class="crisis-box-body">
-          <div class="crisis-box-title">Đang đôi co với: ${drama.npcName}</div>
+          <div class="crisis-box-title" style="font-size:0.83rem; font-weight:800; color:#0F172A; margin-bottom:2px;">
+            ${drama.title}
+          </div>
+          <div style="font-size:0.7rem; color:#64748B; margin-bottom:8px;">
+            👤 Đối tượng tương tác: <strong>${drama.npcName}</strong> (${drama.npcRole})
+          </div>
 
-          <div class="countdown-warning-strip">
+          <div class="countdown-warning-strip" style="margin-bottom:8px;">
             <span>⏳ Hạn chót xử lý: <strong id="crisisTimerCount">00:20s</strong></span>
             <span>(Sếp bơ tin sẽ nhận cái kết tệ!)</span>
           </div>
           
-          <button class="crisis-choice-btn opt-a" onclick="resolveOption('A')">
-            <span style="font-size:0.7rem; font-weight:800; color:#15803D;">[A] 😇 ${drama.options[0].label}</span>
-            <span style="font-size:0.75rem;">"${drama.options[0].replyText}"</span>
-            <small style="color:#757575; font-size:0.62rem;">Chi: -500k • Tăng uy tín sao</small>
-          </button>
-
-          <button class="crisis-choice-btn opt-b" onclick="resolveOption('B')">
-            <span style="font-size:0.7rem; font-weight:800; color:#DC2626;">[B] 😈 ${drama.options[1].label}</span>
-            <span style="font-size:0.75rem;">"${drama.options[1].replyText}"</span>
-            <small style="color:#757575; font-size:0.62rem;">Cãi tới bến • Nguy cơ phạt kịch khung</small>
-          </button>
-
-          <button class="crisis-choice-btn opt-c" onclick="focusChatInput()">
-            <span style="font-size:0.7rem; font-weight:800; color:#B45309;">[C / Other] 💬 Tự gõ chat đôi co quái chiêu</span>
-            <span style="font-size:0.72rem; color:#757575;">Bấm vào đây để tự nhập câu chửi hoặc câu nịnh vào khung chat!</span>
-          </button>
+          <div style="display:flex; flex-direction:column;">
+            ${optionsHtml}
+            <button class="crisis-choice-btn opt-c" onclick="focusChatInput()" style="border-left: 4.5px solid #F59E0B; background:#FFFBEB;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.74rem; font-weight:800; color:#B45309;">[💬 Khác] Tự do gõ chat đôi co quái chiêu</span>
+                <span style="font-size:0.62rem; color:#92400E; font-weight:700; background:#FEF3C7; padding:2px 6px; border-radius:4px;">AI Tự Ứng Biến</span>
+              </div>
+              <span style="font-size:0.72rem; color:#78350F; margin-top:2px;">Bấm vào đây để tự nhập văn mẫu chửi xéo hoặc nịnh nọt vào ô chat!</span>
+            </button>
+          </div>
         </div>
       `;
 
@@ -3233,25 +3532,30 @@
       }
       msgStream.scrollTop = msgStream.scrollHeight;
 
-      updateChipsForCrisis();
+      updateChipsForCrisis(drama);
     }
 
-    function updateChipsForCrisis() {
+    function updateChipsForCrisis(drama) {
       const container = document.getElementById('quickChipsContainer');
-      container.innerHTML = `
-        <button class="chip-bubble-btn highlight" onclick="resolveOption('A')">
-          👉 [A] Ngoại Giao Mềm Mỏng
-        </button>
-        <button class="chip-bubble-btn" style="border-color:#EF4444; color:#DC2626;" onclick="resolveOption('B')">
-          👉 [B] Cứng Rắn Cãi Lý
-        </button>
+      let chipsHtml = '';
+      if (drama && drama.options) {
+        drama.options.forEach(opt => {
+          chipsHtml += `
+            <button class="chip-bubble-btn" onclick="resolveOption('${opt.key}')" style="border-color:${opt.color}; color:${opt.color}; font-weight:700;">
+              👉 [${opt.key}] ${opt.label}
+            </button>
+          `;
+        });
+      }
+      chipsHtml += `
         <button class="chip-bubble-btn" onclick="focusChatInput()">
-          👉 [C] Tự Gõ Đôi Co
+          👉 [💬] Tự Gõ Chat
         </button>
         <button class="chip-bubble-btn danger-chip" onclick="simulateIgnoredCrisis()">
           ⏰ Thử Bơ Tin (Kết Tệ)
         </button>
       `;
+      container.innerHTML = chipsHtml;
     }
 
     function restoreNormalChips() {
@@ -3262,17 +3566,20 @@
       else if (state.shiftIndex === 3) mainActionText = '☀️ Khai Ca Ngày Tiếp Theo ▶';
 
       container.innerHTML = `
-        <button class="chip-bubble-btn highlight" id="btnMainShiftAction" onclick="advanceShiftFlow()" style="background:linear-gradient(135deg, #FDC830 0%, #F59E0B 100%); color:#1A1A1A; font-weight:800; border:none; box-shadow:0 3px 10px rgba(245,158,11,0.35);">
+        <button class="chip-bubble-btn highlight" id="btnMainShiftAction" onclick="advanceShiftFlow()" style="background:#0F172A; color:#FFFFFF; font-weight:800; border:none;">
           ${mainActionText}
         </button>
+        <button class="chip-bubble-btn" onclick="triggerHeartbeatEvent()" style="background:#FEF3C7; color:#92400E; font-weight:800; border:1px solid #FDE68A;">
+          🎲 Ra Quyết Định Mới ⚡
+        </button>
+        <button class="chip-bubble-btn" onclick="openStoreInfoModal()" style="background:#F1F5F9; color:#334155; font-weight:700;">
+          🏪 Chi Tiết Quán
+        </button>
         <button class="chip-bubble-btn" onclick="triggerShiftClose()">
-          🌙 Chốt Ca &amp; Xem P&amp;L
+          🌙 Chốt Ca P&amp;L
         </button>
         <button class="chip-bubble-btn" style="background:#EFF6FF; color:#1D4ED8; border-color:#BFDBFE;" onclick="triggerTurningPointMoment()">
-          👥 +1 Bạn Cứu Quán
-        </button>
-        <button class="chip-bubble-btn" onclick="openReviewerToolsModal()" style="background:#F1F5F9; color:#475569; font-weight:700;">
-          🛠️ Demo Tools
+          👥 +1 Bạn
         </button>
       `;
     }
@@ -3368,7 +3675,25 @@
       if (state.countdownTimer) clearInterval(state.countdownTimer);
 
       const drama = state.activeDrama;
-      const opt = key === 'A' ? drama.options[0] : drama.options[1];
+      const opt = (drama.options && drama.options.find(o => o.key === key)) || drama.options[0];
+
+      let actualDeltaCash = opt.deltaCash;
+      let actualDeltaStars = opt.deltaStars;
+      let reactionText = opt.npcReaction;
+
+      // Xử lý cơ chế RỦI RO / MAY RỦI (Ví dụ: hàng trôi nổi có 35% nguy cơ khách đau bụng)
+      if (opt.hasRisk) {
+        const isBad = Math.random() < (opt.riskChance || 0.4);
+        if (isBad) {
+          actualDeltaCash = opt.badDeltaCash;
+          actualDeltaStars = opt.badDeltaStars;
+          reactionText = opt.badReaction;
+        } else {
+          actualDeltaCash = opt.safeDeltaCash;
+          actualDeltaStars = opt.safeDeltaStars;
+          reactionText = opt.safeReaction;
+        }
+      }
 
       // Thu gọn box quyết định thành badge lịch sử trang nhã
       const activeBox = document.getElementById('activeDecisionBox');
@@ -3376,7 +3701,9 @@
         activeBox.className = 'decision-resolved-badge';
         activeBox.innerHTML = `
           <div>✅ <strong>Phán Quyết Của Sếp:</strong> [${key}] ${opt.label}</div>
-          <div style="font-weight:800; color:${opt.deltaCash >= 0 ? '#15803D' : '#DC2626'}">${opt.deltaCash >= 0 ? '+' : ''}${formatMoney(opt.deltaCash)} • ${opt.deltaStars >= 0 ? '+' : ''}${opt.deltaStars}★</div>
+          <div style="font-weight:800; color:${actualDeltaCash >= 0 ? '#15803D' : '#DC2626'}">
+            ${actualDeltaCash >= 0 ? '+' : ''}${formatMoney(actualDeltaCash)} • ${actualDeltaStars >= 0 ? '+' : ''}${actualDeltaStars}★
+          </div>
         `;
         activeBox.removeAttribute('id');
       }
@@ -3384,33 +3711,33 @@
       // 1. Sếp phát biểu
       appendChatMessage("Sếp Tuấn", "CHỦ TỊCH", opt.replyText, true, "👑");
 
-      // 2. Đối phương (NPC) phản hồi đôi co
+      // 2. Đối phương (NPC) hoặc nhân viên phản hồi
       setTimeout(() => {
-        queueTypingMessage(drama.npcName, drama.npcRole, opt.npcReaction, false, drama.npcAvatar, 600, () => {
+        queueTypingMessage(drama.npcName, drama.npcRole, reactionText, false, drama.npcAvatar, 550, () => {
           // 3. Bé Trà Sữa tổng kết két tiền & sao
           setTimeout(() => {
-            state.cash += opt.deltaCash;
-            state.stars = Math.max(1.0, Math.min(5.0, state.stars + opt.deltaStars));
+            state.cash += actualDeltaCash;
+            state.stars = Math.max(1.0, Math.min(5.0, Number((state.stars + actualDeltaStars).toFixed(2))));
             state.cupsSoldToday += 35;
             state.turn++;
             updateHUD();
 
             // Hiệu ứng floating stats & sound
-            if (opt.deltaCash > 0) {
-              spawnFloatingStat('+' + formatMoney(opt.deltaCash) + ' 💸', 'plus');
+            if (actualDeltaCash > 0) {
+              spawnFloatingStat('+' + formatMoney(actualDeltaCash) + ' 💸', 'plus');
               SoundFX.playCash();
-            } else if (opt.deltaCash < 0) {
-              spawnFloatingStat(formatMoney(opt.deltaCash) + ' 💥', 'minus');
+            } else if (actualDeltaCash < 0) {
+              spawnFloatingStat(formatMoney(actualDeltaCash) + ' 💥', 'minus');
               SoundFX.playAlert();
             }
-            if (opt.deltaStars !== 0) {
-              spawnFloatingStat((opt.deltaStars > 0 ? '+' : '') + opt.deltaStars.toFixed(1) + '★ ⭐', 'star');
+            if (actualDeltaStars !== 0) {
+              spawnFloatingStat((actualDeltaStars > 0 ? '+' : '') + actualDeltaStars.toFixed(1) + '★ ⭐', actualDeltaStars > 0 ? 'star' : 'minus');
             }
 
             queueTypingMessage(
               "Bé Trà Sữa",
               "CỬA HÀNG TRƯỞNG",
-              `Báo cáo sếp: Vụ việc đã xong xuôi! Két tiền vừa biến động: <strong style="color:${opt.deltaCash >= 0 ? '#15803D' : '#DC2626'};">${opt.deltaCash >= 0 ? '+' : ''}${formatMoney(opt.deltaCash)}</strong>. Độ hot quán hiện tại là <strong>${state.stars.toFixed(1)}★</strong>!`,
+              `Báo cáo sếp: Vụ việc <strong>[${key}]</strong> đã chốt xong! Két tiền vừa biến động: <strong style="color:${actualDeltaCash >= 0 ? '#15803D' : '#DC2626'};">${actualDeltaCash >= 0 ? '+' : ''}${formatMoney(actualDeltaCash)}</strong>. Độ hot quán hiện tại là <strong>${state.stars.toFixed(1)}★</strong>!`,
               false,
               "👩‍💼",
               500,
@@ -3784,8 +4111,18 @@
     ];
 
     let currentOpIndex = 0;
+    let opCounterSinceLastDrama = 0;
+
     function triggerNextOpEvent(isManual = false) {
       if (state.activeDrama) return;
+
+      opCounterSinceLastDrama++;
+      // Cứ sau 2 lượt thông báo vận hành -> Tự động kích hoạt 1 tình huống ra quyết định quản lý!
+      if (opCounterSinceLastDrama >= 2) {
+        opCounterSinceLastDrama = 0;
+        triggerHeartbeatEvent();
+        return;
+      }
 
       const ev = opEventsList[currentOpIndex % opEventsList.length];
       currentOpIndex++;
