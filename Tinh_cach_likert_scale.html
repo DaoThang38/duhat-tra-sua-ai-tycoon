@@ -871,69 +871,31 @@
       color: #0F172A;
     }
 
-    /* HEARTBEAT TICKER & COUNTDOWN */
-    .heartbeat-strip {
-      background: #FFFBEB;
-      border-bottom: 1px solid #FDE68A;
-      padding: 5px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      font-size: 0.68rem;
-      font-weight: 700;
-    }
-
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #10B981;
-      display: inline-block;
-      margin-right: 4px;
-      animation: pulseGreen 1.4s infinite ease-in-out;
-    }
-
-    @keyframes pulseGreen {
-      0%, 100% { opacity: 0.6; transform: scale(0.9); }
-      50% { opacity: 1; transform: scale(1.3); }
-    }
-
-    .btn-fast-pulse {
-      background: #1E293B;
+    /* NATIVE CHAT PILLS & BADGES (MATCHING DUHAT APP) */
+    .chat-date-pill {
+      align-self: center;
+      background: rgba(100, 116, 139, 0.75);
       color: #FFFFFF;
-      border: none;
-      padding: 3px 8px;
-      border-radius: 10px;
-      font-size: 0.62rem;
+      font-size: 0.65rem;
       font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      transition: transform 0.15s, opacity 0.15s;
-    }
-
-    .btn-fast-pulse:hover {
-      opacity: 0.9;
-    }
-
-    .btn-fast-pulse:active {
-      transform: scale(0.95);
-    }
-
-    .store-live-status-bar {
-      background: #F8FAFC;
-      border-bottom: 1px solid #E2E8F0;
       padding: 3px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.62rem;
-      color: #64748B;
+      border-radius: 12px;
+      margin: 8px 0;
+      letter-spacing: 0.3px;
+    }
+
+    .chat-system-pill {
+      align-self: center;
+      background: #E2E8F0;
+      color: #475569;
+      font-size: 0.68rem;
       font-weight: 600;
-      overflow-x: auto;
-      white-space: nowrap;
+      padding: 4px 12px;
+      border-radius: 14px;
+      margin: 4px 0;
+      text-align: center;
+      max-width: 85%;
+      line-height: 1.35;
     }
 
     /* MESSAGE STREAM WITH DOODLE WALLPAPER */
@@ -1749,7 +1711,7 @@
       <!-- ========================================================
            SCREEN 1: INBOX DASHBOARD (DANH SÁCH HỘI THOẠI)
            ======================================================== -->
-      <div class="app-screen active" id="screenInbox">
+      <div class="app-screen" id="screenInbox">
         <div class="inbox-header">
           <div class="header-logo-group">
             <div class="logo-duck-badge">🦆</div>
@@ -1872,107 +1834,42 @@
       <!-- ========================================================
            SCREEN 2: CHAT ROOM VIEW (HỘI THOẠI TRỰC TIẾP & ĐÔI CO)
            ======================================================== -->
-      <div class="app-screen" id="screenChat">
-        <!-- Top Chat Header -->
-        <div class="chat-header">
-          <button class="chat-back-btn" onclick="backToInbox()">‹</button>
+      <div class="app-screen active" id="screenChat">
+        <!-- Top Chat Header (Native Duhat Mobile Styling) -->
+        <div class="chat-header" onclick="openStoreInfoModal()" title="Chạm để xem chi tiết Quán & Sổ Cái" style="cursor:pointer; padding:8px 12px; background:#FFFFFF; border-bottom:1px solid #E2E8F0;">
+          <button class="chat-back-btn" onclick="event.stopPropagation(); backToInbox();">‹</button>
           <div class="chat-recipient-info">
-            <div class="conv-avatar ai-avatar" style="width:36px; height:36px; font-size:1.15rem;" id="chatHeaderAvatar">👩‍💼</div>
-            <div>
-              <div class="recipient-name" id="chatHeaderTitle">Bé Trà Sữa (AI Manager)</div>
-              <div class="recipient-status" id="chatHeaderStatus">● Chat 1:1 • Sếp toàn quyền quyết định</div>
+            <div style="position:relative;">
+              <div class="conv-avatar ai-avatar" style="width:38px; height:38px; font-size:1.2rem;" id="chatHeaderAvatar">👩‍💼</div>
+              <span class="online-indicator-dot" style="position:absolute; bottom:1px; right:1px; width:9px; height:9px; background:#10B981; border:2px solid #FFFFFF; border-radius:50%;"></span>
+            </div>
+            <div style="overflow:hidden; text-align:left;">
+              <div class="recipient-name" id="chatHeaderTitle" style="font-size:0.95rem; font-weight:800; display:flex; align-items:center; gap:4px; color:#0F172A;">
+                <span>Bé Trà Sữa</span> <span>🧋</span>
+              </div>
+              <div class="recipient-status" id="chatHeaderStatus" style="font-size:0.7rem; color:#64748B; font-weight:600; white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">
+                🟢 Trực ca • 50.000.000đ • 4.2★ • Ngày 1
+              </div>
             </div>
           </div>
 
-          <!-- Quick Action Buttons on Header -->
-          <div style="display:flex; align-items:center; gap:6px;">
-            <button class="btn-chat-rules" onclick="openRulesModal()" title="Xem Luật Chơi" style="background:#FEF5D1; border:1px solid #FDC830; color:#854D0E; font-size:0.75rem; font-weight:700; padding:5px 9px; border-radius:12px; cursor:pointer;">
-              📖 Luật
+          <!-- Right Action Icons (Phone, Info/Store, +1 Bạn) -->
+          <div style="display:flex; align-items:center; gap:4px;" onclick="event.stopPropagation();">
+            <button class="btn-chat-icon" onclick="triggerPhoneCallSimulation()" title="Cuộc gọi nội bộ" style="background:none; border:none; font-size:1.2rem; cursor:pointer; padding:5px 6px;">
+              📞
             </button>
-            <button class="btn-chat-rules" id="headerAddFriendBtn" onclick="triggerTurningPointMoment()" title="Kéo Bạn Bè Vào Cứu Quán" style="background:#EFF6FF; border:1px solid #3B82F6; color:#1D4ED8; font-size:0.75rem; font-weight:700; padding:5px 9px; border-radius:12px; cursor:pointer;">
-              👥 +1 Bạn
+            <button class="btn-chat-icon" onclick="openStoreInfoModal()" title="Xem Hồ Sơ Quán & Sổ Cái" style="background:#F1F5F9; border:1px solid #E2E8F0; border-radius:12px; font-size:0.76rem; font-weight:700; color:#334155; padding:5px 9px; cursor:pointer; display:flex; align-items:center; gap:3px;">
+              🏪 Quán
             </button>
-          </div>
-        </div>
-
-        <!-- TỐI GIẢN: HUD CHỈ GIỮ NGÀY, TIỀN KÉT, SAO UY TÍN & ĐÃ BÁN -->
-        <div class="streamlined-hud">
-          <div class="hud-pill day-pill" id="hudDayPill">
-            <span>📅</span>
-            <strong id="hudDayVal">Ngày 1 (Sáng)</strong>
-          </div>
-
-          <div class="hud-pill cash-pill" id="hudCashPill">
-            <span>💰 Tiền Két:</span>
-            <strong id="hudCashVal">50.000.000đ</strong>
-          </div>
-
-          <div class="hud-pill stars-pill">
-            <span>⭐</span>
-            <strong id="hudStarsVal">4.2★</strong>
-          </div>
-
-          <div class="hud-pill" style="background:#FDF2F8; border-color:#FBCFE8; color:#9D174D;">
-            <span>🧋 Đã bán:</span>
-            <strong id="hudCupsVal">0 ly</strong>
-          </div>
-        </div>
-
-        <!-- Shift Timeline Bar (4 Pha Ca Trực Trong Ngày) -->
-        <div class="shift-timeline-bar" id="shiftTimelineBar">
-          <div class="timeline-step active" id="timelineStep1">
-            <span class="step-dot"></span>
-            <span>☀️ 08:00 Sáng</span>
-          </div>
-          <div class="timeline-divider"></div>
-          <div class="timeline-step" id="timelineStep2">
-            <span class="step-dot"></span>
-            <span>🌤️ 12:00 Cao Điểm</span>
-          </div>
-          <div class="timeline-divider"></div>
-          <div class="timeline-step" id="timelineStep3">
-            <span class="step-dot"></span>
-            <span>🌆 16:00 Giờ Xế</span>
-          </div>
-          <div class="timeline-divider"></div>
-          <div class="timeline-step" id="timelineStep4">
-            <span class="step-dot"></span>
-            <span>🌙 21:30 Chốt Ca</span>
-          </div>
-        </div>
-
-        <!-- Heartbeat Pulse Bar -->
-        <div class="heartbeat-strip">
-          <div style="display:flex; align-items:center; gap:5px; overflow:hidden;">
-            <span class="pulse-dot"></span>
-            <span id="heartbeatTimerText" style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">🟢 AI Tự Vận Hành: Đang trực ca (8s)</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:4px; flex-shrink:0;">
-            <button class="btn-fast-pulse" onclick="triggerManualOpEvent()" title="AI Cửa hàng trưởng báo cáo tình hình ngay" style="background:#2563EB;">
-              ⚡ Báo Cáo Ngay
-            </button>
-            <button class="btn-fast-pulse" id="btnToggleAutoStream" onclick="toggleAutoStream()" title="Tạm dừng / Tiếp tục luồng tin nhắn tự động" style="background:#64748B;">
-              ⏸️ Dừng
-            </button>
-            <button class="btn-fast-pulse" onclick="advanceShiftFlow()" title="Chuyển sang ca tiếp theo" style="background:#0F172A;">
-              ⏩ Tiến Ca
+            <button class="btn-chat-icon" id="headerAddFriendBtn" onclick="triggerTurningPointMoment()" title="Kéo Bạn Bè Vào Cứu Quán" style="background:#EFF6FF; border:1px solid #3B82F6; color:#1D4ED8; font-size:0.76rem; font-weight:700; padding:5px 9px; border-radius:12px; cursor:pointer;">
+              👥 +1
             </button>
           </div>
         </div>
 
-        <!-- Ambient Store Status Bar -->
-        <div class="store-live-status-bar" id="storeLiveStatusBar">
-          <span>☕ Cối xay: <strong style="color:#16A34A;">Sẵn sàng</strong></span>
-          <span>•</span>
-          <span>🍯 Nồi trân châu: <strong id="livePearlStatus" style="color:#D97706;">Đầy (65°C)</strong></span>
-          <span>•</span>
-          <span>🛵 Shipper: <strong id="liveShipperStatus" style="color:#2563EB;">Kết nối</strong></span>
-          <span>•</span>
-          <span>❄️ ĐH: <strong style="color:#0284C7;">23°C</strong></span>
-        </div>
-
-        <!-- Message Stream -->
+        <!-- Message Stream (Full Screen Native Chat Area) -->
         <div class="message-stream" id="messageStream">
+          <div class="chat-date-pill">☀️ Ngày 1 • Ca Sáng (08:00)</div>
           <div class="msg-row others">
             <div class="msg-avatar-circle">👩‍💼</div>
             <div class="msg-body-wrap">
@@ -1981,20 +1878,12 @@
                 <span class="role-tag-pill">CỬA HÀNG TRƯỞNG AI</span>
               </div>
               <div class="bubble-card">
-                Chào Sếp Tổng! Em là <strong>Bé Trà Sữa</strong> - Cửa hàng trưởng AI lo 100% việc vi mô vận hành quán cho sếp! 🧋🫡<br><br>
-                
-                <div class="rules-summary-box">
-                  <div class="rules-summary-title">📜 3 QUY TẮC SỐNG CÒN CỦA QUÁN:</div>
-                  <div class="rules-summary-item"><strong>1. AI lo việc vặt:</strong> Order, nấu trân châu, pha trà, tính tiền em tự lo. Sếp không cần bấm pha từng ly!</div>
-                  <div class="rules-summary-item"><strong>2. Có biến cố là sếp ra mặt:</strong> Chọn [A] 😇, [B] 😈 hoặc [C] 💬 tự gõ chat đôi co.</div>
-                  <div class="rules-summary-item"><strong>3. Khi khủng hoảng lớn ập đến:</strong> Sếp hãy bấm nút <strong>[👥 +1 Bạn]</strong> để kéo bạn thân vào lập Group Cổ Đông cùng gánh nợ!</div>
-                </div>
-
-                <div style="margin-top:10px;">
-                  <button class="btn-inline-rules" onclick="openRulesModal()">
-                    📖 Xem Đầy Đủ Luật Chơi &amp; Bí Kíp Khởi Nghiệp (30s)
-                  </button>
-                </div>
+                Chào Sếp! Em là <strong>Bé Trà Sữa</strong> (AI Manager). Quán mình đã mở cửa ca sáng ngày 1 rồi ạ! 🧋✨<br><br>
+                💡 <strong>Hướng dẫn nhanh:</strong><br>
+                • <strong>Team AI tự chạy:</strong> Tụi em tự nhận đơn, pha chế, nấu trân châu và báo cáo tiền két nhảy số. Sếp không cần bấm pha từng ly!<br>
+                • <strong>Sếp chỉ đạo khi có biến:</strong> Khi có drama, khách phàn nàn hay đối thủ cạnh tranh, sếp chọn phương án [A]/[B] hoặc tự gõ chat chỉ đạo.<br>
+                • <strong>Kiểm tra sổ cái:</strong> Bấm vào nút <strong>[🏪 Quán]</strong> góc trên để xem chi tiết tiền két, uy tín và kho máy móc bất cứ lúc nào.<br><br>
+                Chúc quán mình hôm nay buôn may bán đắt sếp nhé! 🚀
               </div>
               <div class="msg-time-status">08:00</div>
             </div>
@@ -2043,25 +1932,35 @@
         <!-- Chat Bottom Dock & Streamlined Quick Chips -->
         <div class="chat-bottom-dock">
           <!-- Dynamic Action Chips Bar (Streamlined Gameplay Flow) -->
-          <div class="chips-carousel" id="quickChipsContainer">
-            <button class="chip-bubble-btn highlight" id="btnMainShiftAction" onclick="advanceShiftFlow()" style="background:linear-gradient(135deg, #FDC830 0%, #F59E0B 100%); color:#1A1A1A; font-weight:800; border:none; box-shadow:0 3px 10px rgba(245,158,11,0.35);">
+          <div class="chips-carousel" id="quickChipsContainer" style="padding:5px 12px 3px; gap:6px;">
+            <button class="chip-bubble-btn highlight" id="btnMainShiftAction" onclick="advanceShiftFlow()" style="background:#0F172A; color:#FFFFFF; font-weight:800; border:none;">
               ▶ Vào Giờ Cao Điểm Trưa (12:00) ⚡
             </button>
+            <button class="chip-bubble-btn" onclick="openStoreInfoModal()" style="background:#F1F5F9; color:#334155; font-weight:700;">
+              🏪 Chi Tiết Quán
+            </button>
             <button class="chip-bubble-btn" onclick="triggerShiftClose()">
-              🌙 Chốt Ca &amp; Xem P&amp;L
+              🌙 Chốt Ca P&amp;L
             </button>
             <button class="chip-bubble-btn" style="background:#EFF6FF; color:#1D4ED8; border-color:#BFDBFE;" onclick="triggerTurningPointMoment()">
-              👥 +1 Bạn Cứu Quán
+              👥 +1 Bạn
             </button>
-            <button class="chip-bubble-btn" onclick="openReviewerToolsModal()" style="background:#F1F5F9; color:#475569; font-weight:700;">
-              🛠️ Demo Tools
+            <button class="chip-bubble-btn" onclick="openReviewerToolsModal()" style="background:#F8FAFC; color:#64748B;">
+              🛠️ Demo
             </button>
           </div>
 
           <div class="chat-input-bar">
-            <span style="font-size:1.1rem; cursor:pointer;" onclick="triggerSecretBailout()" title="Nhấn để thử nghiệm phá sản vỡ nợ">💡</span>
-            <input type="text" class="chat-text-field" id="chatInputText" placeholder="Nhập chỉ đạo hoặc gõ chat đôi co..." onkeydown="handleChatKey(event)">
-            <button class="btn-send-yellow" onclick="submitChat()">➤</button>
+            <button type="button" class="chat-input-icon-btn" onclick="openStoreInfoModal()" title="Menu Thao Tác Quán" style="background:none; border:none; font-size:1.4rem; color:#64748B; cursor:pointer; padding:0 4px; line-height:1;">
+              +
+            </button>
+            <input type="text" class="chat-text-field" id="chatInputText" placeholder="Soạn tin nhắn..." onkeydown="handleChatKey(event)">
+            <button type="button" class="chat-input-icon-btn" onclick="triggerManualOpEvent()" title="Báo cáo đơn / Pha chế ngay" style="background:none; border:none; font-size:1.1rem; color:#F59E0B; cursor:pointer; padding:0 4px;">
+              ⚡
+            </button>
+            <button type="button" class="btn-send-yellow" onclick="submitChat()" title="Gửi tin nhắn">
+              ➤
+            </button>
           </div>
         </div>
       </div>
@@ -2339,6 +2238,66 @@
         </button>
       </div>
     </div>
+  <!-- ========================================================
+       MODAL: HỒ SƠ QUÁN & SỔ CÁI TỔNG HỢP (STORE DASHBOARD)
+       ======================================================== -->
+  <div class="modal-overlay" id="modalStoreInfo">
+    <div class="modal-card" style="border: 2px solid #F59E0B;">
+      <div class="modal-head">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.5rem;">🏪</span>
+          <div>
+            <h4 style="color:#0F172A; font-size:1rem; font-weight:800;" id="drawerShopName">Tiệm Trà Sữa Bất Tử</h4>
+            <div style="font-size:0.7rem; color:#64748B;" id="drawerPhaseInfo">Ngày 1 • Sáng (08:00 - 12:00)</div>
+          </div>
+        </div>
+        <button class="btn-close-x" onclick="closeModal('modalStoreInfo')">✕</button>
+      </div>
+
+      <!-- Core Stats Grid -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:14px 16px;">
+        <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:12px; padding:10px;">
+          <div style="font-size:0.68rem; color:#15803D; font-weight:700;">💰 TIỀN KÉT HIỆN TẠI</div>
+          <div style="font-size:1.15rem; font-weight:800; color:#15803D;" id="drawerCash">50.000.000đ</div>
+        </div>
+        <div style="background:#FEF3C7; border:1px solid #FDE68A; border-radius:12px; padding:10px;">
+          <div style="font-size:0.68rem; color:#92400E; font-weight:700;">⭐ UY TÍN CỬA HÀNG</div>
+          <div style="font-size:1.15rem; font-weight:800; color:#92400E;" id="drawerStars">4.2★</div>
+        </div>
+        <div style="background:#FDF2F8; border:1px solid #FBCFE8; border-radius:12px; padding:10px;">
+          <div style="font-size:0.68rem; color:#9D174D; font-weight:700;">🧋 ĐÃ BÁN HÔM NAY</div>
+          <div style="font-size:1.15rem; font-weight:800; color:#9D174D;" id="drawerCups">0 ly</div>
+        </div>
+        <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:12px; padding:10px;">
+          <div style="font-size:0.68rem; color:#1D4ED8; font-weight:700;">⏱️ TỐC ĐỘ RA MÓN</div>
+          <div style="font-size:1.15rem; font-weight:800; color:#1D4ED8;">1.9 phút/ly</div>
+        </div>
+      </div>
+
+      <!-- Staff & Equipment Status -->
+      <div style="padding:0 16px 12px; font-size:0.75rem;">
+        <div style="font-weight:700; color:#334155; margin-bottom:6px;">🛠️ TÌNH TRẠNG VẬN HÀNH THỜI GIAN THỰC:</div>
+        <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:10px; line-height:1.6; color:#475569;">
+          • ☕ Máy pha &amp; cối lắc: <strong style="color:#16A34A;">Sẵn sàng 🟢</strong><br>
+          • 🍯 Nồi trân châu hoàng kim: <strong id="drawerPearl" style="color:#D97706;">Đầy (Nóng 65°C)</strong><br>
+          • 🧊 Đá bi &amp; Sữa Dalat Milk: <strong style="color:#2563EB;">Đầy hầm (Bảo quản 4°C)</strong><br>
+          • 🛵 App ShopeeFood / Grab: <strong style="color:#16A34A;">Đang kết nối nhận đơn</strong>
+        </div>
+      </div>
+
+      <!-- Quick Actions inside Modal -->
+      <div style="display:flex; flex-direction:column; gap:8px; padding:0 16px 16px;">
+        <button class="ctrl-btn" onclick="closeModal('modalStoreInfo'); advanceShiftFlow();" style="justify-content:center; background:#0F172A; color:#FFF; font-weight:800; padding:10px;">
+          ⏩ Chuyển Sang Ca Tiếp Theo
+        </button>
+        <button class="ctrl-btn" onclick="closeModal('modalStoreInfo'); triggerManualOpEvent();" style="justify-content:center; background:#2563EB; color:#FFF; font-weight:800; padding:10px;">
+          ⚡ Thúc Giục Nhân Sự Báo Cáo Ngay
+        </button>
+        <button class="ctrl-btn" onclick="closeModal('modalStoreInfo'); openRulesModal();" style="justify-content:center; background:#FEF5D1; color:#854D0E; border:1px solid #FDC830; font-weight:700; padding:8px;">
+          📖 Xem Sổ Tay Luật Chơi Khởi Nghiệp
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- ========================================================
@@ -2583,25 +2542,31 @@
     ];
 
     /* ========================================================
-       CẬP NHẬT GIAO DIỆN HUD TỐI GIẢN
+       CẬP NHẬT HEADER & HỒ SƠ QUÁN (TỐI GIẢN CHUẨN DUHAT)
        ======================================================== */
     function updateHUD() {
-      document.getElementById('hudDayVal').textContent = `Ngày ${state.day} (${state.shiftPhase})`;
-      const elCash = document.getElementById('hudCashVal');
-      const pillCash = document.getElementById('hudCashPill');
-      elCash.textContent = formatMoney(state.cash);
-
-      if (state.cash < 0) {
-        pillCash.className = 'hud-pill cash-pill danger';
-        setTimeout(openBailoutModal, 500);
-      } else {
-        pillCash.className = 'hud-pill cash-pill';
+      // 1. Cập nhật dòng trạng thái nhỏ gọn dưới Header
+      const headerStatus = document.getElementById('chatHeaderStatus');
+      if (headerStatus) {
+        const phaseShort = state.shiftPhase.split(' ')[0];
+        headerStatus.innerHTML = `🟢 Trực ca • <strong>${formatMoney(state.cash)}</strong> • <strong>${state.stars.toFixed(1)}★</strong> • Ngày ${state.day} (${phaseShort})`;
+        if (state.cash < 0) {
+          headerStatus.style.color = '#DC2626';
+          setTimeout(openBailoutModal, 500);
+        } else {
+          headerStatus.style.color = '#64748B';
+        }
       }
 
-      document.getElementById('hudStarsVal').textContent = state.stars.toFixed(1) + '★';
-
-      const elCups = document.getElementById('hudCupsVal');
-      if (elCups) elCups.textContent = `${state.cupsSoldToday} ly`;
+      // 2. Cập nhật Modal Hồ Sơ Quán & Sổ Cái (nơi hiển thị đầy đủ thông tin khi user chạm)
+      const dCash = document.getElementById('drawerCash');
+      if (dCash) dCash.textContent = formatMoney(state.cash);
+      const dStars = document.getElementById('drawerStars');
+      if (dStars) dStars.textContent = state.stars.toFixed(1) + '★';
+      const dCups = document.getElementById('drawerCups');
+      if (dCups) dCups.textContent = `${state.cupsSoldToday} ly`;
+      const dPhase = document.getElementById('drawerPhaseInfo');
+      if (dPhase) dPhase.textContent = `Ngày ${state.day} • ${state.shiftPhase}`;
 
       if (state.cash >= 100000000) {
         setTimeout(openEmpireModal, 500);
@@ -2610,19 +2575,39 @@
       updateTimelineUI();
     }
 
-    function updateTimelineUI() {
-      const steps = ['timelineStep1', 'timelineStep2', 'timelineStep3', 'timelineStep4'];
-      steps.forEach((stepId, idx) => {
-        const el = document.getElementById(stepId);
-        if (!el) return;
-        el.className = 'timeline-step';
-        if (idx < state.shiftIndex) {
-          el.classList.add('passed');
-        } else if (idx === state.shiftIndex) {
-          el.classList.add('active');
-        }
-      });
+    function openStoreInfoModal() {
+      updateHUD();
+      document.getElementById('modalStoreInfo').classList.add('active');
+    }
 
+    function triggerPhoneCallSimulation() {
+      SoundFX.playAlert();
+      const row = document.createElement('div');
+      row.className = 'msg-row others';
+      row.style.alignSelf = 'center';
+      row.style.maxWidth = '90%';
+      row.style.margin = '6px 0';
+      row.innerHTML = `
+        <div style="background:#FEF9C3; border:1px solid #FDE047; border-radius:18px; padding:12px 16px; width:100%; box-shadow:0 2px 6px rgba(0,0,0,0.05);">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:36px; height:36px; background:#FACC15; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.15rem; flex-shrink:0;">📞</div>
+            <div>
+              <div style="font-size:0.95rem; font-weight:800; color:#1E293B;">Cuộc gọi thoại nội bộ</div>
+              <div style="font-size:0.75rem; color:#78716C;">Bé Trà Sữa vừa báo cáo xong ca trực • 0 giây</div>
+            </div>
+          </div>
+          <button onclick="openStoreInfoModal()" style="margin-top:10px; width:100%; background:#1E293B; color:#FFFFFF; border:none; padding:7px; border-radius:12px; font-size:0.78rem; font-weight:700; cursor:pointer;">
+            🏪 Xem Báo Cáo Sổ Cái Quán
+          </button>
+        </div>
+      `;
+      const typing = document.getElementById('typingIndicator');
+      if (typing) msgStream.insertBefore(row, typing);
+      else msgStream.appendChild(row);
+      msgStream.scrollTop = msgStream.scrollHeight;
+    }
+
+    function updateTimelineUI() {
       const btnAction = document.getElementById('btnMainShiftAction');
       if (btnAction) {
         if (state.shiftIndex === 0) {
@@ -2806,7 +2791,7 @@
       } else {
         document.getElementById('chatHeaderAvatar').textContent = '👩‍💼';
         document.getElementById('chatHeaderTitle').textContent = 'Bé Trà Sữa (AI Manager)';
-        document.getElementById('chatHeaderStatus').textContent = '● Chat 1:1 • Sếp toàn quyền quyết định';
+        updateHUD();
         if (addBtn) addBtn.style.display = 'inline-flex';
       }
     }
@@ -3883,13 +3868,10 @@
       closeModal('modalRules');
     }
 
-    // Tự động hiển thị Sổ Tay Luật Chơi khi vào web lần đầu tiên
+    // Không tự động bật popup modal lúc mới vào màn để tránh phiền người dùng.
+    // Người chơi có thể xem hướng dẫn ngắn trong luồng chat hoặc mở nút 'Luật Chơi' trên thanh header khi cần.
     window.addEventListener('DOMContentLoaded', () => {
-      if (!sessionStorage.getItem('duhat_tra_sua_rules_seen')) {
-        setTimeout(() => {
-          openRulesModal();
-        }, 500);
-      }
+      updateHUD();
     });
 
     function openBailoutModal() {
