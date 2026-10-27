@@ -2476,6 +2476,9 @@
         <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); openArtifactModal('empire');" style="padding:10px; justify-content:center;">
           👑 Xem Chứng Nhận Đại Gia Đế Chế
         </button>
+        <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); state.cash = 105000000; state.empireTriggered = false; updateHUD();" style="padding:10px; justify-content:center; background:#FEF3C7; color:#92400E; font-weight:800;">
+          👑 Thử Đạt 105M (Bổ Nhiệm CEO &amp; Vote)
+        </button>
         <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); triggerShiftClose();" style="padding:10px; justify-content:center; background:#F5F3FF; color:#6D28D9; font-weight:800;">
           🌙 Đóng Ca &amp; Xem Báo Cáo P&amp;L
         </button>
@@ -2503,7 +2506,9 @@
       autoStreamPaused: false,
       activeDrama: null,
       countdownTimer: null,
-      countdownSeconds: 20
+      countdownSeconds: 20,
+      empireTriggered: false,
+      bailoutTriggered: false
     };
 
     /* ========================================================
@@ -2964,10 +2969,12 @@
       if (headerStatus) {
         const phaseShort = state.shiftPhase.split(' ')[0];
         headerStatus.innerHTML = `🟢 Trực ca • <strong>${formatMoney(state.cash)}</strong> • <strong>${state.stars.toFixed(1)}★</strong> • Ngày ${state.day} (${phaseShort})`;
-        if (state.cash < 0) {
+        if (state.cash < 0 && !state.bailoutTriggered) {
+          state.bailoutTriggered = true;
           headerStatus.style.color = '#DC2626';
           setTimeout(openBailoutModal, 500);
-        } else {
+        } else if (state.cash >= 0) {
+          state.bailoutTriggered = false;
           headerStatus.style.color = '#64748B';
         }
       }
@@ -2982,7 +2989,9 @@
       const dPhase = document.getElementById('drawerPhaseInfo');
       if (dPhase) dPhase.textContent = `Ngày ${state.day} • ${state.shiftPhase}`;
 
-      if (state.cash >= 100000000) {
+      // Chỉ kích hoạt sự kiện Đại Hội Cổ Đông Mở Chuỗi Đa Ngành 1 LẦN DUY NHẤT khi cán mốc 100M
+      if (state.cash >= 100000000 && !state.empireTriggered) {
+        state.empireTriggered = true;
         setTimeout(openEmpireModal, 500);
       }
 
@@ -4367,12 +4376,202 @@
       document.getElementById('modalEmpire').classList.add('active');
     }
 
+    /* KÍCH HOẠT BIỂU QUYẾT CỔ ĐÔNG KHI BỔ NHIỆM BẠN LÀM CEO */
     function appointFriendCEO(brandName) {
       closeModal('modalEmpire');
-      appendChatMessage("Sếp Tuấn", "CHỦ TỊCH", `Tôi chính thức ký quyết định bổ nhiệm bạn bè làm Tổng Giám Đốc điều hành: ${brandName}!`, true, "👑");
+
+      // Chuyển mượt sang chế độ Group Chat Cổ Đông
+      state.mode = 'group';
+      const avatarEl = document.getElementById('chatHeaderAvatar');
+      if (avatarEl) avatarEl.textContent = '👥';
+      const titleEl = document.getElementById('chatHeaderTitle');
+      if (titleEl) titleEl.textContent = 'Hội Đồng Cổ Đông Tập Đoàn F&B (4)';
+      const statusEl = document.getElementById('chatHeaderStatus');
+      if (statusEl) statusEl.textContent = '● Chế độ Group Chat • Đại Hội Cổ Đông Bổ Nhiệm CEO';
+      const addBtn = document.getElementById('headerAddFriendBtn');
+      if (addBtn) addBtn.style.display = 'none';
+
+      // 1. Sếp Tuấn phát biểu bổ nhiệm
+      appendChatMessage(
+        "Sếp Tuấn",
+        "CHỦ TỊCH",
+        `🎉 Toàn thể anh em cổ đông chú ý! Tiệm trà sữa của mình đã xuất sắc vượt mốc 100 triệu doanh thu! Tôi chính thức đề xuất bổ nhiệm bạn thân làm Tổng Giám Đốc điều hành chi nhánh mới: <strong>${brandName}</strong>! Kính mời Hội Đồng Cổ Đông mở Poll biểu quyết phê duyệt gói ngân sách đầu tư!`,
+        true,
+        "👑"
+      );
+
+      // 2. Các cổ đông lần lượt thảo luận sôi nổi
       setTimeout(() => {
-        openArtifactModal('empire');
+        appendChatMessage(
+          "Thảo Kế Toán",
+          "CFO TẬP ĐOÀN",
+          `Két tiền vừa vượt 100 củ thật rồi! Tao duyệt trích tối đa 50 củ rót vốn cho ${brandName}, nhưng điều hành phải minh bạch hóa đơn, cuối tuần gửi sao kê cho tao kiểm toán! 📊🧐`,
+          false,
+          "📊"
+        );
+
+        setTimeout(() => {
+          appendChatMessage(
+            "Huy Marketing",
+            "CMO TẬP ĐOÀN",
+            `Mở ${brandName} là chuẩn bài luôn sếp ơi! Em đã chuẩn bị sẵn kịch bản TikTok 'Chủ tịch thử lòng bạn thân trao quyền CEO' cam kết viral triệu view cháy máy! 📱✨`,
+            false,
+            "📱"
+          );
+
+          setTimeout(() => {
+            appendChatMessage(
+              "Linh Vốn Dày",
+              "ANGEL INVESTOR",
+              `Tao bơm thêm uy tín cho bạn sếp làm CEO nhé! Miễn sao hàng tháng chia cổ tức đúng hạn và cho tao dẫn người yêu qua ăn uống miễn phí là duyệt! 💎🥂`,
+              false,
+              "💎"
+            );
+
+            setTimeout(() => {
+              appendChatMessage(
+                "Bé Trà Sữa",
+                "THƯ KÝ AI",
+                `Dạ em là Thư Ký AI! Em xin phép kính mời Hội Đồng Cổ Đông và Sếp Tuấn tiến hành <strong>BỎ PHIẾU BIỂU QUYẾT PHÊ DUYỆT GÓI ĐẦU TƯ &amp; BỔ NHIỆM CEO CHI NHÁNH ${brandName.toUpperCase()}</strong> ngay dưới đây ạ! 🗳️🏢`,
+                false,
+                "👩‍💼"
+              );
+
+              // 3. Render Poll biểu quyết CEO
+              setTimeout(() => {
+                renderCeoAppointmentPoll(brandName);
+              }, 400);
+            }, 600);
+          }, 600);
+        }, 600);
       }, 500);
+    }
+
+    function renderCeoAppointmentPoll(brandName) {
+      const old = document.getElementById('activeCeoVotingPoll');
+      if (old) old.remove();
+
+      const poll = document.createElement('div');
+      poll.className = 'group-poll-box';
+      poll.id = 'activeCeoVotingPoll';
+      poll.style.border = '2px solid #F59E0B';
+      poll.style.background = '#FFFDF5';
+      poll.innerHTML = `
+        <div class="poll-header" style="border-bottom:1.5px dashed #FCD34D;">
+          <span class="poll-title" style="color:#B45309; font-weight:800;">🗳️ BIỂU QUYẾT: PHÊ DUYỆT CEO &amp; MỞ ${brandName.toUpperCase()}</span>
+          <span class="poll-tag" style="background:#FEF3C7; color:#92400E; font-weight:800;">ĐẠI HỘI CỔ ĐÔNG</span>
+        </div>
+        <p style="font-size:0.73rem; color:#475569; margin-bottom:10px;">
+          Đề xuất mở chuỗi đa ngành từ nguồn quỹ két &gt; 100M. Sếp Tuấn nắm 35% quyền biểu quyết. Hãy chọn hướng phê duyệt:
+        </p>
+
+        <button class="poll-option-btn" onclick="submitCeoPollVote(1, '${brandName}')" style="border-left:4px solid #16A34A;">
+          <strong style="color:#15803D;">[Phương án 1] 🚀 Duyệt 100% gói vốn 50 triệu &amp; Trao quyền CEO ngay</strong>
+          <span>Huy CMO &amp; Linh vote thuận • Chi -50.000.000đ • ⭐ Uy tín +0.8★ • Mở chuỗi hoành tráng!</span>
+        </button>
+
+        <button class="poll-option-btn" onclick="submitCeoPollVote(2, '${brandName}')" style="border-left:4px solid #3B82F6;">
+          <strong style="color:#1D4ED8;">[Phương án 2] ✂️ Rút gọn vốn còn 30 triệu &amp; Cho thử việc 30 ngày</strong>
+          <span>Thảo CFO vote thuận • Chi -30.000.000đ • ⭐ Uy tín +0.4★ • Quản trị dòng tiền an toàn</span>
+        </button>
+
+        <button class="poll-option-btn" onclick="submitCeoPollVote(3, '${brandName}')" style="border-left:4px solid #D97706;">
+          <strong style="color:#B45309;">[Phương án 3] 🛑 Tạm hoãn mở chuỗi, giữ 100 triệu chia cổ tức tiền mặt</strong>
+          <span>Cổ đông nhận cổ tức tiền tươi • Bảo toàn vốn két • Chưa mở chi nhánh mới</span>
+        </button>
+      `;
+      msgStream.appendChild(poll);
+      msgStream.scrollTop = msgStream.scrollHeight;
+      SoundFX.playAlert();
+    }
+
+    function submitCeoPollVote(choice, brandName) {
+      const poll = document.getElementById('activeCeoVotingPoll');
+      if (poll) {
+        poll.style.opacity = '0.55';
+        poll.style.pointerEvents = 'none';
+        poll.removeAttribute('id');
+      }
+
+      if (choice === 1) {
+        appendChatMessage("Sếp Tuấn", "CHỦ TỊCH", `Tôi bỏ phiếu [Phương án 1]: Duyệt trọn gói 50 triệu và trao toàn quyền cho bạn thân làm CEO điều hành ${brandName}! Khô máu mở chuỗi!`, true, "👑");
+        setTimeout(() => {
+          state.cash -= 50000000;
+          state.stars = Math.min(5.0, Number((state.stars + 0.8).toFixed(1)));
+          updateHUD();
+          spawnFloatingStat("-50.000.000đ 🏢", "minus");
+          spawnFloatingStat("+0.8★ 👑", "star");
+          SoundFX.playCash();
+
+          appendChatMessage(
+            "Bé Trà Sữa",
+            "THƯ KÝ AI",
+            `🔨 <strong>CHỐT BIỂU QUYẾT: 4/4 PHIẾU THUẬN TUYỆT ĐỐI!</strong><br>
+            Quyết định bổ nhiệm CEO chi nhánh <strong>${brandName}</strong> đã được Hội Đồng Cổ Đông thông qua! Gói vốn đầu tư <strong>50.000.000đ</strong> đã được giải ngân. Uy tín tập đoàn chạm đỉnh <strong>${state.stars.toFixed(1)}★</strong>! 🎉✨`,
+            false,
+            "👩‍💼"
+          );
+
+          setTimeout(() => {
+            appendChatMessage("Huy Marketing", "CMO TẬP ĐOÀN", `Đỉnh chóp luôn sếp ơi! Em đang bấm máy quay clip TikTok khai trương rồi! 🔥`, false, "📱");
+            appendChatMessage("Thảo Kế Toán", "CFO TẬP ĐOÀN", `Tiền đã trích xong, tao sẽ giám sát doanh thu hàng ngày của CEO mới! 📊👏`, false, "📊");
+
+            setTimeout(() => {
+              appendChatMessage(
+                "Bé Trà Sữa",
+                "THƯ KÝ AI",
+                `👑 Chúc mừng Chủ Tịch Sếp Tuấn và Hội Đồng Cổ Đông! Doanh nghiệp của sếp đã chính thức nâng tầm thành <strong>TẬP ĐOÀN F&amp;B ĐA NGÀNH</strong>! Em xin trân trọng trao tặng Sếp <strong>CHỨNG NHẬN ĐẾ CHẾ F&amp;B TỶ ĐÔ</strong> để sếp đăng Story flex khắp mạng xã hội ạ! 🏆📜`,
+                false,
+                "👩‍💼"
+              );
+              setTimeout(() => {
+                openArtifactModal('empire');
+              }, 600);
+            }, 800);
+          }, 600);
+        }, 500);
+      } else if (choice === 2) {
+        appendChatMessage("Sếp Tuấn", "CHỦ TỊCH", `Tôi bỏ phiếu [Phương án 2]: Duyệt gói vốn an toàn 30 triệu cho bạn thân làm CEO chạy thử nghiệm 30 ngày trước!`, true, "👑");
+        setTimeout(() => {
+          state.cash -= 30000000;
+          state.stars = Math.min(5.0, Number((state.stars + 0.4).toFixed(1)));
+          updateHUD();
+          spawnFloatingStat("-30.000.000đ 🏢", "minus");
+          spawnFloatingStat("+0.4★ 👑", "star");
+          SoundFX.playCash();
+
+          appendChatMessage(
+            "Bé Trà Sữa",
+            "THƯ KÝ AI",
+            `🔨 <strong>CHỐT BIỂU QUYẾT: THÔNG QUA PHƯƠNG ÁN AN TOÀN!</strong><br>
+            Cấp vốn 30.000.000đ thử nghiệm mô hình <strong>${brandName}</strong>. Két tiền bảo toàn vững chắc, uy tín tăng lên <strong>${state.stars.toFixed(1)}★</strong>! 👏`,
+            false,
+            "👩‍💼"
+          );
+
+          setTimeout(() => {
+            appendChatMessage("Thảo Kế Toán", "CFO TẬP ĐOÀN", `Sếp quyết định chuẩn! Thử nghiệm trước rồi scale up sau, vậy tao mới yên tâm giữ két! 📊`, false, "📊");
+            setTimeout(() => {
+              openArtifactModal('empire');
+            }, 700);
+          }, 600);
+        }, 500);
+      } else {
+        appendChatMessage("Sếp Tuấn", "CHỦ TỊCH", `Tôi bỏ phiếu [Phương án 3]: Tạm hoãn mở chuỗi mới, giữ trọn 100 triệu trong két tiệm trà sữa chia cổ tức cho anh em!`, true, "👑");
+        setTimeout(() => {
+          appendChatMessage(
+            "Bé Trà Sữa",
+            "THƯ KÝ AI",
+            `🔨 <strong>CHỐT BIỂU QUYẾT: GIỮ NGUYÊN QUỸ KÉT!</strong><br>
+            Hội đồng quyết định bảo toàn dòng tiền tại quán trà sữa gốc, sẵn sàng cho các cơ hội tiếp theo! 💰`,
+            false,
+            "👩‍💼"
+          );
+          setTimeout(() => {
+            appendChatMessage("Linh Vốn Dày", "INVESTOR", `Cũng được, cuối tháng chia cổ tức tiền mặt cho tao là được! 💎`, false, "💎");
+          }, 500);
+        }, 500);
+      }
     }
 
     function triggerSecretBailout() {
@@ -4393,6 +4592,8 @@
       state.turn = 1;
       state.cupsSoldToday = 0;
       state.activeDrama = null;
+      state.empireTriggered = false;
+      state.bailoutTriggered = false;
       if (state.countdownTimer) clearInterval(state.countdownTimer);
       updateHUD();
       restoreNormalChips();
