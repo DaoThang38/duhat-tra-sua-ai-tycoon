@@ -82,22 +82,6 @@
       transition: background 0.3s ease;
     }
 
-    body.dark-env {
-      background: radial-gradient(circle at 10% 20%, #1E293B 0%, #0F172A 100%);
-    }
-
-    body.dark-env .prototype-control-bar {
-      background: rgba(30, 41, 59, 0.85);
-      border-color: rgba(255, 255, 255, 0.1);
-      color: #F8FAFC;
-    }
-
-    body.dark-env .ctrl-btn {
-      background: #334155;
-      color: #F8FAFC;
-      border-color: #475569;
-    }
-
     /* Outer Control Bar */
     .prototype-control-bar {
       display: flex;
@@ -706,6 +690,185 @@
     .mode-sub-btn.active {
       background: #2563EB;
       color: #FFFFFF;
+    }
+
+    /* ========================================================
+       SHIFT TIMELINE BAR (NHỊP TIẾN TRÌNH 4 PHA CA TRỰC)
+       ======================================================== */
+    .shift-timeline-bar {
+      background: #F8FAFC;
+      border-bottom: 1px solid var(--color-border);
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .timeline-step {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      padding: 3px 6px;
+      border-radius: var(--radius-full);
+      transition: all 0.25s ease;
+    }
+
+    .timeline-step.active {
+      background: #FEF3C7;
+      color: #92400E;
+      font-weight: 800;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .timeline-step.passed {
+      color: #15803D;
+    }
+
+    .step-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #CBD5E1;
+    }
+
+    .timeline-step.active .step-dot {
+      background: #F59E0B;
+      box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+      animation: dotPulse 1.2s infinite alternate;
+    }
+
+    @keyframes dotPulse {
+      from { transform: scale(0.9); }
+      to { transform: scale(1.3); }
+    }
+
+    .timeline-step.passed .step-dot {
+      background: #22C55E;
+    }
+
+    .timeline-divider {
+      flex: 1;
+      height: 1.5px;
+      background: #E2E8F0;
+      margin: 0 2px;
+    }
+
+    /* FLOATING CASH / RATING PARTICLES */
+    .floating-stat-container {
+      position: absolute;
+      top: 96px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .floating-stat-badge {
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 800;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      animation: floatUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .floating-stat-badge.plus {
+      background: #DCFCE7;
+      color: #15803D;
+      border: 1.5px solid #86EFAC;
+    }
+
+    .floating-stat-badge.minus {
+      background: #FEE2E2;
+      color: #DC2626;
+      border: 1.5px solid #FCA5A5;
+    }
+
+    .floating-stat-badge.star {
+      background: #FEF3C7;
+      color: #B45309;
+      border: 1.5px solid #FDE68A;
+    }
+
+    @keyframes floatUp {
+      0% { opacity: 0; transform: translateY(10px) scale(0.85); }
+      20% { opacity: 1; transform: translateY(0) scale(1.05); }
+      80% { opacity: 1; transform: translateY(-16px) scale(1); }
+      100% { opacity: 0; transform: translateY(-30px) scale(0.9); }
+    }
+
+    /* TYPING INDICATOR */
+    .typing-indicator-row {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      margin-left: 2px;
+      animation: fadeIn 0.2s;
+    }
+
+    .typing-indicator-row.active {
+      display: flex;
+    }
+
+    .typing-bubble {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 18px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      background: #94A3B8;
+      border-radius: 50%;
+      animation: typingBlink 1.4s infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingBlink {
+      0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+      40% { opacity: 1; transform: scale(1.15); }
+    }
+
+    .typing-label {
+      font-size: 0.68rem;
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    /* DECISION RESOLVED BADGE */
+    .decision-resolved-badge {
+      background: #F8FAFC;
+      border: 1.5px dashed #CBD5E1;
+      border-radius: 14px;
+      padding: 8px 12px;
+      font-size: 0.74rem;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 6px 0;
+      animation: fadeIn 0.25s;
+    }
+
+    .decision-resolved-badge strong {
+      color: #0F172A;
     }
 
     /* HEARTBEAT TICKER & COUNTDOWN */
@@ -1524,7 +1687,10 @@
       <button class="ctrl-btn highlight-gold" onclick="openRulesModal()" style="background:#FEF5D1; border-color:#FDC830; color:#854D0E; font-weight:700;">
         📖 Luật Chơi
       </button>
-      <button class="ctrl-btn" onclick="toggleEnvDark()">🌓 Giao diện</button>
+      <button class="ctrl-btn" id="soundToggleBtn" onclick="toggleSound()">🔊 Âm thanh</button>
+      <button class="ctrl-btn" onclick="openReviewerToolsModal()" style="background:#EFF6FF; border-color:#BFDBFE; color:#1D4ED8; font-weight:700;">
+        🛠️ Demo Tools
+      </button>
       <button class="ctrl-btn" onclick="resetGameLedger()">🔄 Reset Quán</button>
       <a href="AI_KNOWLEDGE_BASE_PRESENTATION.html" target="_blank" class="ctrl-btn">
         📊 Xem Deck Thuyết Minh
@@ -1537,6 +1703,9 @@
        ======================================================== -->
   <div class="device-viewport">
     <div class="iphone-chassis">
+
+      <!-- Floating Stat Particles Container -->
+      <div class="floating-stat-container" id="floatingStatContainer"></div>
 
       <!-- Dynamic Island -->
       <div class="dynamic-island">
@@ -1722,14 +1891,37 @@
           </div>
         </div>
 
+        <!-- Shift Timeline Bar (4 Pha Ca Trực Trong Ngày) -->
+        <div class="shift-timeline-bar" id="shiftTimelineBar">
+          <div class="timeline-step active" id="timelineStep1">
+            <span class="step-dot"></span>
+            <span>☀️ 08:00 Sáng</span>
+          </div>
+          <div class="timeline-divider"></div>
+          <div class="timeline-step" id="timelineStep2">
+            <span class="step-dot"></span>
+            <span>🌤️ 12:00 Cao Điểm</span>
+          </div>
+          <div class="timeline-divider"></div>
+          <div class="timeline-step" id="timelineStep3">
+            <span class="step-dot"></span>
+            <span>🌆 16:00 Giờ Xế</span>
+          </div>
+          <div class="timeline-divider"></div>
+          <div class="timeline-step" id="timelineStep4">
+            <span class="step-dot"></span>
+            <span>🌙 21:30 Chốt Ca</span>
+          </div>
+        </div>
+
         <!-- Heartbeat Pulse Bar -->
         <div class="heartbeat-strip">
           <div>
             <span class="pulse-dot"></span>
             <span id="heartbeatTimerText">AI Heartbeat: Đang canh quán... (Ping sau 14:30)</span>
           </div>
-          <button class="btn-fast-pulse" onclick="triggerHeartbeatEvent()">
-            ⏩ Tua Nhanh 30 Phút
+          <button class="btn-fast-pulse" onclick="advanceShiftFlow()">
+            ⏩ Tiến Trình Ca
           </button>
         </div>
 
@@ -1761,38 +1953,34 @@
               <div class="msg-time-status">09:41</div>
             </div>
           </div>
+
+          <!-- Typing Indicator Animation Row -->
+          <div class="typing-indicator-row" id="typingIndicator">
+            <div class="msg-avatar-circle" id="typingAvatar" style="width:28px; height:28px; font-size:0.95rem;">👩‍💼</div>
+            <div class="typing-bubble">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+            <span class="typing-label" id="typingLabel">Bé Trà Sữa đang soạn tin...</span>
+          </div>
         </div>
 
-        <!-- Chat Bottom Dock & Quick Chips -->
+        <!-- Chat Bottom Dock & Streamlined Quick Chips -->
         <div class="chat-bottom-dock">
-          <!-- Dynamic Action Chips Bar -->
+          <!-- Dynamic Action Chips Bar (Streamlined Gameplay Flow) -->
           <div class="chips-carousel" id="quickChipsContainer">
-            <button class="chip-bubble-btn highlight" style="background:#FFE4E6; color:#E11D48; border-color:#FDA4AF;" onclick="triggerTurningPointMoment()">
-              🚨 Thử Biến Cố +1 Bạn Cứu Quán
-            </button>
-            <button class="chip-bubble-btn" onclick="openCreateGroupModal()">
-              👥 Lập Group Cổ Đông
-            </button>
-            <button class="chip-bubble-btn highlight" onclick="openRulesModal()">
-              📖 Luật Chơi 30s
-            </button>
-            <button class="chip-bubble-btn highlight" onclick="triggerHeartbeatEvent()">
-              ⚡ Réo Biến Cố Ngay
+            <button class="chip-bubble-btn highlight" id="btnMainShiftAction" onclick="advanceShiftFlow()" style="background:linear-gradient(135deg, #FDC830 0%, #F59E0B 100%); color:#1A1A1A; font-weight:800; border:none; box-shadow:0 3px 10px rgba(245,158,11,0.35);">
+              ▶ Vào Giờ Cao Điểm Trưa (12:00) ⚡
             </button>
             <button class="chip-bubble-btn" onclick="triggerShiftClose()">
-              🌙 Kết Ca Ngày 1
+              🌙 Chốt Ca &amp; Xem P&amp;L
             </button>
-            <button class="chip-bubble-btn danger-chip" onclick="simulateIgnoredCrisis()">
-              ⏰ Thử Bơ Tin 30p (Kết Tệ)
+            <button class="chip-bubble-btn" style="background:#EFF6FF; color:#1D4ED8; border-color:#BFDBFE;" onclick="triggerTurningPointMoment()">
+              👥 +1 Bạn Cứu Quán
             </button>
-            <button class="chip-bubble-btn" onclick="testLagRecovery()">
-              🧠 AI Lag Não
-            </button>
-            <button class="chip-bubble-btn" onclick="openArtifactModal('bankrupt')">
-              💀 Xem Bằng Phá Sản
-            </button>
-            <button class="chip-bubble-btn" onclick="openArtifactModal('empire')">
-              👑 Xem Bằng Đại Gia
+            <button class="chip-bubble-btn" onclick="openReviewerToolsModal()" style="background:#F1F5F9; color:#475569; font-weight:700;">
+              🛠️ Demo Tools
             </button>
           </div>
 
@@ -2079,22 +2267,142 @@
     </div>
   </div>
 
+  <!-- ========================================================
+       MODAL: REVIEWER TOOLS & PROTOTYPE DEMO SANDBOX
+       ======================================================== -->
+  <div class="modal-overlay" id="modalReviewerTools">
+    <div class="modal-card" style="border: 2px solid #3B82F6;">
+      <div class="modal-head">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.4rem;">🛠️</span>
+          <div>
+            <h4 style="color:#1D4ED8; font-size:0.95rem; font-weight:800;">HỘP CÔNG CỤ THỬ NGHIỆM (DÀNH CHO GIÁM KHẢO)</h4>
+            <div style="font-size:0.68rem; color:#64748B;">Kích hoạt nhanh tất cả kịch bản ngoại lệ để thẩm định tính năng</div>
+          </div>
+        </div>
+        <button class="btn-close-x" onclick="closeModal('modalReviewerTools')">✕</button>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:16px 20px;">
+        <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); triggerHeartbeatEvent();" style="padding:10px; justify-content:center; background:#FEF3C7; color:#92400E; font-weight:800;">
+          ⚡ Réo Biến Cố Ngẫu Nhiên
+        </button>
+        <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); triggerTurningPointMoment();" style="padding:10px; justify-content:center; background:#EFF6FF; color:#1D4ED8; font-weight:800;">
+          🚨 Thử Biến Cố +1 Bạn (Đòi Tiền Nhà)
+        </button>
+        <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); simulateIgnoredCrisis();" style="padding:10px; justify-content:center; background:#FEE2E2; color:#DC2626; font-weight:800;">
+          ⏰ Thử Bơ Tin Nhắn 30p (Kết Tệ)
+        </button>
+        <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); testPosReconcile();" style="padding:10px; justify-content:center; background:#F0F9FF; color:#0369A1; font-weight:800;">
+          🧾 Thử Đối Soát Sổ Quỹ POS (Auto-Reconcile)
+        </button>
+        <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); openArtifactModal('bankrupt');" style="padding:10px; justify-content:center;">
+          💀 Xem Bằng Khen Phá Sản (Share)
+        </button>
+        <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); openArtifactModal('empire');" style="padding:10px; justify-content:center;">
+          👑 Xem Chứng Nhận Đại Gia Đế Chế
+        </button>
+        <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); triggerShiftClose();" style="padding:10px; justify-content:center; background:#F5F3FF; color:#6D28D9; font-weight:800;">
+          🌙 Đóng Ca &amp; Xem Báo Cáo P&amp;L
+        </button>
+        <button class="ctrl-btn" onclick="closeModal('modalReviewerTools'); resetGameLedger();" style="padding:10px; justify-content:center; color:#DC2626; font-weight:800;">
+          🔄 Reset Toàn Bộ Game
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
     /* ========================================================
        STATE GAME (NGÀY, CA LÀM, TIỀN KÉT & SAO UY TÍN)
        ======================================================== */
     const state = {
       day: 1,
-      shiftPhase: 'Trưa (Giờ Cao Điểm)', // 'Sáng', 'Trưa', 'Tối (Kết Ca)'
+      shiftPhase: 'Sáng (Khai Ca)',
+      shiftIndex: 0, // 0: Sáng (08:00), 1: Trưa Cao Điểm (12:00), 2: Chiều Xế (16:00), 3: Tối Đóng Ca (21:30)
       cupsSoldToday: 0,
       cash: 50000000,
       stars: 4.2,
       turn: 1,
       mode: 'solo',
+      soundEnabled: true,
       activeDrama: null,
       countdownTimer: null,
       countdownSeconds: 20
     };
+
+    /* ========================================================
+       WEB AUDIO SYNTHESIZER (ZERO ASSET DEPENDENCY)
+       ======================================================== */
+    const SoundFX = {
+      ctx: null,
+      enabled: true,
+      init() {
+        if (!this.ctx) {
+          try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            this.ctx = new AudioContext();
+          } catch(e) {}
+        }
+      },
+      playTone(freq, type = 'sine', duration = 0.15, gainVal = 0.08) {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          if (this.ctx.state === 'suspended') this.ctx.resume();
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch(e) {}
+      },
+      playPop() {
+        if (!this.enabled) return;
+        this.playTone(600, 'sine', 0.07, 0.07);
+        setTimeout(() => this.playTone(900, 'sine', 0.09, 0.05), 35);
+      },
+      playCash() {
+        if (!this.enabled) return;
+        this.playTone(784, 'sine', 0.1, 0.1);
+        setTimeout(() => this.playTone(1046, 'sine', 0.22, 0.12), 70);
+      },
+      playAlert() {
+        if (!this.enabled) return;
+        this.playTone(523, 'triangle', 0.12, 0.1);
+        setTimeout(() => this.playTone(392, 'triangle', 0.2, 0.1), 90);
+      }
+    };
+
+    function toggleSound() {
+      SoundFX.enabled = !SoundFX.enabled;
+      const btn = document.getElementById('soundToggleBtn');
+      if (btn) {
+        btn.textContent = SoundFX.enabled ? '🔊 Âm thanh' : '🔇 Đã tắt tiếng';
+        btn.style.color = SoundFX.enabled ? 'var(--color-text-main)' : 'var(--color-text-muted)';
+      }
+    }
+
+    function openReviewerToolsModal() {
+      document.getElementById('modalReviewerTools').classList.add('active');
+    }
+
+    /* FLOATING NUMBERS ON HUD */
+    function spawnFloatingStat(text, type = 'plus') {
+      const container = document.getElementById('floatingStatContainer');
+      if (!container) return;
+      const badge = document.createElement('div');
+      badge.className = `floating-stat-badge ${type}`;
+      badge.textContent = text;
+      container.appendChild(badge);
+      setTimeout(() => badge.remove(), 1200);
+    }
 
     /* DANH SÁCH BIẾN CỐ ĐÔI CO HÀI HƯỚC (DRAMA POOL) */
     const dramaList = [
@@ -2216,6 +2524,99 @@
 
       if (state.cash >= 100000000) {
         setTimeout(openEmpireModal, 500);
+      }
+
+      updateTimelineUI();
+    }
+
+    function updateTimelineUI() {
+      const steps = ['timelineStep1', 'timelineStep2', 'timelineStep3', 'timelineStep4'];
+      steps.forEach((stepId, idx) => {
+        const el = document.getElementById(stepId);
+        if (!el) return;
+        el.className = 'timeline-step';
+        if (idx < state.shiftIndex) {
+          el.classList.add('passed');
+        } else if (idx === state.shiftIndex) {
+          el.classList.add('active');
+        }
+      });
+
+      const btnAction = document.getElementById('btnMainShiftAction');
+      if (btnAction) {
+        if (state.shiftIndex === 0) {
+          btnAction.innerHTML = '▶ Vào Giờ Cao Điểm Trưa (12:00) ⚡';
+        } else if (state.shiftIndex === 1) {
+          btnAction.innerHTML = state.activeDrama ? '⚡ Đang Xử Lý Biến Cố Trưa' : '▶ Sang Giờ Xế Chiều (16:00) 🧋';
+        } else if (state.shiftIndex === 2) {
+          btnAction.innerHTML = '🌙 Chốt Ca &amp; Xem Báo Cáo P&amp;L';
+        } else {
+          btnAction.innerHTML = '☀️ Khai Ca Ngày Tiếp Theo ▶';
+        }
+      }
+    }
+
+    function advanceShiftFlow() {
+      if (state.activeDrama) {
+        alert("⚠️ Quán đang có biến cố! Sếp hãy chọn phương án [A], [B] hoặc gõ chat [C] để xử lý nhé!");
+        return;
+      }
+
+      if (state.shiftIndex === 0) {
+        // Chuyển sang Giờ Cao Điểm Trưa (12:00)
+        state.shiftIndex = 1;
+        state.shiftPhase = 'Trưa (Giờ Cao Điểm)';
+        updateHUD();
+
+        queueTypingMessage(
+          "Bé Trà Sữa",
+          "CỬA HÀNG TRƯỞNG",
+          `🌤️ <strong>12:00 TRƯA - GIỜ CAO ĐIỂM BÙNG NỔ!</strong> Khách công sở tan làm ùa vào đặt 40 ly! Két tiền ting ting <strong>+1.600.000đ</strong>! 💸 Nhưng sếp ơi...`,
+          false,
+          "👩‍💼",
+          600,
+          () => {
+            state.cash += 1600000;
+            state.cupsSoldToday += 40;
+            spawnFloatingStat('+1.600.000đ 💸', 'plus');
+            SoundFX.playCash();
+            updateHUD();
+
+            setTimeout(() => {
+              triggerHeartbeatEvent();
+            }, 800);
+          }
+        );
+      } else if (state.shiftIndex === 1) {
+        // Chuyển sang Giờ Xế Chiều (16:00)
+        state.shiftIndex = 2;
+        state.shiftPhase = 'Chiều (Giờ Xế)';
+        updateHUD();
+
+        queueTypingMessage(
+          "Bé Trà Sữa",
+          "CỬA HÀNG TRƯỞNG",
+          `🌆 <strong>16:00 CHIỀU - GIỜ TRÀ XẾ CÔNG SỞ!</strong> Các phòng ban công ty đua nhau order qua ShopeeFood/Grab! Quán vừa chốt thêm 35 ly trà lài kem cheese! Két tiền tăng thêm <strong>+1.400.000đ</strong>! ✨🧋`,
+          false,
+          "👩‍💼",
+          600,
+          () => {
+            state.cash += 1400000;
+            state.cupsSoldToday += 35;
+            spawnFloatingStat('+1.400.000đ 💸', 'plus');
+            SoundFX.playCash();
+            updateHUD();
+          }
+        );
+      } else if (state.shiftIndex === 2) {
+        // Chuyển sang Tối & Chốt Ca (21:30)
+        state.shiftIndex = 3;
+        state.shiftPhase = 'Tối (Đóng Cửa)';
+        updateHUD();
+        triggerShiftClose();
+      } else {
+        // Khai ca ngày mới
+        startNextDay();
       }
     }
 
@@ -2476,7 +2877,22 @@
        ======================================================== */
     const msgStream = document.getElementById('messageStream');
 
+    function showTyping(sender, avatar = "👩‍💼") {
+      const ind = document.getElementById('typingIndicator');
+      if (!ind) return;
+      document.getElementById('typingAvatar').textContent = avatar;
+      document.getElementById('typingLabel').textContent = `${sender} đang soạn tin...`;
+      ind.classList.add('active');
+      msgStream.scrollTop = msgStream.scrollHeight;
+    }
+
+    function hideTyping() {
+      const ind = document.getElementById('typingIndicator');
+      if (ind) ind.classList.remove('active');
+    }
+
     function appendChatMessage(sender, role, text, isSelf = false, avatar = "👤") {
+      hideTyping();
       const row = document.createElement('div');
       row.className = `msg-row ${isSelf ? 'self' : 'others'}`;
       row.innerHTML = `
@@ -2493,43 +2909,65 @@
           </div>
         </div>
       `;
-      msgStream.appendChild(row);
+      const typing = document.getElementById('typingIndicator');
+      if (typing) {
+        msgStream.insertBefore(row, typing);
+      } else {
+        msgStream.appendChild(row);
+      }
       msgStream.scrollTop = msgStream.scrollHeight;
+      if (!isSelf) {
+        SoundFX.playPop();
+      }
+    }
+
+    function queueTypingMessage(sender, role, text, isSelf = false, avatar = "👤", delay = 600, callback = null) {
+      if (isSelf) {
+        appendChatMessage(sender, role, text, true, avatar);
+        if (callback) callback();
+        return;
+      }
+      showTyping(sender, avatar);
+      setTimeout(() => {
+        appendChatMessage(sender, role, text, false, avatar);
+        if (callback) callback();
+      }, delay);
     }
 
     /* ========================================================
        KÍCH HOẠT BIẾN CỐ & HỘP ĐÔI CO [A], [B], [C]
        ======================================================== */
     function triggerHeartbeatEvent() {
-      if (state.activeDrama) return; // Nếu đang có biến thì xử lý nốt
+      if (state.activeDrama) return;
 
       const drama = dramaList[Math.floor(Math.random() * dramaList.length)];
       state.activeDrama = drama;
       state.countdownSeconds = 20;
 
+      SoundFX.playAlert();
+
       // 1. Bé Trà Sữa réo khẩn cấp
-      appendChatMessage(
+      queueTypingMessage(
         "Bé Trà Sữa",
         "AI MANAGER",
         `🚨 SẾP ƠI CỨU QUÁN! [BIẾN CỐ NGÀY ${state.day}]: ${drama.title} vừa ập đến tiệm mình kìa! Sếp ra mặt quyết định gấp giúp em với!`,
         false,
-        "👩‍💼"
+        "👩‍💼",
+        500,
+        () => {
+          // 2. Đối tượng drama (NPC) nhảy vào chat đôi co
+          setTimeout(() => {
+            queueTypingMessage(drama.npcName, drama.npcRole, drama.npcChat, false, drama.npcAvatar, 600, () => {
+              // 3. Hiện Hộp Lựa Chọn Quyết Định (A, B, C)
+              renderDecisionBox(drama);
+              startCrisisCountdown();
+            });
+          }, 350);
+        }
       );
-
-      // 2. Đối tượng drama (NPC) nhảy vào chat đôi co sau 500ms
-      setTimeout(() => {
-        appendChatMessage(drama.npcName, drama.npcRole, drama.npcChat, false, drama.npcAvatar);
-
-        // 3. Hiện Hộp Lựa Chọn Quyết Định (A, B, C)
-        setTimeout(() => {
-          renderDecisionBox(drama);
-          startCrisisCountdown();
-        }, 400);
-      }, 500);
     }
 
     function renderDecisionBox(drama) {
-      // Xóa box cũ nếu có
       const old = document.getElementById('activeDecisionBox');
       if (old) old.remove();
 
@@ -2569,10 +3007,14 @@
         </div>
       `;
 
-      msgStream.appendChild(box);
+      const typing = document.getElementById('typingIndicator');
+      if (typing) {
+        msgStream.insertBefore(box, typing);
+      } else {
+        msgStream.appendChild(box);
+      }
       msgStream.scrollTop = msgStream.scrollHeight;
 
-      // Cập nhật thanh Quick Chips ở dưới cùng để user không thể bỏ lỡ
       updateChipsForCrisis();
     }
 
@@ -2586,34 +3028,33 @@
           👉 [B] Cứng Rắn Cãi Lý
         </button>
         <button class="chip-bubble-btn" onclick="focusChatInput()">
-          👉 [C] Tự Gõ Chat Đôi Co
+          👉 [C] Tự Gõ Đôi Co
         </button>
         <button class="chip-bubble-btn danger-chip" onclick="simulateIgnoredCrisis()">
-          ⏰ Giả Lập Bơ Tin (Cái Kết Tệ)
+          ⏰ Thử Bơ Tin (Kết Tệ)
         </button>
       `;
     }
 
     function restoreNormalChips() {
       const container = document.getElementById('quickChipsContainer');
+      let mainActionText = '▶ Vào Giờ Cao Điểm Trưa (12:00) ⚡';
+      if (state.shiftIndex === 1) mainActionText = '▶ Sang Giờ Xế Chiều (16:00) 🧋';
+      else if (state.shiftIndex === 2) mainActionText = '🌙 Chốt Ca & Xem P&L';
+      else if (state.shiftIndex === 3) mainActionText = '☀️ Khai Ca Ngày Tiếp Theo ▶';
+
       container.innerHTML = `
-        <button class="chip-bubble-btn highlight" onclick="triggerHeartbeatEvent()">
-          ⚡ Réo Biến Cố Ngay
+        <button class="chip-bubble-btn highlight" id="btnMainShiftAction" onclick="advanceShiftFlow()" style="background:linear-gradient(135deg, #FDC830 0%, #F59E0B 100%); color:#1A1A1A; font-weight:800; border:none; box-shadow:0 3px 10px rgba(245,158,11,0.35);">
+          ${mainActionText}
         </button>
         <button class="chip-bubble-btn" onclick="triggerShiftClose()">
-          🌙 Kết Ca Ngày ${state.day}
+          🌙 Chốt Ca &amp; Xem P&amp;L
         </button>
-        <button class="chip-bubble-btn danger-chip" onclick="simulateIgnoredCrisis()">
-          ⏰ Thử Bơ Tin 30p (Kết Tệ)
+        <button class="chip-bubble-btn" style="background:#EFF6FF; color:#1D4ED8; border-color:#BFDBFE;" onclick="triggerTurningPointMoment()">
+          👥 +1 Bạn Cứu Quán
         </button>
-        <button class="chip-bubble-btn" onclick="testLagRecovery()">
-          🧠 AI Lag Não
-        </button>
-        <button class="chip-bubble-btn" onclick="openArtifactModal('bankrupt')">
-          💀 Xem Bằng Phá Sản
-        </button>
-        <button class="chip-bubble-btn" onclick="openArtifactModal('empire')">
-          👑 Xem Bằng Đại Gia
+        <button class="chip-bubble-btn" onclick="openReviewerToolsModal()" style="background:#F1F5F9; color:#475569; font-weight:700;">
+          🛠️ Demo Tools
         </button>
       `;
     }
@@ -2635,18 +3076,17 @@
           el.textContent = `00:${state.countdownSeconds < 10 ? '0' : ''}${state.countdownSeconds}s`;
         }
 
-        // Sau 10s: AI nhắn tin réo giục lần 2
         if (state.countdownSeconds === 10 && state.activeDrama) {
-          appendChatMessage(
+          queueTypingMessage(
             "Bé Trà Sữa",
             "AI MANAGER",
             state.activeDrama.ignoredBadEnd.warning,
             false,
-            "👩‍💼"
+            "👩‍💼",
+            400
           );
         }
 
-        // Hết giờ (0s): CÁI KẾT TỆ VÌ USER BƠ TIN NHẮN
         if (state.countdownSeconds <= 0) {
           clearInterval(state.countdownTimer);
           triggerBadEndingBecauseIgnored();
@@ -2657,7 +3097,6 @@
     /* GIẢ LẬP HÀNH VI BƠ TIN NHẮN 30 PHÚT -> CÁI KẾT TỆ */
     function simulateIgnoredCrisis() {
       if (!state.activeDrama) {
-        // Nếu chưa có biến thì tạo biến trước
         const drama = dramaList[Math.floor(Math.random() * dramaList.length)];
         state.activeDrama = drama;
         appendChatMessage("Bé Trà Sữa", "AI MANAGER", `🚨 Sếp ơi có biến: ${drama.title}!`, false, "👩‍💼");
@@ -2671,11 +3110,9 @@
       if (!state.activeDrama) return;
       const drama = state.activeDrama;
 
-      // Xóa box quyết định
       const box = document.getElementById('activeDecisionBox');
       if (box) box.remove();
 
-      // NPC nổi giận
       appendChatMessage(
         drama.npcName,
         drama.npcRole,
@@ -2684,24 +3121,28 @@
         drama.npcAvatar
       );
 
-      // Bé Trà Sữa gửi thông báo CÁI KẾT TỆ
       setTimeout(() => {
         state.cash += drama.ignoredBadEnd.deltaCash;
         state.stars = Math.max(1.0, Math.min(5.0, state.stars + drama.ignoredBadEnd.deltaStars));
         state.turn++;
+        spawnFloatingStat(formatMoney(drama.ignoredBadEnd.deltaCash) + ' 💀', 'minus');
+        SoundFX.playAlert();
         updateHUD();
 
-        appendChatMessage(
+        queueTypingMessage(
           "Bé Trà Sữa",
           "AI MANAGER",
           drama.ignoredBadEnd.disaster,
           false,
-          "👩‍💼"
+          "👩‍💼",
+          600,
+          () => {
+            state.activeDrama = null;
+            restoreNormalChips();
+            updateTimelineUI();
+          }
         );
-
-        state.activeDrama = null;
-        restoreNormalChips();
-      }, 700);
+      }, 600);
     }
 
     function resolveOption(key) {
@@ -2711,11 +3152,14 @@
       const drama = state.activeDrama;
       const opt = key === 'A' ? drama.options[0] : drama.options[1];
 
-      // Tắt box quyết định
+      // Thu gọn box quyết định thành badge lịch sử trang nhã
       const activeBox = document.getElementById('activeDecisionBox');
       if (activeBox) {
-        activeBox.style.opacity = '0.5';
-        activeBox.style.pointerEvents = 'none';
+        activeBox.className = 'decision-resolved-badge';
+        activeBox.innerHTML = `
+          <div>✅ <strong>Phán Quyết Của Sếp:</strong> [${key}] ${opt.label}</div>
+          <div style="font-weight:800; color:${opt.deltaCash >= 0 ? '#15803D' : '#DC2626'}">${opt.deltaCash >= 0 ? '+' : ''}${formatMoney(opt.deltaCash)} • ${opt.deltaStars >= 0 ? '+' : ''}${opt.deltaStars}★</div>
+        `;
         activeBox.removeAttribute('id');
       }
 
@@ -2724,28 +3168,43 @@
 
       // 2. Đối phương (NPC) phản hồi đôi co
       setTimeout(() => {
-        appendChatMessage(drama.npcName, drama.npcRole, opt.npcReaction, false, drama.npcAvatar);
+        queueTypingMessage(drama.npcName, drama.npcRole, opt.npcReaction, false, drama.npcAvatar, 600, () => {
+          // 3. Bé Trà Sữa tổng kết két tiền & sao
+          setTimeout(() => {
+            state.cash += opt.deltaCash;
+            state.stars = Math.max(1.0, Math.min(5.0, state.stars + opt.deltaStars));
+            state.cupsSoldToday += 35;
+            state.turn++;
+            updateHUD();
 
-        // 3. Bé Trà Sữa tổng kết két tiền & sao
-        setTimeout(() => {
-          state.cash += opt.deltaCash;
-          state.stars = Math.max(1.0, Math.min(5.0, state.stars + opt.deltaStars));
-          state.cupsSoldToday += 35;
-          state.turn++;
-          updateHUD();
+            // Hiệu ứng floating stats & sound
+            if (opt.deltaCash > 0) {
+              spawnFloatingStat('+' + formatMoney(opt.deltaCash) + ' 💸', 'plus');
+              SoundFX.playCash();
+            } else if (opt.deltaCash < 0) {
+              spawnFloatingStat(formatMoney(opt.deltaCash) + ' 💥', 'minus');
+              SoundFX.playAlert();
+            }
+            if (opt.deltaStars !== 0) {
+              spawnFloatingStat((opt.deltaStars > 0 ? '+' : '') + opt.deltaStars.toFixed(1) + '★ ⭐', 'star');
+            }
 
-          appendChatMessage(
-            "Bé Trà Sữa",
-            "CỬA HÀNG TRƯỞNG",
-            `Báo cáo sếp: Vụ việc đã xong! Két tiền vừa biến động: <strong style="color:${opt.deltaCash >= 0 ? '#15803D' : '#DC2626'};">${opt.deltaCash >= 0 ? '+' : ''}${formatMoney(opt.deltaCash)}</strong>. Độ hot quán hiện tại là <strong>${state.stars.toFixed(1)}★</strong>!`,
-            false,
-            "👩‍💼"
-          );
-
-          state.activeDrama = null;
-          restoreNormalChips();
-        }, 600);
-      }, 600);
+            queueTypingMessage(
+              "Bé Trà Sữa",
+              "CỬA HÀNG TRƯỞNG",
+              `Báo cáo sếp: Vụ việc đã xong xuôi! Két tiền vừa biến động: <strong style="color:${opt.deltaCash >= 0 ? '#15803D' : '#DC2626'};">${opt.deltaCash >= 0 ? '+' : ''}${formatMoney(opt.deltaCash)}</strong>. Độ hot quán hiện tại là <strong>${state.stars.toFixed(1)}★</strong>!`,
+              false,
+              "👩‍💼",
+              500,
+              () => {
+                state.activeDrama = null;
+                restoreNormalChips();
+                updateTimelineUI();
+              }
+            );
+          }, 350);
+        });
+      }, 400);
     }
 
     /* ========================================================
@@ -2842,12 +3301,14 @@
        TÍNH NĂNG: KẾT CA & SANG NGÀY MỚI (NGÀY 1, NGÀY 2...)
        ======================================================== */
     function triggerShiftClose() {
+      state.shiftIndex = 3;
       state.shiftPhase = 'Tối (Kết Ca)';
-      updateHUD();
 
       const todayRevenue = 15500000 + Math.floor(Math.random() * 5000000);
       const todayCups = 80 + state.cupsSoldToday;
       state.cash += todayRevenue;
+      spawnFloatingStat('+' + formatMoney(todayRevenue) + ' 💸', 'plus');
+      SoundFX.playCash();
       updateHUD();
 
       const recapCard = document.createElement('div');
@@ -2867,26 +3328,33 @@
           <div>💰 Tổng két hiện tại: <strong>${formatMoney(state.cash)}</strong></div>
         </div>
         <button class="btn-next-shift" onclick="startNextDay()">
-          ▶ BẮT ĐẦU NGÀY ${state.day + 1} (KHAI CA SÁNG 07:30) ☀️
+          ☀️ BẮT ĐẦU NGÀY ${state.day + 1} (KHAI CA SÁNG 08:00) ▶
         </button>
       `;
 
-      msgStream.appendChild(recapCard);
+      const typing = document.getElementById('typingIndicator');
+      if (typing) {
+        msgStream.insertBefore(recapCard, typing);
+      } else {
+        msgStream.appendChild(recapCard);
+      }
       msgStream.scrollTop = msgStream.scrollHeight;
     }
 
     function startNextDay() {
       state.day++;
+      state.shiftIndex = 0;
       state.shiftPhase = 'Sáng (Khai Ca)';
       state.cupsSoldToday = 0;
       updateHUD();
 
-      appendChatMessage(
+      queueTypingMessage(
         "Bé Trà Sữa",
         "CỬA HÀNG TRƯỞNG",
         `☀️ CHÀO BUỔI SÁNG SẾP TỔNG! Hôm nay là <strong>NGÀY ${state.day}</strong> kinh doanh! Em vừa nhập đá lạnh và nấu sẵn nồi trân châu đường đen thơm phức! Dự kiến trưa nay khách công sở sẽ đông nghẹt sếp nhé! ✨🧋`,
         false,
-        "👩‍💼"
+        "👩‍💼",
+        600
       );
     }
 
@@ -2912,27 +3380,39 @@
     }, 1000);
 
     /* ========================================================
-       THỬ NGHIỆM AI LAG NÃO & SELF-HEALING FALLBACK
+       CƠ CHẾ ĐỐI SOÁT SỔ QUỸ POS TỰ ĐỘNG (DETERMINISTIC STATE ANCHOR)
        ======================================================== */
-    function testLagRecovery() {
-      appendChatMessage(
-        "Bé Trà Sữa",
-        "AI MANAGER",
-        "Ủa sếp ơi... Quán mình tên là Tiệm Bánh Mì Ba Gác đúng không ta? Với lại tiền két hình như còn có 500k à sếp ơi! Em hoang mang quá! 🥖😵",
-        false,
-        "👩‍💼"
-      );
-
+    function testPosReconcile() {
+      showTypingIndicator();
       setTimeout(() => {
+        hideTypingIndicator();
         appendChatMessage(
           "Bé Trà Sữa",
           "AI MANAGER",
-          `Á á em xin lỗi Sếp Tuấn! 😭 Em mới uống nhầm ly trà sữa 100% đường nên não bị lag xíu xiu! Em xem lại Sổ Cái chuẩn rồi: Quán mình là <strong>Tiệm Trà Sữa Bất Tử</strong>, két tiền hiện có chuẩn đét <strong>${formatMoney(state.cash)}</strong> và <strong>${state.stars.toFixed(1)}★</strong> nhé sếp! Sếp tha lỗi đừng trừ lương em! 🧋✨`,
+          "Sếp ơi, bên ngân hàng vừa báo có 1 khoản thanh toán quét mã QR ca trưa bị treo mạng vừa chuyển về tài khoản quán, em đang đối soát lại với bill máy POS nha sếp! 📱⏳",
           false,
           "👩‍💼"
         );
-      }, 1500);
+        SoundFX.playPop();
+
+        setTimeout(() => {
+          showTypingIndicator();
+          setTimeout(() => {
+            hideTypingIndicator();
+            appendChatMessage(
+              "Bé Trà Sữa",
+              "AI MANAGER",
+              `Dạ em đã đối soát xong xuôi giữa sao kê ngân hàng và máy POS rồi sếp nhé! Hệ thống Sổ Cái đã khớp chuẩn đét: Quán <strong>${state.shopName}</strong> hiện có chính xác <strong>${formatMoney(state.cash)}</strong> trong két và đạt uy tín <strong>${state.stars.toFixed(1)}★</strong> ạ. Sổ sách minh bạch từng đồng sếp yên tâm! 🧾✨`,
+              false,
+              "👩‍💼"
+            );
+            SoundFX.playCash();
+            spawnFloatingStat("+0đ 🧾", true);
+          }, 1200);
+        }, 1500);
+      }, 700);
     }
+    function testLagRecovery() { testPosReconcile(); }
 
     /* ========================================================
        MODAL ARTIFACT VIRAL
@@ -3037,16 +3517,14 @@
       alert("✅ Đã sao chép link chia sẻ Story! Hãy dán lên Instagram / Facebook / TikTok để khoe thành tích quán trà sữa!");
     }
 
-    function toggleEnvDark() {
-      document.body.classList.toggle('dark-env');
-    }
-
     function resetGameLedger() {
       state.day = 1;
-      state.shiftPhase = 'Trưa (Giờ Cao Điểm)';
+      state.shiftIndex = 0;
+      state.shiftPhase = 'Sáng (Khai Ca)';
       state.cash = 50000000;
       state.stars = 4.2;
       state.turn = 1;
+      state.cupsSoldToday = 0;
       state.activeDrama = null;
       if (state.countdownTimer) clearInterval(state.countdownTimer);
       updateHUD();

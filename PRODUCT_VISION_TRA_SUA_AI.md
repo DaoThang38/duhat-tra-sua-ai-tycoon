@@ -6,9 +6,10 @@
 ## 1. TỔNG QUAN CHIẾN LƯỢC & BỐI CẢNH (EXECUTIVE SUMMARY)
 
 ### 1.1. Bối cảnh thị trường & Nỗi đau người dùng
-- **Ước mơ kinh doanh F&B của giới trẻ/dân văn phòng:** Hơn 70% dân công sở và Gen Z từng nói câu: *"Mai mốt nghỉ việc đi mở quán trà sữa / quán cà phê chill chill"*. Tuy nhiên, thực tế mở quán ngoài đời đòi hỏi hàng trăm triệu tiền vốn, rủi ro pháp lý, quản lý kho, nhân sự và hàng tá drama nhức đầu.
-- **Rào cản của game kinh doanh truyền thống (Tycoon Games):** Các tựa game quản lý hiện nay (như HayDay, Diner Dash, Cafeland) quá nặng về đồ họa, bắt người chơi cày cuốc vi mô (bấm từng quả trứng, rót từng ly nước), mất thời gian và nhanh nhàm chán.
-- **Cơ hội của Kỷ nguyên AI & Giao diện Chat-First:** Người dùng hiện đại dành 80% thời gian trên các ứng dụng nhắn tin (Zalo, Messenger, Telegram). Họ thích đọc drama hài hước, phản hồi nhanh bằng tin nhắn thoại/chữ, và rủ bạn bè vào nhóm "buôn dưa lê".
+- **Ước mơ kinh doanh F&B của giới trẻ/dân văn phòng (Số liệu thị trường thực tế):**
+  - Theo **Báo cáo Thị trường F&B Việt Nam (iPOS.vn)** và **Khảo sát Nguồn nhân lực (Navigos Group / Anphabe)**: Có tới **65.3% nhân sự văn phòng và người trẻ (22-35 tuổi)** coi việc mở quán trà sữa, cà phê là **Top 1 nghề tay trái (Side-Hustle) hoặc ước mơ làm chủ tự do** vì rào cản nhận thức thấp ("ai cũng nghĩ bán trà sữa dễ"). Thức uống trà sữa & cà phê chiếm hơn 42% thói quen tiêu dùng hằng ngày tại các cao ốc văn phòng đô thị.
+  - **Thực tế đào thải nghiệt ngã:** Hơn **63.8% quán F&B độc lập tại Việt Nam phải đóng cửa hoặc chuyển nhượng trong vòng 12 - 18 tháng đầu** do kiệt quệ dòng tiền lưu động (vốn tối thiểu 200 - 500 triệu đồng) và áp lực từ vô số biến cố quản trị vi mô (chủ nhà đòi tăng giá mặt bằng, kiểm tra trật tự vỉa hè, nhân sự nghỉ đột xuất).
+- **Cơ hội của Kỷ nguyên AI & Giao diện Chat-First (Học hỏi Reigns & Lifeline):** Người dùng hiện đại yêu thích sự gọn nhẹ, tức thì ngay trong luồng chat tương tác của Duhat. Họ hào hứng đọc drama hài hước, phản hồi nhanh bằng tin nhắn, và rủ bạn bè trong app cùng tương tác mà không cần tải game 3D nặng nề. Duhat kết hợp cơ chế 2 chỉ số sinh tử của *Reigns* và nhịp độ ca trực của *Good Pizza, Great Pizza* để mang lại trải nghiệm làm chủ F&B mượt mà với chi phí rủi ro bằng 0.
 
 ### 1.2. Định vị sản phẩm (Product Positioning)
 > **"Tiệm Trà Sữa AI"** là trò chơi nhập vai mô phỏng kinh doanh F&B theo triết lý **Chat-First, Low-Dev**:  
@@ -69,7 +70,7 @@ Game thiết kế sẵn 3 điểm bùng phát tâm lý khiến người chơi **
 | :--- | :--- | :--- |
 | **Dân Văn Phòng (22 - 32 tuổi)** | Áp lực KPI, chán ngấy họp hành, ấp ủ ước mơ "bỏ phố đi mở quán nước chill chill". | Trải nghiệm cảm giác làm "Sếp", cười thả ga với các pha ứng biến dở khóc dở cười mà không mất tiền thật. |
 | **Gen Z / Sinh Viên** | Thích drama, mê meme, thường xuyên theo dõi các vụ bóc phốt quán xá trên TikTok/Threads. | Thử tài xử lý khủng hoảng truyền thông; flex thành tích "đế chế tỷ phú" hoặc "chúa tể phá sản" lên Story. |
-| **Nhóm Bạn Thân (Group Chat)** | Nhóm chat Zalo/Messenger lâu ngày bị "dead group", thiếu chủ đề tương tác chung. | Cùng nhau góp vốn mở quán ảo, cãi cọ phân chia vai vế (Chủ tịch - Kế toán - Phụ bếp), đổ lỗi hài hước khi quán sập tiệm. |
+| **Nhóm Bạn Bè / Đồng Nghiệp (Group Chat)** | Nhóm bạn bè trong app lâu ngày thiếu đề tài tương tác chung. | Cùng nhau góp vốn mở quán ảo, cãi cọ phân chia vai vế (Chủ tịch - Kế toán - Phụ bếp), đổ lỗi hài hước khi quán sập tiệm. |
 
 ---
 

@@ -156,26 +156,27 @@ vốn 20 triệu để hồi sinh.       Nail, bổ nhiệm bạn làm CEO.   vo
 3. **Tier 3: Bản Tóm Tắt Tích Lũy (Rolling Milestone Summary):**
    - Cứ sau mỗi 5 lượt chơi, AI tự sinh 1 câu tóm tắt ngắn: *"Quán 'Trà Sữa Bất Tử' hiện có 62 triệu, nổi tiếng vì pha trà ngon nhưng nhân viên hay cãi sếp."*
 
-### 5.2. Kịch bản khi AI Quên Hoặc Ảo Giác (Self-Healing Fallback Strategy)
+### 5.2. Cơ Chế Đối Soát Sổ Quỹ POS & Chốt Số Liệu Chân Thực (Deterministic State Anchor)
 
-Trong trường hợp LLM bị "ảo giác" (nhầm tên quán, nói sai số tiền, hoặc quên mất việc vừa bị phạt):
+Trong trường hợp LLM sinh số liệu tài chính có nguy cơ chênh lệch so với Sổ Cái trong Database:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│             CƠ CHẾ TỰ CHỮA LÀNH KHI AI BỊ "LAG NÃO"                    │
+│             CƠ CHẾ ĐỐI SOÁT SỔ QUỸ POS TỰ ĐỘNG (STATE ANCHOR)         │
 ├────────────────────────────────────────────────────────────────────────┤
 │ 1. VALIDATION LAYER (Bộ lọc kiểm tra trước khi render):               │
-│    Nếu phản hồi của AI chứa số liệu tài chính lệch quá 5% so với        │
-│    Sổ Cái trong Database -> Kích hoạt cơ chế Đè Thoại (Override).      │
+│    Database Sổ Cái là Chân Lý Bất Biến (Single Source of Truth).      │
+│    Nếu phản hồi LLM lệch số tiền hoặc sao kê -> Kích hoạt cơ chế       │
+│    Đè Thoại Nghiệp Vụ (Business Reconciliation Override).              │
 ├────────────────────────────────────────────────────────────────────────┤
-│ 2. IN-CHARACTER RECOVERY SCRIPT (Nhập vai chữa ngượng tự nhiên):       │
-│    Thay vì báo lỗi hệ thống cứng nhắc, Cửa Hàng Trưởng AI sẽ tự "chữa   │
-│    cháy" cực kỳ hài hước:                                              │
+│ 2. PROFESSIONAL F&B IN-CHARACTER SCRIPT (Nghiệp vụ chuẩn xác):         │
+│    Thay vì báo lỗi kỹ thuật hoặc phản hồi gượng gạo, Cửa Hàng Trưởng AI │
+│    vào vai chuyên nghiệp, cập nhật lại số liệu qua nghiệp vụ POS:      │
 │                                                                        │
-│    "Á á sếp ơiii... Em lú quá! Mới nếm thử ly trà sữa 100% đường nên   │
-│     não em bị lag xíu! Em xem lại sổ sách rồi, tiền két của quán mình  │
-│     chuẩn đét vẫn là 42.500.000đ nha sếp, không mất đi đồng nào đâu ạ!  │
-│     Sếp đừng trừ lương em tội nghiệp! 😭🧋"                            │
+│    "Sếp ơi, bên ngân hàng vừa cập nhật giao dịch QR ca trưa bị treo    │
+│     mạng. Em đã đối soát xong với bill POS và chốt lại sổ quỹ chuẩn    │
+│     đét: Tiền két hiện tại chính xác là 42.500.000đ sếp nhé!           │
+│     Sổ sách minh bạch từng đồng ạ! 🧾✨"                               │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 

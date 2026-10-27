@@ -10,17 +10,20 @@
 
   <style>
     :root {
-      --bg-dark: #0A0F1D;
-      --card-bg: #121A2B;
-      --border-line: #223048;
+      --bg-page: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --card-subtle: #F1F5F9;
+      --border-line: #E2E8F0;
+      --border-subtle: #CBD5E1;
       --primary-yellow: #FDC830;
-      --primary-blue: #3B82F6;
-      --accent-teal: #06B6D4;
-      --success-green: #10B981;
-      --danger-red: #EF4444;
-      --text-white: #F8FAFC;
-      --text-muted: #94A3B8;
-      --font-main: 'Plus Jakarta Sans', sans-serif;
+      --primary-blue: #2563EB;
+      --accent-teal: #0891B2;
+      --success-green: #16A34A;
+      --danger-red: #DC2626;
+      --text-main: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #64748B;
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
@@ -28,8 +31,8 @@
 
     body {
       font-family: var(--font-main);
-      background: var(--bg-dark);
-      color: var(--text-white);
+      background: radial-gradient(circle at 10% 20%, #F8FAFC 0%, #EEF2F6 100%);
+      color: var(--text-main);
       line-height: 1.6;
       display: flex;
       flex-direction: column;
@@ -51,11 +54,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: var(--card-bg);
+      background: #FFFFFF;
       border: 1px solid var(--border-line);
       border-radius: 20px;
       padding: 12px 22px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
     }
 
     .deck-brand {
@@ -74,13 +77,13 @@
       align-items: center;
       justify-content: center;
       border: 2px solid #FDE047;
-      box-shadow: 0 0 16px rgba(253, 200, 48, 0.4);
+      box-shadow: 0 4px 14px rgba(253, 200, 48, 0.35);
     }
 
     .deck-brand h1 {
       font-size: 1.15rem;
       font-weight: 800;
-      color: #fff;
+      color: #0F172A;
     }
 
     .deck-brand p {
@@ -91,7 +94,7 @@
     .deck-nav-pills {
       display: flex;
       gap: 6px;
-      background: #080D18;
+      background: #F1F5F9;
       padding: 4px;
       border-radius: 14px;
       border: 1px solid var(--border-line);
@@ -100,7 +103,7 @@
     .pill-btn {
       background: none;
       border: none;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       font-family: inherit;
       font-size: 0.74rem;
       font-weight: 700;
@@ -110,19 +113,24 @@
       transition: all 0.2s;
     }
 
+    .pill-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
     .pill-btn.active {
       background: #2563EB;
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
     }
 
     /* SLIDE STAGE */
     .slide-stage {
       background: var(--card-bg);
-      border: 1.5px solid var(--border-line);
+      border: 1px solid var(--border-line);
       border-radius: 26px;
       padding: 34px 38px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      box-shadow: 0 10px 35px rgba(15, 23, 42, 0.05);
       min-height: 570px;
       display: flex;
       flex-direction: column;
@@ -158,21 +166,21 @@
       width: fit-content;
     }
 
-    .tag-gold { background: rgba(253, 200, 48, 0.15); color: #FDC830; border: 1px solid #FDC830; }
-    .tag-blue { background: rgba(59, 130, 246, 0.15); color: #60A5FA; border: 1px solid #3B82F6; }
-    .tag-green { background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid #10B981; }
-    .tag-purple { background: rgba(168, 85, 247, 0.15); color: #C084FC; border: 1px solid #A855F7; }
+    .tag-gold { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+    .tag-blue { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+    .tag-green { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+    .tag-purple { background: #FAF5FF; color: #6B21A8; border: 1px solid #E9D5FF; }
 
     .slide-heading {
       font-size: 1.55rem;
       font-weight: 800;
-      color: #fff;
+      color: #0F172A;
       line-height: 1.3;
     }
 
     .slide-desc {
       font-size: 0.9rem;
-      color: #CBD5E1;
+      color: #475569;
       line-height: 1.6;
     }
 
@@ -192,24 +200,26 @@
     }
 
     .info-card {
-      background: #0B111D;
-      border: 1px solid #1E2B40;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
       border-radius: 16px;
       padding: 18px;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      transition: border-color 0.2s;
+      transition: all 0.2s;
     }
 
     .info-card:hover {
-      border-color: #3B82F6;
+      border-color: #93C5FD;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+      transform: translateY(-1px);
     }
 
     .info-card h4 {
       font-size: 0.96rem;
       font-weight: 800;
-      color: #FEF08A;
+      color: #1E293B;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -217,7 +227,7 @@
 
     .info-card p {
       font-size: 0.8rem;
-      color: #CBD5E1;
+      color: #475569;
       line-height: 1.55;
     }
 
@@ -225,7 +235,7 @@
       font-family: var(--font-mono);
       font-size: 1.3rem;
       font-weight: 800;
-      color: #34D399;
+      color: #059669;
       margin: 2px 0;
     }
 
@@ -237,27 +247,31 @@
       font-size: 0.82rem;
       border-radius: 12px;
       overflow: hidden;
-      border: 1px solid #223048;
+      border: 1px solid #E2E8F0;
     }
 
     .table-box th {
-      background: #172236;
+      background: #F1F5F9;
       padding: 10px 14px;
       text-align: left;
       font-weight: 800;
-      color: #F8FAFC;
-      border-bottom: 2px solid #2B3D5D;
+      color: #0F172A;
+      border-bottom: 2px solid #CBD5E1;
     }
 
     .table-box td {
-      background: #0E1624;
+      background: #FFFFFF;
       padding: 10px 14px;
-      border-bottom: 1px solid #192437;
-      color: #CBD5E1;
+      border-bottom: 1px solid #F1F5F9;
+      color: #334155;
     }
 
     .table-box tr:hover td {
-      background: #131E30;
+      background: #F8FAFC;
+    }
+
+    .table-box strong {
+      color: #0F172A;
     }
 
     /* FOOTER CONTROLS */
@@ -267,7 +281,7 @@
       align-items: center;
       margin-top: auto;
       padding-top: 20px;
-      border-top: 1px solid #1B263B;
+      border-top: 1px solid #E2E8F0;
     }
 
     .slide-progress {
@@ -282,9 +296,9 @@
     }
 
     .btn-ctrl {
-      background: #1A253A;
-      border: 1px solid #293B5B;
-      color: #fff;
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      color: #1E293B;
       font-family: inherit;
       font-weight: 700;
       font-size: 0.78rem;
@@ -299,12 +313,13 @@
 
     .btn-ctrl:hover {
       background: #2563EB;
-      border-color: #3B82F6;
+      border-color: #2563EB;
+      color: #FFFFFF;
     }
 
     .mock-cert {
-      background: #080D17;
-      border: 2px dashed #FDC830;
+      background: #FFFDF5;
+      border: 2px dashed #F59E0B;
       border-radius: 16px;
       padding: 16px;
       text-align: center;
@@ -315,13 +330,14 @@
       position: absolute;
       top: 12px;
       right: 14px;
-      border: 2px solid #EF4444;
-      color: #EF4444;
+      border: 2px solid #DC2626;
+      color: #DC2626;
       font-weight: 900;
       font-size: 0.68rem;
       padding: 2px 7px;
       border-radius: 6px;
       transform: rotate(14deg);
+      background: #FEF2F2;
     }
   </style>
 </head>
@@ -352,29 +368,47 @@
     <!-- SLIDE STAGE -->
     <main class="slide-stage">
 
-      <!-- SLIDE 1: TỔNG QUAN CHIẾN LƯỢC -->
+      <!-- SLIDE 1: TỔNG QUAN CHIẾN LƯỢC & THỊ TRƯỜNG THỰC TẾ -->
       <div class="slide active" id="slide-0">
-        <span class="slide-tag tag-gold">💡 SLIDE 01: PRODUCT VISION & ĐỊNH VỊ CHIẾN LƯỢC</span>
-        <h2 class="slide-heading">Ước Mơ Mở Quán Trà Sữa Dân Công Sở: AI Gánh Việc Vặt, Bạn Gánh Drama!</h2>
+        <span class="slide-tag tag-gold">💡 SLIDE 01: INSIGHT THỊ TRƯỜNG &amp; ĐỊNH VỊ CHIẾN LƯỢC</span>
+        <h2 class="slide-heading">Ước Mơ Mở Quán F&B Của Dân Công Sở: Từ Khảo Sát iPOS Đến Giải Pháp Duhat AI</h2>
         <p class="slide-desc">
-          Hơn 70% dân văn phòng từng mơ: <em>"Bỏ việc đi mở quán trà sữa chill chill"</em>. Nhưng đời thực đòi hỏi hàng trăm triệu vốn và trăm mối lo nhức đầu. Duhat hiện thực hóa giấc mơ đó qua giao diện <strong>Chat-First, Zero Over-Engineering</strong>.
+          Giải mã khoảng cách giữa <em>"Cơn sốt khởi nghiệp F&B của người trẻ"</em> và <em>"Thực tế vỡ nợ tàn khốc"</em> — Cách Duhat chuyển hóa thành công thức game chat gây nghiện với rủi ro bằng 0.
         </p>
 
-        <div class="grid-3">
+        <!-- Khảo sát thực chứng thị trường -->
+        <div style="background:#FEF3C7; border:1px solid #FDE68A; border-radius:14px; padding:12px 16px; margin-top:2px;">
+          <div style="font-size:0.75rem; font-weight:800; color:#92400E; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+            <span>📊 SỐ LIỆU KHẢO SÁT THỰC CHỨNG (Nguồn: Báo cáo F&B Việt Nam iPOS.vn &amp; Báo cáo Nhân lực Navigos/Anphabe)</span>
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; font-size:0.78rem; color:#78350F; line-height:1.5;">
+            <div>
+              <strong>• 65.3% Chọn F&B Top 1:</strong> Trong nhóm nhân sự văn phòng &amp; Gen Z (22-35 tuổi), F&B (Trà sữa, Cafe) luôn là lựa chọn đầu tiên khi muốn làm nghề tay trái (Side-Hustle) hoặc làm chủ tự do.
+            </div>
+            <div>
+              <strong>• 42% Chi Tiêu Thức Uống:</strong> Trà sữa &amp; Cà phê chiếm 42% thói quen đồ uống hàng ngày tại các tòa nhà văn phòng, thôi thúc ảo tưởng <em>"uống hoài sao không tự mở quán?"</em>.
+            </div>
+            <div>
+              <strong>• 63.8% Phá Sản Năm Đầu:</strong> 63.8% quán F&B độc lập phải đóng cửa/sang nhượng trong 12-18 tháng đầu vì cạn vốn lưu động (200-500M) và drama vận hành vi mô (mặt bằng, thanh tra, nhân sự).
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top:4px;">
           <div class="info-card">
             <h4>💬 Chat-First Trải Nghiệm</h4>
-            <p>Không đồ họa 3D cồng kềnh. 100% qua hội thoại tin nhắn tự nhiên thân thuộc như Zalo/Telegram.</p>
-            <div class="stat-badge">0 Lần Cài App</div>
+            <p><strong>Tích Hợp Trong Duhat Chat:</strong> Trải nghiệm trò chuyện tự nhiên ngay trong luồng chat Duhat. Không cần tải game 3D cồng kềnh, chạm là chơi ngay tức thì.</p>
+            <div class="stat-badge" style="font-size:1.05rem;">Chơi Ngay Trong App Duhat</div>
           </div>
           <div class="info-card">
             <h4>🤖 AI Cửa Hàng Trưởng</h4>
-            <p>AI tự vận hành 100% việc vi mô (order, tính tiền, dọn quán). Người dùng chỉ vào vai Sếp đưa ra quyết định sinh tử.</p>
-            <div class="stat-badge">95% Tự Động Hóa</div>
+            <p><strong>AI Làm Culi 95%:</strong> Tự động pha chế, nấu trân châu, tính tiền lẻ. Người chơi chỉ vào vai Sếp Tổng ra phán quyết trước biến cố kịch tính.</p>
+            <div class="stat-badge" style="font-size:1.05rem;">0 Phút Làm Việc Vặt</div>
           </div>
           <div class="info-card">
-            <h4>⚡ Tình Huống Hài Hước</h4>
-            <p>Biến cố văn hóa bản địa: Công an PCCC kiểm tra, bom 50 ly, mất điện 40°C, bóc phốt thạch gián TikTok.</p>
-            <div class="stat-badge">Dễ Viral Story</div>
+            <h4>🎮 Học Hỏi Game Thị Trường</h4>
+            <p><strong>Vòng Lặp Gây Nghiện:</strong> Kết hợp 2 chỉ số sinh tử của <em>Reigns</em>, nhịp ca trực của <em>Good Pizza Great Pizza</em> và cảm xúc chat thời gian thực của <em>Lifeline</em>.</p>
+            <div class="stat-badge" style="font-size:1.05rem;">Dễ Viral Story Flex</div>
           </div>
         </div>
       </div>
@@ -447,9 +481,9 @@
             </div>
           </div>
 
-          <div class="info-card" style="grid-column: 1 / -1; border-left: 4px solid #FDC830; background: #0E1726;">
-            <h4>📖 Sổ Tay Luật Chơi & Onboarding 30 Giây (Tránh Bỡ Ngỡ Khi Bắt Đầu)</h4>
-            <div style="font-size:0.8rem; line-height:1.6; color:#CBD5E1;">
+          <div class="info-card" style="grid-column: 1 / -1; border-left: 4px solid #F59E0B; background: #FEF3C7;">
+            <h4 style="color: #92400E;">📖 Sổ Tay Luật Chơi & Onboarding 30 Giây (Tránh Bỡ Ngỡ Khi Bắt Đầu)</h4>
+            <div style="font-size:0.8rem; line-height:1.6; color:#78350F;">
               • <strong>Popup Tự Động & Nút Truy Cập Mọi Nơi:</strong> Ngay khi vào game, Modal Sổ Tay Khởi Nghiệp hiển thị 6 quy tắc sống còn (AI làm culi 100%, Nhịp tim 30p, Quyết định [A][B][C], Cấm bơ tin kẻo toang, 2 chỉ số sinh tử, +1 Bạn).<br>
               • <strong>Card Chào Ca Trực:</strong> Bé Trà Sữa gửi tóm tắt 3 quy tắc trong tin nhắn đầu tiên kèm nút bấm mở lại luật bất cứ lúc nào.<br>
               • <strong>Cảnh Báo Đếm Ngược (FOMO):</strong> Biến cố có đồng hồ đếm ngược 20s-30m, nếu user bơ tin nhắn sẽ kích hoạt "Cái Kết Tệ" (phạt -6M, niêm phong quán, cẩu xe).
@@ -522,10 +556,10 @@
           </div>
         </div>
 
-        <div class="info-card" style="margin-top:8px; border-left:4px solid #10B981;">
-          <h4>🧠 Kịch Bản Tự Chữa Ngượng Khi AI Bị "Lag Não" (Self-Healing Fallback)</h4>
-          <p>Nếu LLM bị nhầm tên quán hoặc nói sai số dư két, hệ thống bắt lỗi và cho AI Store Manager tự tấu hài:<br>
-          <em style="color:#FEF08A;">"Á á sếp ơiii! Em lú quá, mới uống nhầm ly trà sữa 100% đường nên não lag xíu! Sổ cái quán mình chuẩn đét vẫn là 42.500.000đ nha sếp, không mất đồng nào đâu ạ!"</em></p>
+        <div class="info-card" style="margin-top:8px; border-left:4px solid #0EA5E9; background: #F0F9FF;">
+          <h4 style="color: #0369A1;">🧾 Cơ Chế Đối Soát Sổ Quỹ POS Tự Động (Deterministic State Anchor)</h4>
+          <p style="color: #0C4A6E;">Database Sổ Cái luôn là Chân Lý Bất Biến (Single Source of Truth). Nếu hội thoại LLM có nguy cơ lệch số liệu, hệ thống tự động đồng bộ và kích hoạt thông báo đối soát nghiệp vụ F&B thực tế:<br>
+          <em style="color:#0284C7; font-weight:700;">"Sếp ơi, ngân hàng vừa xác nhận lệnh chuyển khoản QR ca trưa bị treo mạng. Em đã đối soát xong với bill POS và chốt lại sổ quỹ chuẩn đét: Tiền két hiện tại chính xác là 42.500.000đ sếp nhé! Sổ sách minh bạch từng đồng ạ!"</em></p>
         </div>
       </div>
 
@@ -541,26 +575,26 @@
           <div class="mock-cert">
             <div class="mock-stamp">ĐÃ PHẠT</div>
             <div style="font-size:2rem; margin-bottom:6px;">💀</div>
-            <h4 style="color:#EF4444; font-size:0.9rem;">BẰNG KHEN PHÁ SẢN</h4>
-            <p style="font-size:0.75rem; color:#CBD5E1; margin-top:6px;">
+            <h4 style="color:#DC2626; font-size:0.9rem;">BẰNG KHEN PHÁ SẢN</h4>
+            <p style="font-size:0.75rem; color:#475569; margin-top:6px;">
               "Sau 3 ngày khởi nghiệp đã lỗ sạch 50 triệu vì kiên quyết bao bồ nhí uống trà sữa miễn phí."
             </p>
           </div>
 
-          <div class="mock-cert" style="border-color:#3B82F6;">
-            <div class="mock-stamp" style="border-color:#3B82F6; color:#60A5FA;">VI PHẠM</div>
+          <div class="mock-cert" style="border-color:#3B82F6; background:#EFF6FF;">
+            <div class="mock-stamp" style="border-color:#2563EB; color:#2563EB; background:#DBEAFE;">VI PHẠM</div>
             <div style="font-size:2rem; margin-bottom:6px;">📑</div>
-            <h4 style="color:#60A5FA; font-size:0.9rem;">BIÊN BẢN PHẠT QUẢN LÝ</h4>
-            <p style="font-size:0.75rem; color:#CBD5E1; margin-top:6px;">
+            <h4 style="color:#1D4ED8; font-size:0.9rem;">BIÊN BẢN PHẠT QUẢN LÝ</h4>
+            <p style="font-size:0.75rem; color:#475569; margin-top:6px;">
               "Lỗi: Trà sữa nướng caramel quá thơm làm mất trật tự an ninh, phạt 500k sung công quỹ."
             </p>
           </div>
 
-          <div class="mock-cert" style="border-color:#10B981;">
-            <div class="mock-stamp" style="border-color:#10B981; color:#34D399;">CHỦ TỊCH</div>
+          <div class="mock-cert" style="border-color:#10B981; background:#ECFDF5;">
+            <div class="mock-stamp" style="border-color:#16A34A; color:#16A34A; background:#DCFCE7;">CHỦ TỊCH</div>
             <div style="font-size:2rem; margin-bottom:6px;">👑</div>
-            <h4 style="color:#34D399; font-size:0.9rem;">CHỨNG NHẬN ĐẾ CHẾ</h4>
-            <p style="font-size:0.75rem; color:#CBD5E1; margin-top:6px;">
+            <h4 style="color:#15803D; font-size:0.9rem;">CHỨNG NHẬN ĐẾ CHẾ</h4>
+            <p style="font-size:0.75rem; color:#475569; margin-top:6px;">
               "Bổ nhiệm Tổng Giám Đốc điều hành Chuỗi Trà Sữa kiêm Quán Phở Bò Tái Lăn 24h tỷ đô."
             </p>
           </div>
