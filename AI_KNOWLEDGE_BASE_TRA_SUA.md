@@ -105,6 +105,12 @@ Khi có biến cố ập đến (Công an PCCC, Hot Tiktoker bóc phốt, Shippe
 | **Yếu tố hài hước** | Hài hước đến từ sự ngây ngô hoặc liều lĩnh của cá nhân người chơi trước AI. | Hài hước đến từ việc **bạn bè cãi nhau, đổ thừa trách nhiệm**: *"Tao đã bảo đừng đút lót rồi mà mày cứ đút lót để công an phạt gấp đôi!"* |
 | **Tốc độ ván chơi** | Rất nhanh (5-10 phút để vượt qua 10 biến cố). | Kéo dài tự nhiên theo ngày, phù hợp cho nhóm bạn buôn chuyện trong giờ làm việc. |
 
+### 3.1. Cơ Chế Chuyển Hóa Mạch Truyện Liền Mạch (Không Dùng Toggle Giả Tạo):
+- **Khởi đầu tự nhiên:** 100% người chơi bắt đầu trong không gian Chat 1:1 riêng tư với Bé Trà Sữa (AI Manager đóng vai culi lo việc vi mô).
+- **Biến cố bước ngoặt (The Turning Point Moment):** Khi Đại Biến Cố tối hậu ập đến (Bác Ba Chủ Nhà đòi cọc 30 triệu trong 2 tiếng kẻo niêm phong quán), Bé Trà Sữa kích hoạt Thẻ Hành Động Sinh Tử: `[👥 KÉO BẠN THÂN VÀO LẬP GROUP CỨU QUÁN NGAY!]`.
+- **Chuyển hóa tức thì:** Ngay khi bấm, phòng chat chuyển hóa thành Group Chat 4 thành viên (Thảo Kế Toán CFO, Huy Marketing CMO, Linh Angel Investor). Bạn bè nhảy vào cãi cọ, AI chuyển vai làm Thư Ký mở Poll Biểu Quyết.
+- **Tạo Group từ Màn Hình Chính (Prototype Feature):** Ở màn hình Inbox, người chơi có sẵn card nổi bật `+ Tạo Group Cổ Đông Mới` để tùy biến tên nhóm, gán vai trò CFO/CMO và kiểm thử trải nghiệm Group Chat độc lập bất cứ lúc nào!
+
 ---
 
 ## 4. CHI TIẾT 3 KHOẢNH KHẮC BÙNG PHÁT (+1 BẠN TIPPING POINTS)

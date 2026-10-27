@@ -1313,6 +1313,199 @@
       cursor: pointer;
       width: 100%;
     }
+
+    /* CREATE GROUP CARD ON INBOX */
+    .create-group-entry-card {
+      background: linear-gradient(135deg, #FEF5D1 0%, #FFFDF5 100%);
+      border: 1.5px dashed #F59E0B;
+      border-radius: 16px;
+      padding: 10px 14px;
+      margin: 10px 16px 6px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
+    }
+
+    .create-group-entry-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+      border-color: #D97706;
+    }
+
+    .create-group-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: #FDC830;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .btn-create-pill {
+      background: #1A1A1A;
+      color: #FFF;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .btn-create-pill:hover {
+      background: #F59E0B;
+      color: #1A1A1A;
+    }
+
+    /* STORYLINE PIVOT CARD (+1 FRIEND TURNING POINT) */
+    .storyline-pivot-card {
+      background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%);
+      border: 2px solid #F43F5E;
+      border-radius: 18px;
+      padding: 14px;
+      margin: 10px 0;
+      box-shadow: 0 6px 20px rgba(244, 63, 94, 0.2);
+      animation: pulseBorder 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseBorder {
+      0%, 100% { border-color: #F43F5E; box-shadow: 0 4px 16px rgba(244, 63, 94, 0.2); }
+      50% { border-color: #E11D48; box-shadow: 0 8px 24px rgba(225, 29, 72, 0.35); }
+    }
+
+    .pivot-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #BE123C;
+      background: #FFE4E6;
+      padding: 3px 8px;
+      border-radius: 8px;
+      display: inline-block;
+      margin-bottom: 6px;
+      border: 1px solid #FECDD3;
+    }
+
+    .pivot-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #9F1239;
+      margin-bottom: 4px;
+    }
+
+    .pivot-desc {
+      font-size: 0.76rem;
+      color: #4C0519;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+
+    .btn-pivot-add-group {
+      background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%);
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.82rem;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 4px 14px rgba(225, 29, 72, 0.4);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-pivot-add-group:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(225, 29, 72, 0.5);
+    }
+
+    /* GROUP VOTING POLL BOX */
+    .group-poll-box {
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 16px;
+      padding: 12px;
+      margin: 10px 0;
+    }
+
+    .poll-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed #E2E8F0;
+    }
+
+    .poll-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #0F172A;
+    }
+
+    .poll-tag {
+      font-size: 0.65rem;
+      background: #EDE9FE;
+      color: #6D28D9;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .poll-option-btn {
+      width: 100%;
+      text-align: left;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .poll-option-btn:hover {
+      border-color: #3B82F6;
+      background: #F0FDF4;
+    }
+
+    .poll-option-btn strong {
+      font-size: 0.76rem;
+      color: #1E293B;
+    }
+
+    .poll-option-btn span {
+      font-size: 0.68rem;
+      color: #64748B;
+    }
+
+    .system-group-notice {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #6B7280;
+      background: #F3F4F6;
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin: 10px auto;
+      width: fit-content;
+      max-width: 90%;
+    }
   </style>
 </head>
 <body>
@@ -1402,6 +1595,18 @@
           </div>
         </div>
 
+        <!-- Entry Card: Tạo Group Cổ Đông Mới (Prototype) -->
+        <div class="create-group-entry-card" onclick="openCreateGroupModal()">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div class="create-group-icon">👥➕</div>
+            <div>
+              <div style="font-size:0.8rem; font-weight:800; color:#854D0E;">Tạo Group Cổ Đông Mới</div>
+              <div style="font-size:0.68rem; color:#757575;">Mời bạn bè vào góp vốn &amp; mở quyền biểu quyết</div>
+            </div>
+          </div>
+          <button class="btn-create-pill">+ Tạo Nhóm</button>
+        </div>
+
         <!-- Filter Pill Nav -->
         <div class="filter-pill-nav">
           <button class="pill-btn-filter active">Tất cả (2)</button>
@@ -1411,7 +1616,7 @@
 
         <!-- Conversation List -->
         <div class="conversation-section">
-          <!-- Thread 1: Bé Cửa Hàng Trưởng AI -->
+          <!-- Thread 1: Bé Cửa Hàng Trưởng AI (1:1 SOLO) -->
           <div class="conversation-item" onclick="openChatRoom('solo')">
             <div class="conv-avatar-wrap">
               <div class="conv-avatar ai-avatar">👩‍💼</div>
@@ -1423,13 +1628,13 @@
                 <div style="font-size:0.7rem; color:#854D0E; font-weight:700;">Vừa xong</div>
               </div>
               <div style="display:flex; justify-content:space-between; align-items:center;">
-                <div class="conv-snippet" id="convSnippetText">Sếp ơi! Có biến căng cực kìa, vào cứu em với...</div>
-                <span class="unread-badge">Biến cố</span>
+                <div class="conv-snippet" id="convSnippetText">Chế độ 1:1 • Sếp chỉ đạo độc tài, Bé tự lo pha chế 100%...</div>
+                <span class="unread-badge" style="background:#DCFCE7; color:#15803D;">1:1 Solo</span>
               </div>
             </div>
           </div>
 
-          <!-- Thread 2: Hội Đồng Cổ Đông -->
+          <!-- Thread 2: Hội Đồng Cổ Đông (GROUP CHAT) -->
           <div class="conversation-item" onclick="openChatRoom('group')">
             <div class="conv-avatar-wrap">
               <div class="conv-avatar" style="background:#EDE9FE;">👥</div>
@@ -1437,11 +1642,12 @@
             </div>
             <div class="conv-content">
               <div class="conv-top-row">
-                <div class="conv-name">Hội Đồng Cổ Đông Góp Vốn (4)</div>
+                <div class="conv-name">Hội Đồng Cổ Đông Tiệm Trà Sữa (4)</div>
                 <div style="font-size:0.7rem; color:var(--color-text-muted);">2 phút</div>
               </div>
               <div style="display:flex; justify-content:space-between; align-items:center;">
-                <div class="conv-snippet">Thảo Kế Toán: Tháng này ai xài đá nhiều là trừ cổ tức!</div>
+                <div class="conv-snippet">Group Chat • Mở Poll biểu quyết voting &amp; bạn bè cãi cọ!</div>
+                <span class="unread-badge" style="background:#EDE9FE; color:#6D28D9;">Group Poll</span>
               </div>
             </div>
           </div>
@@ -1483,19 +1689,18 @@
             <div class="conv-avatar ai-avatar" style="width:36px; height:36px; font-size:1.15rem;" id="chatHeaderAvatar">👩‍💼</div>
             <div>
               <div class="recipient-name" id="chatHeaderTitle">Bé Trà Sữa (AI Manager)</div>
-              <div class="recipient-status" id="chatHeaderStatus">● Đang trực ca 24/7</div>
+              <div class="recipient-status" id="chatHeaderStatus">● Chat 1:1 • Sếp toàn quyền quyết định</div>
             </div>
           </div>
 
-          <!-- Switch Mode Solo vs Group & Quick Rules Button -->
+          <!-- Quick Action Buttons on Header -->
           <div style="display:flex; align-items:center; gap:6px;">
-            <button class="btn-chat-rules" onclick="openRulesModal()" title="Xem Luật Chơi" style="background:#FEF5D1; border:1px solid #FDC830; color:#854D0E; font-size:0.75rem; font-weight:700; padding:4px 8px; border-radius:12px; cursor:pointer;">
+            <button class="btn-chat-rules" onclick="openRulesModal()" title="Xem Luật Chơi" style="background:#FEF5D1; border:1px solid #FDC830; color:#854D0E; font-size:0.75rem; font-weight:700; padding:5px 9px; border-radius:12px; cursor:pointer;">
               📖 Luật
             </button>
-            <div class="mode-toggle-chip">
-              <button class="mode-sub-btn active" id="subBtnSolo" onclick="switchModeInChat('solo')">1:1</button>
-              <button class="mode-sub-btn" id="subBtnGroup" onclick="switchModeInChat('group')">Nhóm</button>
-            </div>
+            <button class="btn-chat-rules" id="headerAddFriendBtn" onclick="triggerTurningPointMoment()" title="Kéo Bạn Bè Vào Cứu Quán" style="background:#EFF6FF; border:1px solid #3B82F6; color:#1D4ED8; font-size:0.75rem; font-weight:700; padding:5px 9px; border-radius:12px; cursor:pointer;">
+              👥 +1 Bạn
+            </button>
           </div>
         </div>
 
@@ -1544,7 +1749,7 @@
                   <div class="rules-summary-title">📜 3 QUY TẮC SỐNG CÒN CỦA QUÁN:</div>
                   <div class="rules-summary-item"><strong>1. AI lo việc vặt:</strong> Order, nấu trân châu, pha trà, tính tiền em tự lo. Sếp không cần bấm pha từng ly!</div>
                   <div class="rules-summary-item"><strong>2. Có biến cố là sếp ra mặt:</strong> Chọn [A] 😇, [B] 😈 hoặc [C] 💬 tự gõ chat đôi co.</div>
-                  <div class="rules-summary-item"><strong>3. Tuyệt đối đừng "bơ" tin nhắn:</strong> Bơ em quá 30 phút là quán nhận <strong>CÁI KẾT TỆ</strong> (niêm phong quán, cẩu xe, phạt -6M)!</div>
+                  <div class="rules-summary-item"><strong>3. Khi khủng hoảng lớn ập đến:</strong> Sếp hãy bấm nút <strong>[👥 +1 Bạn]</strong> để kéo bạn thân vào lập Group Cổ Đông cùng gánh nợ!</div>
                 </div>
 
                 <div style="margin-top:10px;">
@@ -1562,6 +1767,12 @@
         <div class="chat-bottom-dock">
           <!-- Dynamic Action Chips Bar -->
           <div class="chips-carousel" id="quickChipsContainer">
+            <button class="chip-bubble-btn highlight" style="background:#FFE4E6; color:#E11D48; border-color:#FDA4AF;" onclick="triggerTurningPointMoment()">
+              🚨 Thử Biến Cố +1 Bạn Cứu Quán
+            </button>
+            <button class="chip-bubble-btn" onclick="openCreateGroupModal()">
+              👥 Lập Group Cổ Đông
+            </button>
             <button class="chip-bubble-btn highlight" onclick="openRulesModal()">
               📖 Luật Chơi 30s
             </button>
@@ -1704,6 +1915,67 @@
 
       <button class="btn-action-primary" onclick="confirmRulesUnderstood()" style="padding:12px; font-size:0.85rem;">
         🚀 TÔI ĐÃ HIỂU! BẮT ĐẦU MỞ QUÁN NGAY
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL: TẠO GROUP CỔ ĐÔNG BẠN BÈ (PROTOTYPE GROUP CHAT)
+       ======================================================== -->
+  <div class="modal-overlay" id="modalCreateGroup">
+    <div class="modal-card" style="border: 2px solid #8B5CF6;">
+      <div class="modal-head">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.4rem;">👥</span>
+          <div>
+            <h4 style="color:#6D28D9; font-size:0.95rem; font-weight:800;">LẬP GROUP HỘI ĐỒNG CỔ ĐÔNG</h4>
+            <div style="font-size:0.68rem; color:#757575;">Mời bạn bè vào góp vốn &amp; biểu quyết dân chủ</div>
+          </div>
+        </div>
+        <button class="btn-close-x" onclick="closeModal('modalCreateGroup')">✕</button>
+      </div>
+
+      <div style="padding:4px 0;">
+        <label style="font-size:0.75rem; font-weight:700; color:#374151; display:block; margin-bottom:4px;">Tên Hội Đồng Cổ Đông:</label>
+        <input type="text" id="groupNameInput" value="Hội Đồng Cổ Đông Tiệm Trà Sữa 🧋" style="width:100%; padding:8px 12px; border:1.5px solid #E5E7EB; border-radius:12px; font-family:inherit; font-size:0.8rem; font-weight:600; outline:none; margin-bottom:12px;">
+
+        <div style="font-size:0.75rem; font-weight:700; color:#374151; margin-bottom:6px;">Chọn bạn bè để kéo vào nhóm:</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <label style="display:flex; align-items:center; gap:10px; background:#F9FAFB; padding:8px 12px; border-radius:12px; border:1px solid #E5E7EB; cursor:pointer;">
+            <input type="checkbox" id="chkMember1" checked style="accent-color:#8B5CF6; width:16px; height:16px;">
+            <div style="font-size:1.2rem;">📊</div>
+            <div>
+              <div style="font-size:0.78rem; font-weight:800; color:#1A1A1A;">Thảo Kế Toán (CFO)</div>
+              <div style="font-size:0.68rem; color:#6B7280;">Chuyên soi mói chi phí, bảo vệ hòm tiền két</div>
+            </div>
+          </label>
+
+          <label style="display:flex; align-items:center; gap:10px; background:#F9FAFB; padding:8px 12px; border-radius:12px; border:1px solid #E5E7EB; cursor:pointer;">
+            <input type="checkbox" id="chkMember2" checked style="accent-color:#8B5CF6; width:16px; height:16px;">
+            <div style="font-size:1.2rem;">📱</div>
+            <div>
+              <div style="font-size:0.78rem; font-weight:800; color:#1A1A1A;">Huy Marketing (CMO)</div>
+              <div style="font-size:0.68rem; color:#6B7280;">Chuyên gia bắt trend, thích chi ngân sách TikTok triệu view</div>
+            </div>
+          </label>
+
+          <label style="display:flex; align-items:center; gap:10px; background:#F9FAFB; padding:8px 12px; border-radius:12px; border:1px solid #E5E7EB; cursor:pointer;">
+            <input type="checkbox" id="chkMember3" checked style="accent-color:#8B5CF6; width:16px; height:16px;">
+            <div style="font-size:1.2rem;">💎</div>
+            <div>
+              <div style="font-size:0.78rem; font-weight:800; color:#1A1A1A;">Linh Vốn Dày (Angel Investor)</div>
+              <div style="font-size:0.68rem; color:#6B7280;">Sẵn sàng bơm 20 củ cứu nét mặt bằng bất cứ lúc nào</div>
+            </div>
+          </label>
+        </div>
+
+        <div style="background:#FFFDF5; border:1px dashed #F59E0B; border-radius:12px; padding:10px; margin-top:12px; font-size:0.72rem; color:#854D0E; line-height:1.45;">
+          💡 <strong>Khác biệt bản chất so với Chat 1:1:</strong> Trong Group Chat, Sếp không còn quyền độc tài! Mọi quyết định lớn sẽ do các Cổ Đông <strong>mở Poll Biểu Quyết</strong> và AI Bé Trà Sữa đóng vai trò Thư Ký kiêm Trọng Tài kích động drama!
+        </div>
+      </div>
+
+      <button class="btn-action-primary" onclick="confirmCreateGroup()" style="background:linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%); color:#FFF; padding:12px; font-size:0.85rem;">
+        🚀 KHỞI TẠO GROUP CHAT CỔ ĐÔNG NGAY
       </button>
     </div>
   </div>
@@ -1959,18 +2231,18 @@
       document.getElementById('screenInbox').classList.remove('active');
       document.getElementById('screenChat').classList.add('active');
 
+      const addBtn = document.getElementById('headerAddFriendBtn');
+
       if (mode === 'group') {
         document.getElementById('chatHeaderAvatar').textContent = '👥';
-        document.getElementById('chatHeaderTitle').textContent = 'Hội Đồng Cổ Đông (4)';
-        document.getElementById('chatHeaderStatus').textContent = '● 4 Thành Viên Ban Quản Trị';
-        document.getElementById('subBtnSolo').classList.remove('active');
-        document.getElementById('subBtnGroup').classList.add('active');
+        document.getElementById('chatHeaderTitle').textContent = 'Hội Đồng Cổ Đông Tiệm Trà Sữa (4)';
+        document.getElementById('chatHeaderStatus').textContent = '● Group Chat • 4 Cổ Đông Biểu Quyết Voting';
+        if (addBtn) addBtn.style.display = 'none';
       } else {
         document.getElementById('chatHeaderAvatar').textContent = '👩‍💼';
         document.getElementById('chatHeaderTitle').textContent = 'Bé Trà Sữa (AI Manager)';
-        document.getElementById('chatHeaderStatus').textContent = '● Đang trực ca 24/7';
-        document.getElementById('subBtnSolo').classList.add('active');
-        document.getElementById('subBtnGroup').classList.remove('active');
+        document.getElementById('chatHeaderStatus').textContent = '● Chat 1:1 • Sếp toàn quyền quyết định';
+        if (addBtn) addBtn.style.display = 'inline-flex';
       }
     }
 
@@ -1979,13 +2251,223 @@
       document.getElementById('screenInbox').classList.add('active');
     }
 
-    function switchModeInChat(mode) {
-      openChatRoom(mode);
-      if (mode === 'group') {
-        appendChatMessage("Hệ Thống", "GROUP", "👥 Đã chuyển sang chế độ GROUP CHAT. Mọi quyết định sẽ do các cổ đông cùng biểu quyết cãi nhau!", false, "🤖");
-        appendChatMessage("Thảo Kế Toán", "CFO", "Tháng này tiền đá lạnh tăng, ai bật máy lạnh 16 độ là trừ sạch cổ tức nha! 📊", false, "📊");
+    /* ========================================================
+       TẠO GROUP CỔ ĐÔNG TỪ MÀN HÌNH CHÍNH (PROTOTYPE)
+       ======================================================== */
+    function openCreateGroupModal() {
+      document.getElementById('modalCreateGroup').classList.add('active');
+    }
+
+    function confirmCreateGroup() {
+      closeModal('modalCreateGroup');
+      const gName = document.getElementById('groupNameInput').value.trim() || 'Hội Đồng Cổ Đông Tiệm Trà Sữa 🧋';
+      openChatRoom('group');
+      document.getElementById('chatHeaderTitle').textContent = gName;
+      
+      const sysNotice = document.createElement('div');
+      sysNotice.className = 'system-group-notice';
+      sysNotice.innerHTML = `🎉 Sếp Tuấn đã khởi tạo "${gName}" cùng Thảo Kế Toán (CFO), Huy Marketing (CMO) và Linh Vốn Dày!`;
+      msgStream.appendChild(sysNotice);
+
+      setTimeout(() => {
+        appendChatMessage("Thảo Kế Toán", "CFO CỔ ĐÔNG", "Chào cả nhà! Tao được Sếp Tuấn bổ nhiệm làm CFO, từ nay tao sẽ giữ két tiền và duyệt chi từng khoản nhé! 📊", false, "📊");
+        setTimeout(() => {
+          appendChatMessage("Huy Marketing", "CMO CỔ ĐÔNG", "Chào anh em! Tháng này chi 10 củ book review TikTok nha, cam đoan quán viral cháy hàng! 📱✨", false, "📱");
+          setTimeout(() => {
+            appendChatMessage("Bé Trà Sữa", "THƯ KÝ AI", "Dạ em kính chào Hội Đồng Cổ Đông! Em là Bé Trà Sữa - Thư Ký AI. Mọi quyết định chi tiền của quán từ nay sẽ do các Sếp cùng bỏ phiếu biểu quyết nha! 🧋", false, "👩‍💼");
+          }, 500);
+        }, 500);
+      }, 400);
+    }
+
+    /* ========================================================
+       MẠCH TRUYỆN LIỀN MẠCH: BIẾN CỐ BƯỚC NGOẶT CẦN +1 BẠN BÈ
+       ======================================================== */
+    function triggerTurningPointMoment() {
+      if (state.activeDrama) return;
+
+      // 1. Bác Ba Chủ Nhà đòi tiền cọc 30 triệu gấp trong 2 tiếng
+      appendChatMessage(
+        "Bác Ba Chủ Nhà",
+        "CHỦ MẶT BẰNG",
+        "Này Tuấn! Hôm nay hết hạn hợp đồng nhà, tao tăng giá 50% và đòi cọc thêm 30.000.000đ ngay trong 2 tiếng! Nếu không chồng đủ tiền thì dọn đồ đi ngay, tao cho tiệm phở bò thuê!",
+        false,
+        "🏠"
+      );
+
+      // 2. Bé Trà Sữa hoảng hốt kêu cứu và kích hoạt bước ngoặt +1 bạn bè
+      setTimeout(() => {
+        appendChatMessage(
+          "Bé Trà Sữa",
+          "AI MANAGER",
+          `Trời ơi Sếp Tuấn ơiiiii! 😭 Két quán mình hiện chỉ có <strong>${formatMoney(state.cash)}</strong>, không tài nào xoay đủ 30 triệu trong 2 tiếng! Biến này một mình sếp không thể tự gánh nổi đâu!<br><br>
+          🚨 Sếp <strong>PHẢI KÉO BẠN THÂN VÀO LẬP GROUP CỔ ĐÔNG GÓP VỐN CỨU QUÁN NGAY BÂY GIỜ!</strong>`,
+          false,
+          "👩‍💼"
+        );
+
+        // 3. Render Thẻ Action Card Liền Mạch (+1 Bạn Bè)
+        setTimeout(() => {
+          renderPivotActionCard();
+        }, 400);
+      }, 600);
+    }
+
+    function renderPivotActionCard() {
+      const old = document.getElementById('activePivotCard');
+      if (old) old.remove();
+
+      const card = document.createElement('div');
+      card.className = 'storyline-pivot-card';
+      card.id = 'activePivotCard';
+      card.innerHTML = `
+        <div class="pivot-badge">🚨 KHOẢNH KHẮC BƯỚC NGOẶT: CẦN +1 BẠN BÈ</div>
+        <div class="pivot-title">TIỆM TRÀ SỮA ĐỨNG TRƯỚC NGUY CƠ BỊ ĐÓNG CỬA!</div>
+        <p class="pivot-desc">Chủ nhà đòi 30 triệu tiền cọc gấp. Một mình sếp không đủ vốn, hãy kéo hội bạn thân vào thành lập Hội Đồng Cổ Đông để cùng góp vốn cứu tiệm!</p>
+        <button class="btn-pivot-add-group" onclick="triggerSeamlessGroupUpgrade()">
+          👥 KÉO BẠN THÂN VÀO LẬP GROUP CỨU QUÁN NGAY!
+        </button>
+      `;
+      msgStream.appendChild(card);
+      msgStream.scrollTop = msgStream.scrollHeight;
+    }
+
+    function triggerSeamlessGroupUpgrade() {
+      const pivotCard = document.getElementById('activePivotCard');
+      if (pivotCard) pivotCard.remove();
+
+      // Nâng cấp trạng thái thành Group Chat
+      state.mode = 'group';
+      document.getElementById('chatHeaderAvatar').textContent = '👥';
+      document.getElementById('chatHeaderTitle').textContent = 'Hội Đồng Cổ Đông Cứu Quán (4)';
+      document.getElementById('chatHeaderStatus').textContent = '● Chế độ Group Chat • Biểu quyết voting theo số đông';
+      const addBtn = document.getElementById('headerAddFriendBtn');
+      if (addBtn) addBtn.style.display = 'none';
+
+      // 1. Thông báo hệ thống
+      const sysNotice = document.createElement('div');
+      sysNotice.className = 'system-group-notice';
+      sysNotice.innerHTML = `🎉 Sếp Tuấn đã mời Thảo Kế Toán (CFO), Huy Marketing (CMO) và Linh Vốn Dày vào Hội Đồng Cổ Đông!`;
+      msgStream.appendChild(sysNotice);
+
+      // 2. Các bạn bè lần lượt nhảy vào chat cãi cọ
+      setTimeout(() => {
+        appendChatMessage(
+          "Thảo Kế Toán",
+          "CFO CỔ ĐÔNG",
+          "Ủa Tuấn?? Lại phá sản nữa hả mày? Mới mở tiệm được mấy hôm đã nợ 30 củ tiền nhà?! Muốn tao góp vốn thì phải đưa hòm tiền két tao quản lý!",
+          false,
+          "📊"
+        );
+
+        setTimeout(() => {
+          appendChatMessage(
+            "Huy Marketing",
+            "CMO CỔ ĐÔNG",
+            "Mặt bằng vị trí đắc địa thế này không được bỏ sếp ơi! Em xin phép góp 10 củ nhưng sếp phải duyệt ngân sách chạy TikTok triệu view 50% doanh thu nha!",
+            false,
+            "📱"
+          );
+
+          setTimeout(() => {
+            appendChatMessage(
+              "Linh Vốn Dày",
+              "ANGEL INVESTOR",
+              "Tao có sẵn 20 củ cứu nét đây! Nhưng tao đòi 40% cổ phần và uống trà sữa sầu riêng miễn phí trọn đời cho cả dòng họ tao nhé!",
+              false,
+              "💎"
+            );
+
+            setTimeout(() => {
+              appendChatMessage(
+                "Bé Trà Sữa",
+                "THƯ KÝ AI",
+                "Dạ em kính chào Hội Đồng Cổ Đông! Em là Bé Trà Sữa - Thư Ký kiêm Cửa Hàng Trưởng AI. Vì quán đã có 4 cổ đông, từ giờ Sếp Tuấn không còn quyền tự quyết độc tài nữa! Mời các cổ đông BỎ PHIẾU BIỂU QUYẾT PHƯƠNG ÁN CỨU MẶT BẰNG!",
+                false,
+                "👩‍💼"
+              );
+
+              setTimeout(() => {
+                renderGroupVotingPoll();
+              }, 400);
+            }, 600);
+          }, 600);
+        }, 600);
+      }, 500);
+    }
+
+    function renderGroupVotingPoll() {
+      const old = document.getElementById('activeVotingPoll');
+      if (old) old.remove();
+
+      const poll = document.createElement('div');
+      poll.className = 'group-poll-box';
+      poll.id = 'activeVotingPoll';
+      poll.innerHTML = `
+        <div class="poll-header">
+          <span class="poll-title">🗳️ BIỂU QUYẾT CỔ ĐÔNG: CỨU MẶT BẰNG</span>
+          <span class="poll-tag">POLL DÂN CHỦ</span>
+        </div>
+        <p style="font-size:0.72rem; color:#475569; margin-bottom:8px;">Mỗi cổ đông có 1 phiếu. Sếp Tuấn nắm 35% quyền biểu quyết. Hãy chọn hướng xử lý:</p>
+
+        <button class="poll-option-btn" onclick="submitPollVote(1)">
+          <strong>[Phương án 1] 🤝 Đồng ý để Linh bơm 20 củ lấy 40% cổ phần</strong>
+          <span>Linh &amp; Huy đã vote • Két tiền +20.000.000đ tức thì</span>
+        </button>
+
+        <button class="poll-option-btn" onclick="submitPollVote(2)">
+          <strong>[Phương án 2] 📊 Cử Thảo Kế Toán đàm phán giảm cọc còn 15 củ</strong>
+          <span>Thảo đã vote • Tốn 15.000.000đ từ két, giữ nguyên cổ phần</span>
+        </button>
+
+        <button class="poll-option-btn" onclick="submitPollVote(3)">
+          <strong>[Phương án 3] 💀 Kệ chủ nhà, cùng nhau phá sản thanh lý máy móc</strong>
+          <span>Chia tiền thanh lý máy pha trà • Nhận Bằng Khen Phá Sản</span>
+        </button>
+      `;
+      msgStream.appendChild(poll);
+      msgStream.scrollTop = msgStream.scrollHeight;
+    }
+
+    function submitPollVote(choice) {
+      const poll = document.getElementById('activeVotingPoll');
+      if (poll) {
+        poll.style.opacity = '0.5';
+        poll.style.pointerEvents = 'none';
+        poll.removeAttribute('id');
+      }
+
+      if (choice === 1) {
+        appendChatMessage("Sếp Tuấn", "CHỦ TỊCH", "Tôi bỏ phiếu [Phương án 1]: Đồng ý nhận 20 triệu từ Linh để cứu mặt bằng trước mắt!", true, "👑");
+        setTimeout(() => {
+          state.cash += 20000000;
+          state.stars = Math.min(5.0, state.stars + 0.4);
+          updateHUD();
+
+          appendChatMessage("Bé Trà Sữa", "THƯ KÝ AI", "🔨 CHỐT BIỂU QUYẾT: 3/4 phiếu thuận! Két tiền vừa ting ting <strong>+20.000.000đ</strong> từ nhà đầu tư Linh! Tiệm trà sữa chính thức thoát án thu hồi mặt bằng! 🎉", false, "👩‍💼");
+          setTimeout(() => {
+            appendChatMessage("Linh Vốn Dày", "INVESTOR", "Haha duyệt! Từ mai nhân viên nhớ chừa riêng cho tao 1 ly trà sữa kem cheese đặc biệt nhé! 🧋✨", false, "💎");
+            appendChatMessage("Thảo Kế Toán", "CFO", "Thôi được rồi, có tiền cọc là tốt rồi, nhưng từ mai tao sẽ kiểm soát chi tiêu chặt chẽ đấy! 📊", false, "📊");
+          }, 500);
+        }, 500);
+      } else if (choice === 2) {
+        appendChatMessage("Sếp Tuấn", "CHỦ TỊCH", "Tôi bỏ phiếu [Phương án 2]: Cử Thảo Kế Toán đi thương lượng bớt tiền cọc!", true, "👑");
+        setTimeout(() => {
+          state.cash -= 15000000;
+          state.stars = Math.min(5.0, state.stars + 0.6);
+          updateHUD();
+
+          appendChatMessage("Thảo Kế Toán", "CFO", "Tao ra tay thì chủ nhà cũng phải chào thua! Đã thương lượng thành công giảm cọc còn 15 triệu, giữ nguyên 100% quyền tự chủ cho anh em nhé! 📊💪", false, "📊");
+          appendChatMessage("Bé Trà Sữa", "THƯ KÝ AI", "Trời ơi CFO Thảo đỉnh chóp quá! Uy tín quán tăng vọt lên <strong>" + state.stars.toFixed(1) + "★</strong>! 👏", false, "👩‍💼");
+        }, 500);
       } else {
-        appendChatMessage("Hệ Thống", "SOLO", "👤 Đã chuyển về chế độ CHAT 1:1 (Chủ Tịch Solo với Cửa Hàng Trưởng AI).", false, "🤖");
+        appendChatMessage("Sếp Tuấn", "CHỦ TỊCH", "Tôi bỏ phiếu [Phương án 3]: Khởi nghiệp vậy là đủ rồi, cùng nhau phá sản giải tán thôi anh em!", true, "👑");
+        setTimeout(() => {
+          appendChatMessage("Huy Marketing", "CMO", "Trời ơi chưa kịp chạy chiến dịch TikTok mà sếp đã buông súng! Thôi thanh lý máy pha trà đi nhậu! 🍺💀", false, "📱");
+          setTimeout(() => {
+            openArtifactModal('bankrupt');
+          }, 600);
+        }, 500);
       }
     }
 
@@ -2319,7 +2801,22 @@
         return;
       }
 
-      // Chat thông thường khi không có biến
+      // Chat trong chế độ Group Cổ Đông
+      if (state.mode === 'group') {
+        setTimeout(() => {
+          const groupReplies = [
+            { sender: "Thảo Kế Toán", role: "CFO CỔ ĐÔNG", avatar: "📊", text: `"${text}" à? Nói thì hay lắm Tuấn ơi, vấn đề là chi phí ai chịu? Két tiền còn ít lắm đấy!` },
+            { sender: "Huy Marketing", role: "CMO CỔ ĐÔNG", avatar: "📱", text: `Ý kiến "${text}" của sếp Tuấn nghe chiến đấy! Duyệt cho em 5 củ làm clip TikTok liền nha!` },
+            { sender: "Linh Vốn Dày", role: "INVESTOR", avatar: "💎", text: `Tao ủng hộ sếp Tuấn, miễn sao cuối tháng chia cổ tức sòng phẳng là tao bơm thêm vốn!` },
+            { sender: "Bé Trà Sữa", role: "THƯ KÝ AI", avatar: "👩‍💼", text: `Dạ em Thư Ký AI đã ghi nhận ý kiến "${text}" của Sếp Tuấn vào biên bản họp Hội Đồng Cổ Đông rồi nha! 🫡` }
+          ];
+          const r = groupReplies[Math.floor(Math.random() * groupReplies.length)];
+          appendChatMessage(r.sender, r.role, r.text, false, r.avatar);
+        }, 500);
+        return;
+      }
+
+      // Chat thông thường khi không có biến (1:1 Solo)
       setTimeout(() => {
         if (text.toLowerCase().includes("doanh thu") || text.toLowerCase().includes("tiền")) {
           appendChatMessage(
